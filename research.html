@@ -146,6 +146,39 @@
     .loader {
       display: block;
     }
+
+    /* Fixed menu styles - prevent layout jumping */
+    .menu-li {
+      cursor: pointer;
+      /* Only transition specific properties, not 'all' to prevent margin jumps */
+      transition: color 0.3s ease, text-shadow 0.3s ease;
+      /* Ensure consistent positioning */
+      position: relative;
+      display: block;
+    }
+
+    .menu-li.active {
+      color: #ffffff;
+      text-shadow: 0 0 2px rgba(255, 255, 255, 0.2);
+      animation: subtle-glow 4s ease-in-out infinite alternate;
+      /* Explicitly prevent any margin or position changes */
+      margin: inherit !important;
+      position: relative !important;
+    }
+
+    @keyframes subtle-glow {
+      from {
+        text-shadow: 0 0 2px rgba(255, 255, 255, 0.2);
+      }
+      to {
+        text-shadow: 0 0 1px rgba(255, 255, 255, 0.15);
+      }
+    }
+
+    .menu-li:hover {
+      color: #cccccc;
+      text-shadow: 0 0 8px #cccccc;
+    }
   </style>
 
   <style>
@@ -185,9 +218,22 @@
       transform: translate(-50%, -50%);
     }
 
+    /* Prevent any margin or positioning changes on menu items */
     .submenu .h-h2.menu-li {
       line-height: 1.3;
-      margin: 0.5rem 0 0;
+      margin: 1.5rem 0 0 0 !important;
+      position: relative;
+      display: block;
+    }
+
+    /* Title should have different spacing */
+    .submenu .h-h2.menu-li:first-child {
+      margin: 0 0 1.5rem 0 !important;
+    }
+
+    /* Ensure project links don't have conflicting margins */
+    .submenu .project-link .h-h2.menu-li {
+      margin: 1.5rem 0 0 0 !important;
     }
 
     iframe {
@@ -221,8 +267,6 @@
           <div data-w-id="2264dfe2-412c-a750-b778-fffb7eb6b999" class="n-line bottom"></div>
         </div>
       </div>
-
-
     </div>
     <a href="https://thewrong.org/" target="_blank" data-node-type="commerce-cart-open-link" rel="noopener" aria-label="button" class="w-commerce-commercecartopenlink cart-button w-inline-block">
       <div class="h-h4 bold nav w-inline-block">
@@ -232,52 +276,44 @@
     <div class="n-block right"></div>
   </div>
 
-
-  <main data-template="home" style="height: 100%;
-">
-
+  <main data-template="home" style="height: 100%;">
     <div class="split left">
       <!-- Start Navigation Menu -->
       <div class="submenu">
-
         <a aria-label="Research" rel="noopener" draggable="false">
-          <h2 class="h-h2 menu-li bold" style="font-size: 150% !important"><i>Negotiated Intelligence</i>
-          </h2>
+          <h2 class="h-h2 menu-li bold" style="font-size: 150% !important"><i>Negotiated Intelligence</i></h2>
         </a>
 
-        <link rel="prefetch" href="ProjectElsewhere.html" />
-        <a aria-label="Elsewhere Gallery" rel="noopener" draggable="false" href="ProjectElsewhere.html">
-          <h2 class="h-h2 menu-li linkable thin bold">Daria Belkina | <b> Elsewhere Gallery</b></h2>
+        <a aria-label="Elsewhere Gallery" rel="noopener" draggable="false" data-project="ProjectElsewhere" class="project-link">
+          <h2 class="h-h2 menu-li linkable thin bold active">Daria Belkina | <b>Elsewhere Gallery</b></h2>
         </a>
 
-        <link rel="prefetch" href="dunhuang-music-dance.html" />
-        <a aria-label="Music Studies" rel="noopener" draggable="false" href="dunhuang-music-dance.html">
-          <h2 class="h-h2 menu-li linkable thin">Val Yang | <b> A.Ikea</b></h2>
+        <a aria-label="A.Ikea" rel="noopener" draggable="false" data-project="ProjectAIkea" class="project-link">
+          <h2 class="h-h2 menu-li linkable thin">Val Yang | <b>A.Ikea</b></h2>
         </a>
-        <link rel="prefetch" href="dunhuang-music-dance.html" />
-        <a aria-label="Music Studies" rel="noopener" draggable="false" href="dunhuang-music-dance.html">
-          <h2 class="h-h2 menu-li linkable thin">Aaron Oldenburg | <b> Fractured Star Projections</b></h2>
+
+        <a aria-label="Music Studies" rel="noopener" draggable="false" data-project="ProjectFractured" class="project-link">
+          <h2 class="h-h2 menu-li linkable thin">Aaron Oldenberg | <b>Fractured Star Projections</b></h2>
         </a>
-        <a aria-label="Cave 220" rel="noopener" draggable="false" target="_blank" href="dunhuang-cave-220.html">
+
+        <a aria-label="Cave 220" rel="noopener" draggable="false" data-project="ProjectElara" class="project-link">
           <h2 class="h-h2 menu-li linkable thin">Sahra Azadzoy and Leo Bayly Barton | <b>Elara</b></h2>
         </a>
 
-        <link rel="prefetch" href="dunhuang-music-dance.html" />
-        <a aria-label="Music Studies" rel="noopener" draggable="false" href="dunhuang-music-dance.html" class="">
-          <h2 class="h-h2 menu-li linkable thin">Marcie Begleiter | <b> Chimera Haiku | Spimole</b></h2>
+        <a aria-label="Music Studies" rel="noopener" draggable="false" data-project="ProjectHaiku" class="project-link">
+          <h2 class="h-h2 menu-li linkable thin">Marcie Begleiter | <b>Chimera Haiku | Spimole</b></h2>
         </a>
-        <link rel="prefetch" href="dunhuang-music-dance.html" />
-        <a aria-label="Music Studies" rel="noopener" draggable="false" href="dunhuang-music-dance.html">
-          <h2 class="h-h2 menu-li linkable thin">Marie Le Moigne | <b>Ave Maria </b> </h2>
+
+        <a aria-label="Music Studies" rel="noopener" draggable="false" data-project="ProjectAveMaria" class="project-link">
+          <h2 class="h-h2 menu-li linkable thin">Marie Le Moigne | <b>Ave Maria</b></h2>
         </a>
       </div>
       <!-- End Navigation Menu -->
     </div>
 
     <div class="split right">
-      <iframe src="ProjectElseWhere3d.html"></iframe>
+      <iframe id="project-iframe" src="ProjectElseWhere3d.html"></iframe>
     </div>
-
   </main>
 
   <div class="grid-event w-embed">
@@ -302,6 +338,111 @@
     });
 
     $(".menu").show();
+
+    // Project loading functionality
+    function loadProject(projectName) {
+      const iframe = document.getElementById('project-iframe');
+      const projectUrl = projectName + '3d.html';
+
+      // Create a temporary iframe to test if the file exists
+      const testIframe = document.createElement('iframe');
+      testIframe.style.display = 'none';
+      document.body.appendChild(testIframe);
+
+      // Set up error handling
+      testIframe.onload = function() {
+        try {
+          // Try to access the iframe content to see if it loaded successfully
+          const iframeDoc = testIframe.contentDocument || testIframe.contentWindow.document;
+          if (iframeDoc.title === '' || iframeDoc.body.children.length === 0) {
+            // If the document is empty or has no content, assume 404
+            iframe.src = '404.html';
+          } else {
+            // File exists, load it in the main iframe
+            iframe.src = projectUrl;
+          }
+        } catch (e) {
+          // Cross-origin or other error, assume file exists and load it
+          iframe.src = projectUrl;
+        }
+        // Clean up test iframe
+        document.body.removeChild(testIframe);
+      };
+
+      testIframe.onerror = function() {
+        // File doesn't exist, load 404
+        iframe.src = '404.html';
+        document.body.removeChild(testIframe);
+      };
+
+      // Alternative approach: directly try to load and handle errors
+      iframe.src = projectUrl;
+
+      // Set up error handling for the main iframe
+      iframe.onerror = function() {
+        iframe.src = '404.html';
+      };
+
+      // Remove test iframe after a short delay if it's still there
+      setTimeout(() => {
+        if (testIframe.parentNode) {
+          document.body.removeChild(testIframe);
+        }
+      }, 3000);
+    }
+
+    // Add click event listeners to project links
+    document.addEventListener('DOMContentLoaded', function() {
+      const projectLinks = document.querySelectorAll('.project-link');
+
+      projectLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+          e.preventDefault();
+
+          // Remove active class from all links
+          projectLinks.forEach(l => l.querySelector('.menu-li').classList.remove('active'));
+
+          // Add active class to clicked link
+          this.querySelector('.menu-li').classList.add('active');
+
+          // Get project name and load it
+          const projectName = this.getAttribute('data-project');
+          loadProject(projectName);
+        });
+      });
+    });
+
+    // Alternative method using fetch to check if file exists
+    async function loadProjectWithFetch(projectName) {
+      const iframe = document.getElementById('project-iframe');
+      const projectUrl = projectName + '3d.html';
+
+      try {
+        const response = await fetch(projectUrl, { method: 'HEAD' });
+        if (response.ok) {
+          iframe.src = projectUrl;
+        } else {
+          iframe.src = '404.html';
+        }
+      } catch (error) {
+        // If fetch fails, try loading anyway (might be CORS issue)
+        iframe.src = projectUrl;
+
+        // Set up error handling for iframe
+        iframe.onload = function() {
+          try {
+            // Check if the loaded page is actually a 404
+            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+            if (iframeDoc.title.toLowerCase().includes('404') ||
+                iframeDoc.body.innerHTML.toLowerCase().includes('not found')) {
+              iframe.src = '404.html';
+            }
+          } catch (e) {
+            // Cross-origin restriction, assume it loaded successfully
+          }
+        };
+      }
+    }
   </script>
 
 </body>
