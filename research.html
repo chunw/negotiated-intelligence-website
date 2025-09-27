@@ -160,18 +160,32 @@
     .menu-li.active {
       color: #ffffff;
       text-shadow: 0 0 2px rgba(255, 255, 255, 0.2);
-      animation: subtle-glow 4s ease-in-out infinite alternate;
+      animation: tender-float 6s ease-in-out infinite;
       /* Explicitly prevent any margin or position changes */
       margin: inherit !important;
       position: relative !important;
     }
 
-    @keyframes subtle-glow {
-      from {
+    @keyframes tender-float {
+      0% {
+        transform: translateY(0px);
         text-shadow: 0 0 2px rgba(255, 255, 255, 0.2);
       }
-      to {
-        text-shadow: 0 0 1px rgba(255, 255, 255, 0.15);
+      25% {
+        transform: translateY(-1px);
+        text-shadow: 0 0 3px rgba(255, 255, 255, 0.25);
+      }
+      50% {
+        transform: translateY(-2px);
+        text-shadow: 0 0 4px rgba(255, 255, 255, 0.3);
+      }
+      75% {
+        transform: translateY(-1px);
+        text-shadow: 0 0 3px rgba(255, 255, 255, 0.25);
+      }
+      100% {
+        transform: translateY(0px);
+        text-shadow: 0 0 2px rgba(255, 255, 255, 0.2);
       }
     }
 
