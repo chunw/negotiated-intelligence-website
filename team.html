@@ -170,199 +170,51 @@
       vertical-align: top;
       padding: 8px;
     }
-
-    /*td:first-child {*/
-    /*    white-space: nowrap;*/
-    /*}*/
   </style>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.7.1/gsap.min.js"></script>
 
-  <style>
-    .hero.home,
-    .wait {
-      height: 100vh;
-      /* height: calc(var(--vh, 1vh) * 100); */
-    }
-  </style>
 
 </head>
 
-<body class="body" data-ix="pre-loader">
-  <div class="gradient-embed w-embed">
-    <style>
-      .gradient {
-        -webkit-text-fill-color: transparent;
-        -webkit-background-clip: text;
-      }
+<body>
 
-      .blend {
-        mix-blend-mode: difference;
-      }
-    </style>
-  </div>
+  <main>
 
-  <!-- <div class="navbar navbar__shop" style="padding:1rem 0.5vw 0 2.5vw ">
-    <div class="n-block left">
-      <div data-w-id="2264dfe2-412c-a750-b778-fffb7eb6b996" class="n-wrap">
-        <div data-w-id="2264dfe2-412c-a750-b778-fffb7eb6b997" class="n-trigger">
-          <div data-w-id="2264dfe2-412c-a750-b778-fffb7eb6b998" class="n-line"></div>
-          <div data-w-id="2264dfe2-412c-a750-b778-fffb7eb6b999" class="n-line bottom"></div>
-        </div>
-      </div>
+    <div class="table-wrapper list text" style="font-size: 1.3rem; margin: 10% 15%;">
+      <table style="position:absolute; bottom: 5%">
+        <tbody>
+          <tr>
+            <td>CURATOR</td>
+            <td align="left">
+              Chun Wang
+            </td>
+          </tr>
+
+
+          <tr>
+            <td>ARTISTS</td>
+            <td align="left">
+              Marcie Begleiter, Daria Belkina, Aaron Oldenburg,
+              Val Yang, Sahra Azadzoy, Leo Bayly Barton, Marie Le Moigne
+            </td>
+          </tr>
+
+          <tr>
+            <td>WEBSITE </td>
+            <td align="left">
+              Chun Wang
+            </td>
+          </tr>
+
+        </tbody>
+      </table>
+
 
 
     </div>
-    <div class="n-block center"></div>
-    <div class="n-block right"></div>
-  </div> -->
-
-  <main data-template="home" class="content demo">
-    <div class="collection" style="padding: 2rem 0;">
-      <div class="campaign" style="padding-top:0">
-
-        <img data-enlargeable style="width: 100%;" src="assets/img/20221018_Team.jpg" loading="lazy" sizes="(max-width: 2219px) 100vw, 2219px" srcset="assets/img/20221018_Team.jpg 500w,
-        assets/img/20221018_Team.jpg 800w,
-        assets/img/20221018_Team.jpg 1080w,
-        assets/img/20221018_Team.jpg 1600w,
-        assets/img/20221018_Team.jpg 2000w,
-        assets/img/20221018_Team.jpg 2219w" alt="" class="tab__image__media seamless">
-        <div class="invert w-embed"></div>
-
-        <div class="table-wrapper list text" style="font-size: 1.3rem; margin: 5% 15%;">
-          <!-- <div class="centered" style="opacity:0">
-            <h2 style="
-           font-size: 6vw;
-           line-height: 1.1;"><i><b>Negotiated Intelligence:</b></i> <br>Unearthing Power Dynamics in Human-AI Co-Creation</h2>
-
-          </div> -->
-
-
-          <!-- <div data-w-id="f9fa3984-c135-a210-c0e8-a4d556d96064" class="hero-row">
-                  <div class="hero-row-wrapper-rotation">
-                    <div data-animation="translate" data-animation-speed="-2" class="hero-row-wrapper">
-                      <div data-w-id="2e0b83a3-2ddc-f8d5-5e66-67b4b7f16c12" class="hero-col">
-                        <h1 data-w-id="b17efb30-8309-927f-1347-0fd3b6b5f13a" class="h-h1 hero-home">Negotiated Intelligence </h1>
-                      </div>
-                      <div data-w-id="2b8b4a59-2c0d-d6ad-ded6-c96568e0cdca" class="hero-col center"></div>
-                      <div data-w-id="fed3734d-7289-44d0-92b9-3110190db00e" class="hero-col right" style="padding-right:10vw">
-                        <div class="outer h">
-                          <div data-w-id="5d3f0eab-9523-e0b7-dfaf-6f3ee809c23f" class="hero-text">Unearthing
-                          </div>
-                        </div>
-                        <div class="outer h">
-                          <div data-w-id="46e854ab-960f-ffc2-dadd-97d129ef5708" class="hero-text">Power Dynamics</div>
-                        </div>
-                        <div class="outer h">
-                          <div data-w-id="2417627d-dd84-6f04-d421-596950c84d11" class="hero-text">in </div>
-                        </div>
-
-                        <div class="outer h">
-                          <div data-w-id="2417627d-dd84-6f04-d421-596950c84d11" class="hero-text">Human-AI Co-Creation </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div> -->
-
-          <table style="position:absolute; bottom: 5%">
-            <tbody>
-              <tr>
-                <td>CURATOR</td>
-                <td align="left">
-                  Chun Wang
-                </td>
-              </tr>
-
-
-              <tr>
-                <td>ARTISTS</td>
-                <td align="left">
-                  Marcie Begleiter, Daria Belkina, Aaron Oldenburg, Val Yang, Sahra Azadzoy, Leo Bayly Barton, Marie Le Moigne
-                </td>
-              </tr>
-
-              <tr>
-                <td>WEBSITE </td>
-                <td align="left">
-                  Chun Wang
-                </td>
-              </tr>
-
-            </tbody>
-          </table>
-
-
-          <!-- <table>
-            <tbody>
-              <tr>
-                <td></td>
-                <td></td>
-              </tr>
-              <tr>
-                <td align="left">
-                  SPECIAL THANKS
-                </td>
-                <td>
-                </td>
-              </tr>
-              <tr>
-                <td align="left">
-                  Marcie Begleiter
-                </td>
-                <td>
-                </td>
-              </tr>
-
-              <tr>
-                <td align="left">
-                  Daria Belkina
-
-
-
-                </td>
-                <td>
-                </td>
-              </tr>
-
-
-              <tr>
-                <td align="left">
-                  Aaron Oldenburg
-
-                </td>
-                <td>
-                </td>
-              </tr>
-
-              <tr>
-
-                <td align="left">
-                  Val Yang
-
-
-                </td>
-                <td>
-                </td>
-              </tr>
-
-            </tbody>
-          </table> -->
-
-
-        </div>
-      </div>
-    </div>
-
 
   </main>
-  <div class="grid-event w-embed">
-    <style>
-      .grid-w {
-        pointer-events: none;
-      }
-    </style>
-  </div>
   <script src="./composition_master.js" type="text/javascript"></script>
 
   <script>
@@ -386,43 +238,6 @@
       });
     });
   </script>
-  <style>
-    img[data-enlargeable] {
-      cursor: zoom-in;
-    }
-  </style>
-  <script>
-    $('img[data-enlargeable]').addClass('img-enlargeable').click(function() {
-      var src = $(this).attr('src');
-      var modal;
-
-      function removeModal() {
-        modal.remove();
-        $('body').off('keyup.modal-close');
-      }
-
-      modal = $('<div>').css({
-        background: 'RGBA(0,0,0,.5) url(' + src + ') no-repeat center',
-        backgroundSize: 'contain',
-        width: '100%',
-        height: '100%',
-        position: 'fixed',
-        zIndex: '10000',
-        top: '0',
-        left: '0',
-        cursor: 'zoom-out'
-      }).click(function() {
-        removeModal();
-      }).appendTo('body');
-      //handling ESC
-      $('body').on('keyup.modal-close', function(e) {
-        if (e.key === 'Escape') {
-          removeModal();
-        }
-      });
-    });
-  </script>
-
 
 </body>
 
