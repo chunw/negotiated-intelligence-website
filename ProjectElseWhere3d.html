@@ -506,11 +506,15 @@
           // Check if the clicked object is the video layer or mural layer
           for (let i = 0; i < intersects.length; i++) {
             const object = intersects[i].object;
-            if (object.userData && (object.userData.isVideoLayer || object.userData.isMuralLayer)) {
-              // Redirect to Google
+            if (object.userData && (object.userData.isMuralLayer)) {
               window.open('./ProjectElsewhere.html', '_blank');
               break;
             }
+            if (object.userData && (object.userData.isVideoLayer )) {
+              window.open('./ProjectElsewhereFullScreen.html', '_blank');
+              break;
+            }
+
           }
         }
 
