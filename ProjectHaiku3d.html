@@ -286,7 +286,7 @@
         // File paths
         const SCENE_BACKGROUND = 'textures/dunhuang/amo_data_bg_dimmed_black.png';
         const MURAL = 'assets/img/Haiku/backstage 1.png'; //'textures/dunhuang/反弹琵琶一式壁画trimmed2.jpeg';
-        const DRAWING = 'assets/img/Haiku/Doc.png';//'textures/dunhuang/反弹琵琶一式inverted.jpg';
+        const DRAWING = 'assets/img/Haiku/Doc.png'; //'textures/dunhuang/反弹琵琶一式inverted.jpg';
         const SECOND_DRAWING = 'textures/dunhuang/反弹琵琶一式inverted.jpg'; // Change this to your second drawing
 
         const OUTLINE_ON_MOUSEPOINT = false;
@@ -310,10 +310,10 @@
         renderer.setSize(window.innerWidth, window.innerHeight);
         renderer.render(scene, camera);
 
-        // Lights
-        const pointLight = new THREE.PointLight(0xffffff);
+        // Dim Lights
+        const pointLight = new THREE.PointLight(0xffffff, 0.15);
         pointLight.position.set(5, 5, 5);
-        const ambientLight = new THREE.AmbientLight(0xffffff);
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.1);
         scene.add(pointLight, ambientLight);
 
         const controls = new OrbitControls(camera, renderer.domElement);
@@ -330,7 +330,9 @@
         mural.position.set(mural_x, mural_y, mural_z);
 
         // Add userData to identify this as the mural layer
-        mural.userData = { isMuralLayer: true };
+        mural.userData = {
+          isMuralLayer: true
+        };
 
         scene.add(mural);
 
@@ -434,7 +436,9 @@
           secondDrawing.position.set(secondDrawing_x, secondDrawing_y, secondDrawing_z);
 
           // Add userData to identify this as the video layer
-          secondDrawing.userData = { isVideoLayer: true };
+          secondDrawing.userData = {
+            isVideoLayer: true
+          };
 
           scene.add(secondDrawing);
 
@@ -447,7 +451,9 @@
             // Fallback: try to play on first user interaction
             document.addEventListener('click', () => {
               video.play().catch(console.error);
-            }, { once: true });
+            }, {
+              once: true
+            });
           });
         });
 
@@ -459,12 +465,36 @@
 
         function createFallbackLayer() {
           const fallbackMaterials = [
-            new THREE.MeshPhongMaterial({ opacity: 0, transparent: true, color: 0x000000 }),
-            new THREE.MeshPhongMaterial({ opacity: 0, transparent: true, color: 0x000000 }),
-            new THREE.MeshPhongMaterial({ opacity: 0, transparent: true, color: 0x000000 }),
-            new THREE.MeshPhongMaterial({ opacity: 0, transparent: true, color: 0x000000 }),
-            new THREE.MeshPhongMaterial({ opacity: 0, transparent: true, color: 0x4a90e2 }),
-            new THREE.MeshPhongMaterial({ opacity: 0, transparent: true, color: 0x4a90e2 }),
+            new THREE.MeshPhongMaterial({
+              opacity: 0,
+              transparent: true,
+              color: 0x000000
+            }),
+            new THREE.MeshPhongMaterial({
+              opacity: 0,
+              transparent: true,
+              color: 0x000000
+            }),
+            new THREE.MeshPhongMaterial({
+              opacity: 0,
+              transparent: true,
+              color: 0x000000
+            }),
+            new THREE.MeshPhongMaterial({
+              opacity: 0,
+              transparent: true,
+              color: 0x000000
+            }),
+            new THREE.MeshPhongMaterial({
+              opacity: 0,
+              transparent: true,
+              color: 0x4a90e2
+            }),
+            new THREE.MeshPhongMaterial({
+              opacity: 0,
+              transparent: true,
+              color: 0x4a90e2
+            }),
           ];
 
           const videoGeometry = new THREE.BoxGeometry(3, 3, 0.01);
@@ -473,7 +503,9 @@
           secondDrawing.position.set(secondDrawing_x, secondDrawing_y, secondDrawing_z);
 
           // Add userData to identify this as the video layer
-          secondDrawing.userData = { isVideoLayer: true };
+          secondDrawing.userData = {
+            isVideoLayer: true
+          };
 
           scene.add(secondDrawing);
 
@@ -506,9 +538,14 @@
           // Check if the clicked object is the video layer or mural layer
           for (let i = 0; i < intersects.length; i++) {
             const object = intersects[i].object;
-            if (object.userData && (object.userData.isVideoLayer || object.userData.isMuralLayer)) {
+            if (object.userData && (object.userData.isVideoLayer )) {
               // Redirect to Google
-              window.open('./ProjectHaikuFullScreen.html', '_blank');
+              window.open('https://vimeo.com/1074810303/de745dfd50?share=copy', '_blank');
+              break;
+            }
+            if (object.userData && (object.userData.isMuralLayer)) {
+              // Redirect to Google
+              window.open('./ProjectHaiku.html', '_blank');
               break;
             }
           }
@@ -640,10 +677,9 @@
           <div class="table">
 
             <div class="col" style="margin-top:2vw">
-              <div class="statline"><span><i><b>Elsewhere Gallery</b><i></span></div>
-              <div class="statline"><span>Video (loop)</span></div>
-                <div class="statline"><span>Daria Belkina</span></div>
-              </div>
+              <div class="statline"><span><i><b><a href="https://vimeo.com/1074810303/de745dfd50?share=copy" target="_blank">Chimera Haiku</a></b></i></span></div>
+              <div class="statline"><span>Single channel video with audio</span></div>
+              <div class="statline"><span>Marcie Begleiter</span></div>
             </div>
           </div>
         </div>
