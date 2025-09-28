@@ -271,7 +271,7 @@
           drawing_y = 0,
           drawing_z = 0,
           drawing_z_target = 5,
-          drawing_scale = 4;
+          drawing_scale = 3;
         let secondDrawing_x = 0,
           secondDrawing_y = 0,
           secondDrawing_z = 10,
@@ -286,7 +286,7 @@
         // File paths
         const SCENE_BACKGROUND = 'textures/dunhuang/amo_data_bg_dimmed_black.png';
         const MURAL = 'assets/img/aikea/ConceptInverted.png'; //'textures/dunhuang/反弹琵琶一式壁画trimmed2.jpeg';
-        const DRAWING = 'assets/img/aikea/ConceptInverted.png';//'textures/dunhuang/反弹琵琶一式inverted.jpg';
+        const DRAWING = 'assets/img/aikea/Product1.png';//'textures/dunhuang/反弹琵琶一式inverted.jpg';
         const SECOND_DRAWING = 'textures/dunhuang/反弹琵琶一式inverted.jpg'; // Change this to your second drawing
 
         const OUTLINE_ON_MOUSEPOINT = false;
@@ -377,7 +377,7 @@
 
         // Video Layer (replaces BVH skeleton)
         const video = document.createElement('video');
-        video.src = './assets/video/Daria_Belkina_ElsewhereGallery_16-9_fulres.mp4';
+        video.src = '';
         video.crossOrigin = 'anonymous';
         video.loop = true;
         video.muted = true;
@@ -640,11 +640,19 @@
           <div class="table">
 
             <div class="col" style="margin-top:2vw">
-              <div class="statline"><span><i><b>Elsewhere Gallery</b><i></span></div>
-              <div class="statline"><span>Video (loop)</span></div>
-                <div class="statline"><span>Daria Belkina</span></div>
+              <div class="col" style="margin-top:2vw">
+                <div class="statline"><span><i><b>
+                  <a href="https://byaikea.com/" target="_blank">
+                    A.Ikea </a>
+                  </b></i></span></div>
+                <div class="statline"><span>Website</span></div>
+                <div class="statline"><span>
+                  <a href="https://valyang.xyz/" target="_blank">
+                    Val Yang</a>
+                  </span></div>
               </div>
             </div>
+            
           </div>
         </div>
       </div>
