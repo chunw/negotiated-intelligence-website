@@ -377,10 +377,11 @@
 
         // Video Layer (replaces BVH skeleton)
         const video = document.createElement('video');
-        video.src = 'assets/video/Daria_Belkina_ElsewhereGallery_16-9_fulres.mp4';
-      //  video.crossOrigin = 'anonymous';
+        video.src = 'https://camlab-cave-dance.oss-cn-hongkong.aliyuncs.com/negotiated-intelligence/Daria_Belkina_ElsewhereGallery_16-9_fulres.mp4';
+        video.crossOrigin = 'anonymous';
         video.loop = true;
         video.muted = true;
+        video.type="video/mp4";
         video.playsInline = true;
 
         // Wait for video metadata to load
