@@ -257,9 +257,9 @@
         } from 'https://cdn.jsdelivr.net/npm/three@0.152.2/examples/jsm/postprocessing/RenderPass.js';
 
         let composer, effectSobel;
-        let animated_drawing, animated_secondDrawing, animated_wire;
-        let animated_drawing_clicked, animated_secondDrawing_clicked, animated_wire_clicked;
-        let mural, drawing, secondDrawing, wire;
+        let animated_drawing, animated_thirdDrawing, animated_wire;
+        let animated_drawing_clicked, animated_thirdDrawing_clicked, animated_wire_clicked;
+        let mural, drawing, thirdDrawing, wire;
 
         // Constants
         const Z_offset = 0;
@@ -272,11 +272,11 @@
           drawing_z = 0,
           drawing_z_target = 5,
           drawing_scale = 4;
-        let secondDrawing_x = 0,
-          secondDrawing_y = 0,
-          secondDrawing_z = 10,
-          secondDrawing_z_target = 15,
-          secondDrawing_scale = 2.8;
+        let thirdDrawing_x = -1,
+          thirdDrawing_y = 1,
+          thirdDrawing_z = -2,
+          thirdDrawing_z_target = 4,
+          thirdDrawing_scale = 3;
         let wire_x = 0,
           wire_y = -4,
           wire_z = -4,
@@ -285,9 +285,9 @@
 
         // File paths
         const SCENE_BACKGROUND = 'textures/dunhuang/amo_data_bg_dimmed_black.png';
-        const MURAL = 'assets/img/aikea/ConceptInverted.png'; //'textures/dunhuang/反弹琵琶一式壁画trimmed2.jpeg';
-        const DRAWING = 'assets/img/aikea/Concept.png';//'textures/dunhuang/反弹琵琶一式inverted.jpg';
-        const SECOND_DRAWING = 'textures/dunhuang/反弹琵琶一式inverted.jpg'; // Change this to your second drawing
+        const MURAL = 'assets/img/elara/Doc.png';
+        const DRAWING = 'assets/img/elara/Final.png';
+        const THIRD_DRAWING = 'assets/img/elara/Process.png';
 
         const OUTLINE_ON_MOUSEPOINT = false;
         let selectedObjects = [];
@@ -375,119 +375,60 @@
         scene.add(drawing);
         drawing.position.set(drawing_x, drawing_y, drawing_z);
 
-        // Video Layer (replaces BVH skeleton)
-        const video = document.createElement('video');
-        video.src = './assets/video/Daria_Belkina_ElsewhereGallery_16-9_fulres.mp4';
-        video.crossOrigin = 'anonymous';
-        video.loop = true;
-        video.muted = true;
-        video.playsInline = true;
+        // Third Drawing Image Layer
+        const thirdDrawingLoader = new THREE.TextureLoader();
+        const thirdOpacity = 0.7;
+        const thirdDrawingCubeMaterials = [
+          new THREE.MeshPhongMaterial({
+            opacity: 0,
+            transparent: true,
+            map: thirdDrawingLoader.load('textures/dunhuang/black.jpg')
+          }), //right side
+          new THREE.MeshPhongMaterial({
+            opacity: 0,
+            transparent: true,
+            map: thirdDrawingLoader.load('textures/dunhuang/black.jpg')
+          }), //left side
+          new THREE.MeshPhongMaterial({
+            opacity: 0,
+            transparent: true,
+            map: thirdDrawingLoader.load('textures/dunhuang/black.jpg')
+          }), //top side
+          new THREE.MeshPhongMaterial({
+            opacity: 0,
+            transparent: true,
+            map: thirdDrawingLoader.load('textures/dunhuang/black.jpg')
+          }), //bottom side
+          new THREE.MeshPhongMaterial({
+            opacity: 0,
+            transparent: true,
+            map: thirdDrawingLoader.load(THIRD_DRAWING)
+          }), //front side
+          new THREE.MeshPhongMaterial({
+            opacity: 0,
+            transparent: true,
+            map: thirdDrawingLoader.load(THIRD_DRAWING)
+          }), //back side
+        ];
+        const thirdGeometry = new THREE.BoxGeometry(3, 3, 0.01);
+        thirdDrawing = new THREE.Mesh(thirdGeometry, thirdDrawingCubeMaterials);
+        thirdDrawing.scale.set(thirdDrawing_scale, thirdDrawing_scale, thirdDrawing_scale);
+        thirdDrawing.position.set(thirdDrawing_x, thirdDrawing_y, thirdDrawing_z);
 
-        // Wait for video metadata to load
-        video.addEventListener('loadedmetadata', () => {
-          // Create video texture after metadata is loaded
-          const videoTexture = new THREE.VideoTexture(video);
-          videoTexture.minFilter = THREE.LinearFilter;
-          videoTexture.magFilter = THREE.LinearFilter;
-          videoTexture.format = THREE.RGBAFormat; // Changed to RGBA for better compatibility
-          videoTexture.generateMipmaps = false;
-          videoTexture.wrapS = THREE.ClampToEdgeWrapping;
-          videoTexture.wrapT = THREE.ClampToEdgeWrapping;
+        // Add userData to identify this as the third drawing layer
+        thirdDrawing.userData = { isThirdDrawingLayer: true };
 
-          const videoOpacity = 0.8;
-          const videoCubeMaterials = [
-            new THREE.MeshPhongMaterial({
-              opacity: 0,
-              transparent: true,
-              color: 0x000000
-            }), //right side
-            new THREE.MeshPhongMaterial({
-              opacity: 0,
-              transparent: true,
-              color: 0x000000
-            }), //left side
-            new THREE.MeshPhongMaterial({
-              opacity: 0,
-              transparent: true,
-              color: 0x000000
-            }), //top side
-            new THREE.MeshPhongMaterial({
-              opacity: 0,
-              transparent: true,
-              color: 0x000000
-            }), //bottom side
-            new THREE.MeshPhongMaterial({
-              opacity: 0,
-              transparent: true,
-              map: videoTexture
-            }), //front side
-            new THREE.MeshPhongMaterial({
-              opacity: 0,
-              transparent: true,
-              map: videoTexture
-            }), //back side
-          ];
+        scene.add(thirdDrawing);
 
-          const videoGeometry = new THREE.BoxGeometry(3, 3, 0.01);
-          secondDrawing = new THREE.Mesh(videoGeometry, videoCubeMaterials);
-          secondDrawing.scale.set(secondDrawing_scale, secondDrawing_scale, secondDrawing_scale);
-          secondDrawing.position.set(secondDrawing_x, secondDrawing_y, secondDrawing_z);
+        // Store thirdOpacity for animation
+        window.thirdOpacity = thirdOpacity;
 
-          // Add userData to identify this as the video layer
-          secondDrawing.userData = { isVideoLayer: true };
-
-          scene.add(secondDrawing);
-
-          // Store videoOpacity for animation
-          window.videoOpacity = videoOpacity;
-
-          // Start playing video
-          video.play().catch(e => {
-            console.log('Video autoplay failed, will try on user interaction:', e);
-            // Fallback: try to play on first user interaction
-            document.addEventListener('click', () => {
-              video.play().catch(console.error);
-            }, { once: true });
-          });
-        });
-
-        video.addEventListener('error', (e) => {
-          console.error('Video loading error:', e);
-          // Fallback to a solid color material if video fails
-          createFallbackLayer();
-        });
-
-        function createFallbackLayer() {
-          const fallbackMaterials = [
-            new THREE.MeshPhongMaterial({ opacity: 0, transparent: true, color: 0x000000 }),
-            new THREE.MeshPhongMaterial({ opacity: 0, transparent: true, color: 0x000000 }),
-            new THREE.MeshPhongMaterial({ opacity: 0, transparent: true, color: 0x000000 }),
-            new THREE.MeshPhongMaterial({ opacity: 0, transparent: true, color: 0x000000 }),
-            new THREE.MeshPhongMaterial({ opacity: 0, transparent: true, color: 0x4a90e2 }),
-            new THREE.MeshPhongMaterial({ opacity: 0, transparent: true, color: 0x4a90e2 }),
-          ];
-
-          const videoGeometry = new THREE.BoxGeometry(3, 3, 0.01);
-          secondDrawing = new THREE.Mesh(videoGeometry, fallbackMaterials);
-          secondDrawing.scale.set(secondDrawing_scale, secondDrawing_scale, secondDrawing_scale);
-          secondDrawing.position.set(secondDrawing_x, secondDrawing_y, secondDrawing_z);
-
-          // Add userData to identify this as the video layer
-          secondDrawing.userData = { isVideoLayer: true };
-
-          scene.add(secondDrawing);
-
-          window.videoOpacity = 0.8;
-        }
-
-        // Load video
-        video.load();
-
+        // Initialize animation flags
         if (!animated_drawing_clicked) animated_drawing_clicked = true;
-        if (!animated_secondDrawing_clicked) animated_secondDrawing_clicked = true;
+        if (!animated_thirdDrawing_clicked) animated_thirdDrawing_clicked = true;
         if (!animated_wire_clicked) animated_wire_clicked = true;
         animated_drawing = false;
-        animated_secondDrawing = false;
+        animated_thirdDrawing = false;
         animated_wire = false;
 
         // Click event handler
@@ -503,12 +444,19 @@
           // Calculate objects intersecting the picking ray
           const intersects = raycaster.intersectObjects(scene.children);
 
-          // Check if the clicked object is the video layer or mural layer
+          // Check if the clicked object is any of the interactive layers
           for (let i = 0; i < intersects.length; i++) {
             const object = intersects[i].object;
-            if (object.userData && (object.userData.isVideoLayer || object.userData.isMuralLayer)) {
-              // Redirect to Google
-              window.open('https://byaikea.com/', '_blank');
+            if (object.userData && (
+              object.userData.isMuralLayer ||
+              object.userData.isThirdDrawingLayer
+            )) {
+              // Redirect to different URLs based on layer
+              if (object.userData.isThirdDrawingLayer) {
+                window.open('https://example.com/third-layer', '_blank');
+              } else {
+                window.open('https://byaikea.com/', '_blank');
+              }
               break;
             }
           }
@@ -533,25 +481,29 @@
             }
           }
 
-          // Video layer animation (replaces BVH animation)
-          if (secondDrawing && animated_secondDrawing_clicked && !animated_secondDrawing) {
-            // Fade in video materials
-            for (let i = 0; i < secondDrawing.material.length; i++) {
-              const material = secondDrawing.material[i];
-              if (i === 4 || i === 5) { // Front and back faces with the video
-                if (material.opacity < (window.videoOpacity || 0.8)) {
-                  material.opacity += 0.005;
+          // Third drawing animation
+          if (thirdDrawing && animated_thirdDrawing_clicked && !animated_thirdDrawing) {
+            // Fade in third drawing materials
+            for (let i = 0; i < thirdDrawing.material.length; i++) {
+              const material = thirdDrawing.material[i];
+              if (i === 4 || i === 5) { // Front and back faces with the image
+                if (material.opacity < (window.thirdOpacity || 0.7)) {
+                  material.opacity += 0.003;
                 }
               } else { // Side faces
-                if (material.opacity < 0.2) {
-                  material.opacity += 0.005;
+                if (material.opacity < 0.1) {
+                  material.opacity += 0.003;
                 }
               }
             }
 
+            // Add slight rotation for visual interest
+            thirdDrawing.rotation.y = Math.sin(time * 0.5) * 0.1;
+            thirdDrawing.rotation.x = Math.cos(time * 0.3) * 0.05;
+
             // Check if animation is complete
-            if (secondDrawing.material[4].opacity >= (window.videoOpacity || 0.8)) {
-              animated_secondDrawing = true;
+            if (thirdDrawing.material[4].opacity >= (window.thirdOpacity || 0.7)) {
+              animated_thirdDrawing = true;
             }
           }
 
@@ -638,11 +590,18 @@
         <div class="col">
           <img class="drawing" src="" />
           <div class="table">
-
             <div class="col" style="margin-top:2vw">
-              <div class="statline"><span><i><b>Elsewhere Gallery</b><i></span></div>
-              <div class="statline"><span>Video (loop)</span></div>
-                <div class="statline"><span>Daria Belkina</span></div>
+              <div class="col" style="margin-top:2vw">
+                <div class="statline"><span><i><b>
+                  <a href="ProjectAveMaria.html" target="_blank">
+                    Elara </a>
+                  </b></i></span></div>
+                <div class="statline"><span>Concept </span></div>
+                <div class="statline"><span>
+                  <a href="marielemoigne.com" target="_blank">
+                  Sahra Azadzoy, Leo Bayly Barton
+                  </a>
+                  </span></div>
               </div>
             </div>
           </div>
@@ -663,31 +622,6 @@
 
   <script>
     const script = fetch('./composition_master_main.js').then(async result => {
-      result.text().then(text => {
-        const scriptElement = document.createElement('script');
-        scriptElement.innerHTML = text;
-        document.body.appendChild(scriptElement);
-      });
-    });
-
-    window.onpageshow = function(event) {
-      if (event.persisted) {
-        window.location.reload()
-      }
-    };
-
-    //100vh Fix on Mobile
-    let vh = window.innerHeight * 0.01;
-    let size = 0;
-    document.documentElement.style.setProperty('--vh', `${vh}px`);
-    window.addEventListener('resize', () => {
-      if (window.innerWidth === size) return;
-      size = window.innerWidth;
-      let vh = window.innerHeight * 0.01;
-      document.documentElement.style.setProperty('--vh', `${vh}px`);
-    });
   </script>
-
 </body>
-
 </html>
