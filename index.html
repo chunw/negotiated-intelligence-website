@@ -569,47 +569,34 @@
 
       <script async src="https://unpkg.com/es-module-shims@1.3.6/dist/es-module-shims.js"></script>
 
-      <script type="importmap">
+      <!-- <script type="importmap">
         {
   				"imports": {
   					"three": "../build/three.module.js"
   				}
   			}
-  		</script>
+  		</script> -->
+      <script type="importmap">
+        {
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.152.2/build/three.module.js"
+  }
+}
+</script>
+
 
 
       <script type="module">
-        import * as THREE from 'three';
-
-
-
-        import {
-          OrbitControls
-        } from './jsm/controls/OrbitControls.js';
-        import {
-          BVHLoader
-        } from './jsm/loaders/BVHLoader.js';
-        import {
-          GLTFLoader
-        } from './jsm/loaders/GLTFLoader.js';
-        import {
-          RenderPass
-        } from './jsm/postprocessing/RenderPass.js';
-        import {
-          UnrealBloomPass
-        } from './jsm/postprocessing/UnrealBloomPass.js';
-        import {
-          EffectComposer
-        } from './jsm/postprocessing/EffectComposer.js';
-        import {
-          ShaderPass
-        } from './jsm/postprocessing/ShaderPass.js';
-        import {
-          LuminosityShader
-        } from './jsm/shaders/LuminosityShader.js';
-        import {
-          SobelOperatorShader
-        } from './jsm/shaders/SobelOperatorShader.js';
+      import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.150.0/build/three.module.js';
+       import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three@0.150.0/examples/jsm/controls/OrbitControls.js';
+       import { BVHLoader } from 'https://cdn.jsdelivr.net/npm/three@0.150.0/examples/jsm/loaders/BVHLoader.js';
+       import { GLTFLoader } from 'https://cdn.jsdelivr.net/npm/three@0.150.0/examples/jsm/loaders/GLTFLoader.js';
+       import { RenderPass } from 'https://cdn.jsdelivr.net/npm/three@0.150.0/examples/jsm/postprocessing/RenderPass.js';
+       import { UnrealBloomPass } from 'https://cdn.jsdelivr.net/npm/three@0.150.0/examples/jsm/postprocessing/UnrealBloomPass.js';
+       import { EffectComposer } from 'https://cdn.jsdelivr.net/npm/three@0.150.0/examples/jsm/postprocessing/EffectComposer.js';
+       import { ShaderPass } from 'https://cdn.jsdelivr.net/npm/three@0.150.0/examples/jsm/postprocessing/ShaderPass.js';
+       import { LuminosityShader } from 'https://cdn.jsdelivr.net/npm/three@0.150.0/examples/jsm/shaders/LuminosityShader.js';
+       import { SobelOperatorShader } from 'https://cdn.jsdelivr.net/npm/three@0.150.0/examples/jsm/shaders/SobelOperatorShader.js';
 
 
         const TURN_ON_FILTER = false;
@@ -619,6 +606,9 @@
         let camera, controls, scene, renderer;
         let mixer, skeletonHelper;
         let composer, effectSobel;
+
+        let roboticArm = null;
+        let armMixer = null;
 
         const params = {
           exposure: 1,
@@ -640,6 +630,52 @@
 
 
         // Model
+        // Load GLB Model - ROBOTIC ARM
+        const gltfLoader = new GLTFLoader();
+        gltfLoader.load(
+          'assets/RoboticArmWritingText.glb',
+          function (gltf) {
+            roboticArm = gltf.scene;
+
+            // Position the robotic arm
+            roboticArm.position.set(50, -45, 0);
+
+            // Scale if needed
+            roboticArm.scale.set(1, 1, 1);
+
+            // Rotate if needed
+            roboticArm.rotation.y = Math.PI / 4;
+
+            scene.add(roboticArm);
+
+            console.log('Robotic arm loaded successfully');
+
+
+// Debug logging
+console.log('Robotic arm loaded successfully');
+console.log('Arm position:', roboticArm.position);
+console.log('Arm scale:', roboticArm.scale);
+console.log('Arm children:', roboticArm.children.length);
+
+// Add a bounding box helper to visualize the model
+const box = new THREE.BoxHelper(roboticArm, 0xff0000);
+scene.add(box);
+
+            // Add animation if model has animations
+            if (gltf.animations && gltf.animations.length > 0) {
+              armMixer = new THREE.AnimationMixer(roboticArm);
+              const action = armMixer.clipAction(gltf.animations[0]);
+              action.play();
+            }
+          },
+          function (xhr) {
+            console.log((xhr.loaded / xhr.total * 100) + '% loaded');
+          },
+          function (error) {
+            console.error('Error loading GLB model:', error);
+          }
+        );
+
 
         const loader = new BVHLoader();
         loader.load("models/bvh/0-6000.bvh", function(result) {
@@ -695,6 +731,24 @@
           scene = new THREE.Scene();
           scene.background = new THREE.Color(0x000000);
           scene.add(new THREE.GridHelper(400, 10));
+
+
+          scene.add(new THREE.GridHelper(400, 10));
+
+          // Add lights - ADD THESE LINES
+          // Add lights - BRIGHTER VERSION
+  const ambientLight = new THREE.AmbientLight(0xffffff, 1.5);
+  scene.add(ambientLight);
+
+  const directionalLight = new THREE.DirectionalLight(0xffffff, 2.0);
+  directionalLight.position.set(100, 100, 100);
+  scene.add(directionalLight);
+
+  // Add a second directional light from another angle for better illumination
+  const directionalLight2 = new THREE.DirectionalLight(0xffffff, 1.5);
+  directionalLight2.position.set(-100, 50, -100);
+  scene.add(directionalLight2);
+
 
           renderer = new THREE.WebGLRenderer({
             canvas: document.querySelector('#hero-threejs'),
@@ -758,16 +812,16 @@
         function animate() {
 
           requestAnimationFrame(animate);
+    const delta = clock.getDelta();
 
-          const delta = clock.getDelta();
+    if (mixer) mixer.update(delta);
+    if (armMixer) armMixer.update(delta);
 
-          if (mixer) mixer.update(delta);
+    renderer.render(scene, camera);
 
-          renderer.render(scene, camera);
-
-          if (composer) {
-            composer.render();
-          }
+    if (composer) {
+      composer.render();
+    }
 
         }
       </script>
