@@ -279,8 +279,8 @@
             thirdDrawing_scale = 3;
         let secondDrawing_x = 0,
           secondDrawing_y = 0,
-          secondDrawing_z = 10,
-          secondDrawing_z_target = 15,
+          secondDrawing_z = 0,
+          secondDrawing_z_target = 10,
           secondDrawing_scale = 2.8;
         let wire_x = 0,
           wire_y = -4,
@@ -292,8 +292,8 @@
         const SCENE_BACKGROUND = 'textures/dunhuang/amo_data_bg_dimmed_black.png';
         const MURAL = 'assets/img/avemaria/Doc.png';
         const DRAWING = 'assets/img/avemaria/Process.png';
-        const SECOND_DRAWING = 'textures/dunhuang/反弹琵琶一式inverted.jpg';
-        const THIRD_DRAWING = 'assets/img/avemaria/error.png'; // New third layer
+        const SECOND_DRAWING = 'assets/img/avemaria/Final.png';
+        const THIRD_DRAWING = 'assets/img/avemaria/error.png';
 
         const OUTLINE_ON_MOUSEPOINT = false;
         let selectedObjects = [];
@@ -381,7 +381,61 @@
         scene.add(drawing);
         drawing.position.set(drawing_x, drawing_y, drawing_z);
 
-        // Third Drawing Image Layer (New Addition)
+        // Second Drawing Image Layer (taller version)
+        const secondDrawingLoader = new THREE.TextureLoader();
+        const secondOpacity = 0.9;
+
+        // Load the image texture
+        const secondImageTexture = secondDrawingLoader.load(SECOND_DRAWING);
+
+        const secondDrawingCubeMaterials = [
+          new THREE.MeshPhongMaterial({
+            opacity: 0,
+            transparent: true,
+            map: secondDrawingLoader.load('textures/dunhuang/black.jpg')
+          }), //right side
+          new THREE.MeshPhongMaterial({
+            opacity: 0,
+            transparent: true,
+            map: secondDrawingLoader.load('textures/dunhuang/black.jpg')
+          }), //left side
+          new THREE.MeshPhongMaterial({
+            opacity: 0,
+            transparent: true,
+            map: secondDrawingLoader.load('textures/dunhuang/black.jpg')
+          }), //top side
+          new THREE.MeshPhongMaterial({
+            opacity: 0,
+            transparent: true,
+            map: secondDrawingLoader.load('textures/dunhuang/black.jpg')
+          }), //bottom side
+          new THREE.MeshPhongMaterial({
+            opacity: 0,
+            transparent: true,
+            map: secondImageTexture
+          }), //front side
+          new THREE.MeshPhongMaterial({
+            opacity: 0,
+            transparent: true,
+            map: secondImageTexture
+          }), //back side
+        ];
+
+        // Changed geometry to make it taller: width=3, height=4.5 (50% taller)
+        const secondGeometry = new THREE.BoxGeometry(3, 4.5, 0.01);
+        secondDrawing = new THREE.Mesh(secondGeometry, secondDrawingCubeMaterials);
+        secondDrawing.scale.set(secondDrawing_scale, secondDrawing_scale, secondDrawing_scale);
+        secondDrawing.position.set(secondDrawing_x, secondDrawing_y, secondDrawing_z);
+
+        // Add userData to identify this as the second drawing layer
+        secondDrawing.userData = { isSecondDrawingLayer: true };
+
+        scene.add(secondDrawing);
+
+        // Store secondOpacity for animation
+        window.secondOpacity = secondOpacity;
+
+        // Third Drawing Image Layer
         const thirdDrawingLoader = new THREE.TextureLoader();
         const thirdOpacity = 0.7;
         const thirdDrawingCubeMaterials = [
@@ -429,114 +483,6 @@
         // Store thirdOpacity for animation
         window.thirdOpacity = thirdOpacity;
 
-        // Video Layer (replaces BVH skeleton)
-        const video = document.createElement('video');
-        video.src = '';
-        video.crossOrigin = 'anonymous';
-        video.loop = true;
-        video.muted = true;
-        video.playsInline = true;
-
-        // Wait for video metadata to load
-        video.addEventListener('loadedmetadata', () => {
-          // Create video texture after metadata is loaded
-          const videoTexture = new THREE.VideoTexture(video);
-          videoTexture.minFilter = THREE.LinearFilter;
-          videoTexture.magFilter = THREE.LinearFilter;
-          videoTexture.format = THREE.RGBAFormat; // Changed to RGBA for better compatibility
-          videoTexture.generateMipmaps = false;
-          videoTexture.wrapS = THREE.ClampToEdgeWrapping;
-          videoTexture.wrapT = THREE.ClampToEdgeWrapping;
-
-          const videoOpacity = 0.8;
-          const videoCubeMaterials = [
-            new THREE.MeshPhongMaterial({
-              opacity: 0,
-              transparent: true,
-              color: 0x000000
-            }), //right side
-            new THREE.MeshPhongMaterial({
-              opacity: 0,
-              transparent: true,
-              color: 0x000000
-            }), //left side
-            new THREE.MeshPhongMaterial({
-              opacity: 0,
-              transparent: true,
-              color: 0x000000
-            }), //top side
-            new THREE.MeshPhongMaterial({
-              opacity: 0,
-              transparent: true,
-              color: 0x000000
-            }), //bottom side
-            new THREE.MeshPhongMaterial({
-              opacity: 0,
-              transparent: true,
-              map: videoTexture
-            }), //front side
-            new THREE.MeshPhongMaterial({
-              opacity: 0,
-              transparent: true,
-              map: videoTexture
-            }), //back side
-          ];
-
-          const videoGeometry = new THREE.BoxGeometry(3, 3, 0.01);
-          secondDrawing = new THREE.Mesh(videoGeometry, videoCubeMaterials);
-          secondDrawing.scale.set(secondDrawing_scale, secondDrawing_scale, secondDrawing_scale);
-          secondDrawing.position.set(secondDrawing_x, secondDrawing_y, secondDrawing_z);
-
-          // Add userData to identify this as the video layer
-          secondDrawing.userData = { isVideoLayer: true };
-
-          scene.add(secondDrawing);
-
-          // Store videoOpacity for animation
-          window.videoOpacity = videoOpacity;
-
-          // Start playing video
-          video.play().catch(e => {
-            console.log('Video autoplay failed, will try on user interaction:', e);
-            // Fallback: try to play on first user interaction
-            document.addEventListener('click', () => {
-              video.play().catch(console.error);
-            }, { once: true });
-          });
-        });
-
-        video.addEventListener('error', (e) => {
-          console.error('Video loading error:', e);
-          // Fallback to a solid color material if video fails
-          createFallbackLayer();
-        });
-
-        function createFallbackLayer() {
-          const fallbackMaterials = [
-            new THREE.MeshPhongMaterial({ opacity: 0, transparent: true, color: 0x000000 }),
-            new THREE.MeshPhongMaterial({ opacity: 0, transparent: true, color: 0x000000 }),
-            new THREE.MeshPhongMaterial({ opacity: 0, transparent: true, color: 0x000000 }),
-            new THREE.MeshPhongMaterial({ opacity: 0, transparent: true, color: 0x000000 }),
-            new THREE.MeshPhongMaterial({ opacity: 0, transparent: true, color: 0x4a90e2 }),
-            new THREE.MeshPhongMaterial({ opacity: 0, transparent: true, color: 0x4a90e2 }),
-          ];
-
-          const videoGeometry = new THREE.BoxGeometry(3, 3, 0.01);
-          secondDrawing = new THREE.Mesh(videoGeometry, fallbackMaterials);
-          secondDrawing.scale.set(secondDrawing_scale, secondDrawing_scale, secondDrawing_scale);
-          secondDrawing.position.set(secondDrawing_x, secondDrawing_y, secondDrawing_z);
-
-          // Add userData to identify this as the video layer
-          secondDrawing.userData = { isVideoLayer: true };
-
-          scene.add(secondDrawing);
-
-          window.videoOpacity = 0.8;
-        }
-
-        // Load video
-        video.load();
-
         // Initialize animation flags
         if (!animated_drawing_clicked) animated_drawing_clicked = true;
         if (!animated_secondDrawing_clicked) animated_secondDrawing_clicked = true;
@@ -564,7 +510,7 @@
           for (let i = 0; i < intersects.length; i++) {
             const object = intersects[i].object;
             if (object.userData && (
-              object.userData.isVideoLayer ||
+              object.userData.isSecondDrawingLayer ||
               object.userData.isMuralLayer ||
               object.userData.isThirdDrawingLayer
             )) {
@@ -598,13 +544,18 @@
             }
           }
 
-          // Video layer animation (replaces BVH animation)
+          // Second drawing animation (image layer with position animation)
           if (secondDrawing && animated_secondDrawing_clicked && !animated_secondDrawing) {
-            // Fade in video materials
+            // Animate position forward
+            if (secondDrawing.position.z <= secondDrawing_z_target) {
+              secondDrawing.position.z += 0.05;
+            }
+
+            // Fade in second drawing materials
             for (let i = 0; i < secondDrawing.material.length; i++) {
               const material = secondDrawing.material[i];
-              if (i === 4 || i === 5) { // Front and back faces with the video
-                if (material.opacity < (window.videoOpacity || 0.8)) {
+              if (i === 4 || i === 5) { // Front and back faces with the image
+                if (material.opacity < (window.secondOpacity || 0.8)) {
                   material.opacity += 0.005;
                 }
               } else { // Side faces
@@ -614,13 +565,14 @@
               }
             }
 
-            // Check if animation is complete
-            if (secondDrawing.material[4].opacity >= (window.videoOpacity || 0.8)) {
+            // Check if animation is complete (both position and opacity)
+            if (secondDrawing.position.z >= secondDrawing_z_target &&
+                secondDrawing.material[4].opacity >= (window.secondOpacity || 0.8)) {
               animated_secondDrawing = true;
             }
           }
 
-          // Third drawing animation (New Addition)
+          // Third drawing animation
           if (thirdDrawing && animated_thirdDrawing_clicked && !animated_thirdDrawing) {
             // Fade in third drawing materials
             for (let i = 0; i < thirdDrawing.material.length; i++) {
@@ -760,3 +712,9 @@
 
   <script>
     const script = fetch('./composition_master_main.js').then(async result => {
+      // Your additional scripts here
+    });
+  </script>
+</body>
+
+</html>
