@@ -267,17 +267,19 @@
           mural_y = 0,
           mural_z = -5,
           mural_scale = 3;
+        let mural_scaleX = 4.5; // Mural width
         let drawing_x = 0,
           drawing_y = 0,
           drawing_z = 0,
           drawing_z_target = 5,
           drawing_scale = 3;
+        let drawing_scaleX = 4.5; // Drawing width
         let secondDrawing_x = 0,
           secondDrawing_y = 0,
           secondDrawing_z = 10,
           secondDrawing_z_target = 15,
           secondDrawing_scale = 2.8;
-        let secondDrawing_scaleX = 4.5; // Made wider - increased from implied 2.8
+        let secondDrawing_scaleX = 4.5; // Third layer width - made wider
         let wire_x = 0,
           wire_y = -4,
           wire_z = -4,
@@ -286,7 +288,7 @@
 
         // File paths
         const SCENE_BACKGROUND = 'textures/dunhuang/amo_data_bg_dimmed_black.png';
-        const MURAL = 'assets/img/aikea/ConceptInverted.png';
+        const MURAL = 'assets/img/aikea/Concept.png';
         const DRAWING = 'assets/img/aikea/Product1.png';
         const SECOND_DRAWING = 'textures/dunhuang/反弹琵琶一式inverted.jpg';
 
@@ -327,7 +329,7 @@
         composer = new EffectComposer(renderer);
         const renderPass = new RenderPass(scene, camera);
         composer.addPass(renderPass);
-        mural.scale.set(mural_scale, mural_scale, mural_scale);
+        mural.scale.set(mural_scaleX, mural_scale, mural_scale);
         mural.position.set(mural_x, mural_y, mural_z);
 
         // Add userData to identify this as the mural layer
@@ -372,7 +374,7 @@
         ];
         const geometry = new THREE.BoxGeometry(3, 3, 0.01);
         drawing = new THREE.Mesh(geometry, drawingCubeMaterials);
-        drawing.scale.set(drawing_scale, drawing_scale, drawing_scale);
+        drawing.scale.set(drawing_scaleX, drawing_scale, drawing_scale);
         scene.add(drawing);
         drawing.position.set(drawing_x, drawing_y, drawing_z);
 
