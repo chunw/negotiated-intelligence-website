@@ -49,9 +49,10 @@
       -webkit-overflow-scrolling: touch;
       scrollbar-width: none;
       overscroll-behavior: none;
-
       background-image: url("assets/img/Website_Background.png");
       background-size: cover;
+      margin: 0;
+      padding: 0;
     }
 
     .content {
@@ -59,8 +60,7 @@
       z-index: 2;
     }
 
-
-    /*Disable Text Selection */
+    /*Disable Text Selection on Desktop */
     @media (min-width: 991px) {
       * {
         -webkit-touch-callout: none;
@@ -150,9 +150,7 @@
     /* Fixed menu styles - prevent layout jumping */
     .menu-li {
       cursor: pointer;
-      /* Only transition specific properties, not 'all' to prevent margin jumps */
       transition: color 0.3s ease, text-shadow 0.3s ease;
-      /* Ensure consistent positioning */
       position: relative;
       display: block;
     }
@@ -161,7 +159,6 @@
       color: #ffffff;
       text-shadow: 0 0 2px rgba(255, 255, 255, 0.2);
       animation: tender-float 6s ease-in-out infinite;
-      /* Explicitly prevent any margin or position changes */
       margin: inherit !important;
       position: relative !important;
     }
@@ -199,30 +196,122 @@
     .hero.home,
     .wait {
       height: 100vh;
-      /* height: calc(var(--vh, 1vh) * 100); */
     }
   </style>
 
-
   <style>
-    .split {
-      height: 100%;
+    /* Mobile Menu Toggle */
+    .mobile-menu-toggle {
+      display: none;
       position: fixed;
-      z-index: 1;
-      top: 0;
-      overflow-x: hidden;
-      padding-top: 20px;
+      top: 20px;
+      left: 20px;
+      z-index: 1000;
+      background: rgba(3, 3, 3, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 8px;
+      padding: 10px 15px;
+      color: #ffffff;
+      cursor: pointer;
+      font-size: 14px;
     }
 
-    .split.left {
-      left: 140px;
-      width: 20%;
-      top: 20%;
+    /* Desktop Layout */
+    @media (min-width: 769px) {
+      .split {
+        height: 100%;
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        overflow-x: hidden;
+        padding-top: 20px;
+      }
+
+      .split.left {
+        left: 140px;
+        width: 20%;
+        top: 20%;
+      }
+
+      .split.right {
+        right: 0;
+        width: 60%;
+      }
     }
 
-    .split.right {
-      right: 0;
-      width: 60%;
+    /* Mobile Layout */
+    @media (max-width: 768px) {
+      .navbar {
+        padding: 1rem 1rem 0 1rem !important;
+      }
+
+      .mobile-menu-toggle {
+        display: block;
+      }
+
+      .split {
+        position: relative;
+        width: 100%;
+        height: auto;
+        padding: 0;
+      }
+
+      .split.left {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 80%;
+        max-width: 300px;
+        height: 100vh;
+        background: rgba(3, 3, 3, 0.95);
+        backdrop-filter: blur(10px);
+        z-index: 999;
+        overflow-y: auto;
+        padding: 80px 20px 20px 20px;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+      }
+
+      .split.left.menu-open {
+        transform: translateX(0);
+      }
+
+      .split.right {
+        position: relative;
+        width: 100%;
+        height: calc(100vh - 60px);
+        margin-top: 60px;
+      }
+
+      .submenu {
+        width: 100%;
+      }
+
+      .submenu .h-h2.menu-li {
+        font-size: 16px !important;
+        line-height: 1.4;
+        margin: 1rem 0 0 0 !important;
+      }
+
+      .submenu .h-h2.menu-li:first-child {
+        font-size: 20px !important;
+        margin: 0 0 1.5rem 0 !important;
+      }
+
+      .n-brand {
+        max-width: 100px;
+      }
+    }
+
+    /* Very small mobile devices */
+    @media (max-width: 480px) {
+      .submenu .h-h2.menu-li {
+        font-size: 14px !important;
+      }
+
+      .submenu .h-h2.menu-li:first-child {
+        font-size: 18px !important;
+      }
     }
 
     .centered {
@@ -232,7 +321,6 @@
       transform: translate(-50%, -50%);
     }
 
-    /* Prevent any margin or positioning changes on menu items */
     .submenu .h-h2.menu-li {
       line-height: 1.3;
       margin: 1.5rem 0 0 0 !important;
@@ -240,12 +328,10 @@
       display: block;
     }
 
-    /* Title should have different spacing */
     .submenu .h-h2.menu-li:first-child {
       margin: 0 0 1.5rem 0 !important;
     }
 
-    /* Ensure project links don't have conflicting margins */
     .submenu .project-link .h-h2.menu-li {
       margin: 1.5rem 0 0 0 !important;
     }
@@ -254,6 +340,22 @@
       width: 100%;
       height: 100%;
       border: none;
+    }
+
+    /* Mobile menu overlay */
+    .menu-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 998;
+    }
+
+    .menu-overlay.active {
+      display: block;
     }
   </style>
 
@@ -273,6 +375,14 @@
     </style>
   </div>
 
+  <!-- Mobile Menu Toggle Button -->
+  <div class="mobile-menu-toggle" id="mobileMenuToggle">
+    ☰ Menu
+  </div>
+
+  <!-- Menu Overlay for Mobile -->
+  <div class="menu-overlay" id="menuOverlay"></div>
+
   <div class="navbar navbar__shop" style="padding:1rem 0.5vw 0 2.5vw ">
     <div class="n-block left">
       <div data-w-id="2264dfe2-412c-a750-b778-fffb7eb6b996" class="n-wrap">
@@ -291,7 +401,7 @@
   </div>
 
   <main data-template="home" style="height: 100%;">
-    <div class="split left">
+    <div class="split left" id="mobileMenu">
       <!-- Start Navigation Menu -->
       <div class="submenu">
         <a aria-label="Research" href="/" rel="noopener" draggable="false">
@@ -353,56 +463,40 @@
 
     $(".menu").show();
 
+    // Mobile menu toggle functionality
+    const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const menuOverlay = document.getElementById('menuOverlay');
+
+    function toggleMobileMenu() {
+      mobileMenu.classList.toggle('menu-open');
+      menuOverlay.classList.toggle('active');
+
+      // Update button text
+      if (mobileMenu.classList.contains('menu-open')) {
+        mobileMenuToggle.textContent = '✕ Close';
+      } else {
+        mobileMenuToggle.textContent = '☰ Menu';
+      }
+    }
+
+    mobileMenuToggle.addEventListener('click', toggleMobileMenu);
+    menuOverlay.addEventListener('click', toggleMobileMenu);
+
     // Project loading functionality
     function loadProject(projectName) {
       const iframe = document.getElementById('project-iframe');
       const projectUrl = projectName + '3d.html';
-
-      // Create a temporary iframe to test if the file exists
-      const testIframe = document.createElement('iframe');
-      testIframe.style.display = 'none';
-      document.body.appendChild(testIframe);
-
-      // Set up error handling
-      testIframe.onload = function() {
-        try {
-          // Try to access the iframe content to see if it loaded successfully
-          const iframeDoc = testIframe.contentDocument || testIframe.contentWindow.document;
-          if (iframeDoc.title === '' || iframeDoc.body.children.length === 0) {
-            // If the document is empty or has no content, assume 404
-            iframe.src = '404.html';
-          } else {
-            // File exists, load it in the main iframe
-            iframe.src = projectUrl;
-          }
-        } catch (e) {
-          // Cross-origin or other error, assume file exists and load it
-          iframe.src = projectUrl;
-        }
-        // Clean up test iframe
-        document.body.removeChild(testIframe);
-      };
-
-      testIframe.onerror = function() {
-        // File doesn't exist, load 404
-        iframe.src = '404.html';
-        document.body.removeChild(testIframe);
-      };
-
-      // Alternative approach: directly try to load and handle errors
       iframe.src = projectUrl;
 
-      // Set up error handling for the main iframe
+      // Close mobile menu after selection
+      if (window.innerWidth <= 768) {
+        toggleMobileMenu();
+      }
+
       iframe.onerror = function() {
         iframe.src = '404.html';
       };
-
-      // Remove test iframe after a short delay if it's still there
-      setTimeout(() => {
-        if (testIframe.parentNode) {
-          document.body.removeChild(testIframe);
-        }
-      }, 3000);
     }
 
     // Add click event listeners to project links
@@ -425,38 +519,6 @@
         });
       });
     });
-
-    // Alternative method using fetch to check if file exists
-    async function loadProjectWithFetch(projectName) {
-      const iframe = document.getElementById('project-iframe');
-      const projectUrl = projectName + '3d.html';
-
-      try {
-        const response = await fetch(projectUrl, { method: 'HEAD' });
-        if (response.ok) {
-          iframe.src = projectUrl;
-        } else {
-          iframe.src = '404.html';
-        }
-      } catch (error) {
-        // If fetch fails, try loading anyway (might be CORS issue)
-        iframe.src = projectUrl;
-
-        // Set up error handling for iframe
-        iframe.onload = function() {
-          try {
-            // Check if the loaded page is actually a 404
-            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-            if (iframeDoc.title.toLowerCase().includes('404') ||
-                iframeDoc.body.innerHTML.toLowerCase().includes('not found')) {
-              iframe.src = '404.html';
-            }
-          } catch (e) {
-            // Cross-origin restriction, assume it loaded successfully
-          }
-        };
-      }
-    }
   </script>
 
 </body>

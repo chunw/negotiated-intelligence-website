@@ -277,6 +277,7 @@
           secondDrawing_z = 10,
           secondDrawing_z_target = 15,
           secondDrawing_scale = 2.8;
+        let secondDrawing_scaleX = 4.5; // Made wider - increased from implied 2.8
         let wire_x = 0,
           wire_y = -4,
           wire_z = -4,
@@ -285,9 +286,9 @@
 
         // File paths
         const SCENE_BACKGROUND = 'textures/dunhuang/amo_data_bg_dimmed_black.png';
-        const MURAL = 'assets/img/aikea/ConceptInverted.png'; //'textures/dunhuang/反弹琵琶一式壁画trimmed2.jpeg';
-        const DRAWING = 'assets/img/aikea/Product1.png';//'textures/dunhuang/反弹琵琶一式inverted.jpg';
-        const SECOND_DRAWING = 'textures/dunhuang/反弹琵琶一式inverted.jpg'; // Change this to your second drawing
+        const MURAL = 'assets/img/aikea/ConceptInverted.png';
+        const DRAWING = 'assets/img/aikea/Product1.png';
+        const SECOND_DRAWING = 'textures/dunhuang/反弹琵琶一式inverted.jpg';
 
         const OUTLINE_ON_MOUSEPOINT = false;
         let selectedObjects = [];
@@ -342,32 +343,32 @@
             opacity: opacity,
             transparent: true,
             map: drawingloader.load('textures/dunhuang/black.jpg')
-          }), //right side
+          }),
           new THREE.MeshPhongMaterial({
             opacity: opacity,
             transparent: true,
             map: drawingloader.load('textures/dunhuang/black.jpg')
-          }), //left side
+          }),
           new THREE.MeshPhongMaterial({
             opacity: opacity,
             transparent: true,
             map: drawingloader.load('textures/dunhuang/black.jpg')
-          }), //top side
+          }),
           new THREE.MeshPhongMaterial({
             opacity: opacity,
             transparent: true,
             map: drawingloader.load('textures/dunhuang/black.jpg')
-          }), //bottom side
+          }),
           new THREE.MeshPhongMaterial({
             opacity: opacity,
             transparent: true,
             map: drawingloader.load(DRAWING)
-          }), //front side
+          }),
           new THREE.MeshPhongMaterial({
             opacity: opacity,
             transparent: true,
             map: drawingloader.load(DRAWING)
-          }), //back side
+          }),
         ];
         const geometry = new THREE.BoxGeometry(3, 3, 0.01);
         drawing = new THREE.Mesh(geometry, drawingCubeMaterials);
@@ -389,7 +390,7 @@
           const videoTexture = new THREE.VideoTexture(video);
           videoTexture.minFilter = THREE.LinearFilter;
           videoTexture.magFilter = THREE.LinearFilter;
-          videoTexture.format = THREE.RGBAFormat; // Changed to RGBA for better compatibility
+          videoTexture.format = THREE.RGBAFormat;
           videoTexture.generateMipmaps = false;
           videoTexture.wrapS = THREE.ClampToEdgeWrapping;
           videoTexture.wrapT = THREE.ClampToEdgeWrapping;
@@ -400,37 +401,38 @@
               opacity: 0,
               transparent: true,
               color: 0x000000
-            }), //right side
+            }),
             new THREE.MeshPhongMaterial({
               opacity: 0,
               transparent: true,
               color: 0x000000
-            }), //left side
+            }),
             new THREE.MeshPhongMaterial({
               opacity: 0,
               transparent: true,
               color: 0x000000
-            }), //top side
+            }),
             new THREE.MeshPhongMaterial({
               opacity: 0,
               transparent: true,
               color: 0x000000
-            }), //bottom side
+            }),
             new THREE.MeshPhongMaterial({
               opacity: 0,
               transparent: true,
               map: videoTexture
-            }), //front side
+            }),
             new THREE.MeshPhongMaterial({
               opacity: 0,
               transparent: true,
               map: videoTexture
-            }), //back side
+            }),
           ];
 
           const videoGeometry = new THREE.BoxGeometry(3, 3, 0.01);
           secondDrawing = new THREE.Mesh(videoGeometry, videoCubeMaterials);
-          secondDrawing.scale.set(secondDrawing_scale, secondDrawing_scale, secondDrawing_scale);
+          // Made the second layer wider by scaling X differently
+          secondDrawing.scale.set(secondDrawing_scaleX, secondDrawing_scale, secondDrawing_scale);
           secondDrawing.position.set(secondDrawing_x, secondDrawing_y, secondDrawing_z);
 
           // Add userData to identify this as the video layer
@@ -444,7 +446,6 @@
           // Start playing video
           video.play().catch(e => {
             console.log('Video autoplay failed, will try on user interaction:', e);
-            // Fallback: try to play on first user interaction
             document.addEventListener('click', () => {
               video.play().catch(console.error);
             }, { once: true });
@@ -453,7 +454,6 @@
 
         video.addEventListener('error', (e) => {
           console.error('Video loading error:', e);
-          // Fallback to a solid color material if video fails
           createFallbackLayer();
         });
 
@@ -469,10 +469,9 @@
 
           const videoGeometry = new THREE.BoxGeometry(3, 3, 0.01);
           secondDrawing = new THREE.Mesh(videoGeometry, fallbackMaterials);
-          secondDrawing.scale.set(secondDrawing_scale, secondDrawing_scale, secondDrawing_scale);
+          secondDrawing.scale.set(secondDrawing_scaleX, secondDrawing_scale, secondDrawing_scale);
           secondDrawing.position.set(secondDrawing_x, secondDrawing_y, secondDrawing_z);
 
-          // Add userData to identify this as the video layer
           secondDrawing.userData = { isVideoLayer: true };
 
           scene.add(secondDrawing);
@@ -492,29 +491,23 @@
 
         // Click event handler
         function onCanvasClick(event) {
-          // Calculate mouse position in normalized device coordinates
           const rect = renderer.domElement.getBoundingClientRect();
           mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
           mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
 
-          // Update the picking ray with the camera and mouse position
           raycaster.setFromCamera(mouse, camera);
 
-          // Calculate objects intersecting the picking ray
           const intersects = raycaster.intersectObjects(scene.children);
 
-          // Check if the clicked object is the video layer or mural layer
           for (let i = 0; i < intersects.length; i++) {
             const object = intersects[i].object;
             if (object.userData && (object.userData.isVideoLayer || object.userData.isMuralLayer)) {
-              // Redirect to Google
               window.open('https://byaikea.com/', '_blank');
               break;
             }
           }
         }
 
-        // Add click event listener to the canvas
         renderer.domElement.addEventListener('click', onCanvasClick);
 
         // Animation Loop
@@ -533,23 +526,21 @@
             }
           }
 
-          // Video layer animation (replaces BVH animation)
+          // Video layer animation
           if (secondDrawing && animated_secondDrawing_clicked && !animated_secondDrawing) {
-            // Fade in video materials
             for (let i = 0; i < secondDrawing.material.length; i++) {
               const material = secondDrawing.material[i];
-              if (i === 4 || i === 5) { // Front and back faces with the video
+              if (i === 4 || i === 5) {
                 if (material.opacity < (window.videoOpacity || 0.8)) {
                   material.opacity += 0.005;
                 }
-              } else { // Side faces
+              } else {
                 if (material.opacity < 0.2) {
                   material.opacity += 0.005;
                 }
               }
             }
 
-            // Check if animation is complete
             if (secondDrawing.material[4].opacity >= (window.videoOpacity || 0.8)) {
               animated_secondDrawing = true;
             }
@@ -652,7 +643,7 @@
                   </span></div>
               </div>
             </div>
-            
+
           </div>
         </div>
       </div>
