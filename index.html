@@ -735,19 +735,24 @@ scene.add(box);
 
           scene.add(new THREE.GridHelper(400, 10));
 
-          // Add lights - ADD THESE LINES
-          // Add lights - BRIGHTER VERSION
-  const ambientLight = new THREE.AmbientLight(0xffffff, 1.5);
+          // Add lights - VERY BRIGHT VERSION
+  const ambientLight = new THREE.AmbientLight(0xffffff, 3.0);
   scene.add(ambientLight);
 
-  const directionalLight = new THREE.DirectionalLight(0xffffff, 2.0);
+  const directionalLight = new THREE.DirectionalLight(0xffffff, 4.0);
   directionalLight.position.set(100, 100, 100);
   scene.add(directionalLight);
 
-  // Add a second directional light from another angle for better illumination
-  const directionalLight2 = new THREE.DirectionalLight(0xffffff, 1.5);
+  const directionalLight2 = new THREE.DirectionalLight(0xffffff, 3.0);
   directionalLight2.position.set(-100, 50, -100);
   scene.add(directionalLight2);
+
+  const directionalLight3 = new THREE.DirectionalLight(0xffffff, 2.5);
+  directionalLight3.position.set(0, -100, 0);
+  scene.add(directionalLight3);
+
+  const hemisphereLight = new THREE.HemisphereLight(0xffffff, 0xffffff, 2.0);
+  scene.add(hemisphereLight);
 
 
           renderer = new THREE.WebGLRenderer({
