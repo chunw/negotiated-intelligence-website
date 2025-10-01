@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SpiMole | Chimera of the Post-Anthropocene</title>
+  <link href="base.css" rel="stylesheet" type="text/css" />
+  <style>
+    *,
+    *::after,
+    *::before {
+      box-sizing: border-box;
+    }
+
+    html {
+      background: #030303;
+    }
+
+    body {
+      -webkit-tap-highlight-color: transparent;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      scrollbar-width: none;
+      overscroll-behavior: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    ::-webkit-scrollbar {
+      display: none;
+    }
+
+    .content {
+      position: relative;
+      z-index: 2;
+      min-height: 100vh;
+    }
+
+    .statline {
+      text-align: center;
+      padding: 0.5rem;
+      font-size: 0.95rem;
+      color: #999;
+    }
+
+    .statline a {
+      color: #bbb;
+      text-decoration: none;
+      border-bottom: 1px solid #555;
+      transition: all 0.3s ease;
+    }
+
+    .statline a:hover {
+      color: #fff;
+      border-color: #fff;
+    }
+
+    .video {
+      width: 100%;
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 2rem;
+    }
+
+    .video iframe {
+      width: 100%;
+      height: 600px;
+      border-radius: 8px;
+      border: 2px solid #333;
+    }
+
+    .gradient {
+      -webkit-text-fill-color: transparent;
+      -webkit-background-clip: text;
+      background: linear-gradient(135deg, #fff 0%, #999 100%);
+    }
+
+    .campaign {
+      padding-top: 2rem;
+    }
+
+    .lookbook__head__title {
+      text-align: center;
+      padding: 2rem 0;
+    }
+
+    .h-h2 {
+      font-size: 2rem;
+      font-weight: 300;
+      line-height: 1.3;
+      margin: 0;
+    }
+
+    .h-h2.gradient {
+      font-size: 2.5rem;
+      padding-top: 0;
+    }
+
+    .hero-text {
+      text-align: center;
+      padding: 1rem;
+      font-size: 1.1rem;
+    }
+
+    .hero-text a {
+      color: #bbb;
+      text-decoration: none;
+      border-bottom: 1px solid #555;
+    }
+
+    .intro {
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 0 2rem;
+    }
+
+    .intro-desc {
+      font-size: 1.1rem;
+      font-weight: 300;
+      color: #ccc;
+    }
+
+    /* Lookbook Styles */
+    .lookbook {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      min-height: 800px;
+    }
+
+    .lookbook__bar#counter {
+      position: absolute;
+      bottom: 30rem;
+      left: 0;
+      right: 0;
+      z-index: 10;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 3rem;
+    }
+
+    .lookbook__head h2 {
+      font-size: 1.2rem;
+      font-weight: 400;
+      color: #fff;
+      margin: 0;
+    }
+
+    .lookbook__counter {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1.5rem;
+      color: #bbb;
+    }
+
+    .lookbook__pagination {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .lookbook__pagination__left,
+    .lookbook__pagination__right {
+      cursor: pointer;
+      opacity: 1;
+      transition: opacity 0.3s ease;
+    }
+
+    .lookbook__pagination__left:hover,
+    .lookbook__pagination__right:hover {
+      opacity: 0.6;
+    }
+
+    .lookbook__pagination__left__icon,
+    .lookbook__pagination__right__icon {
+      width: 50px;
+      height: auto;
+    }
+
+    .lookbook__frame {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 95%;
+      height: 85%;
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    .frame svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .lookbook__list {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 95%;
+      height: 85%;
+      z-index: 3;
+    }
+
+    .lookbook__list__media {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.6s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    .lookbook__list__media.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .lookbook__list__image {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .lookbook__list__image:hover {
+      transform: scale(1.02);
+    }
+
+    .image-caption {
+      text-align: center;
+      font-size: 0.9rem;
+      color: #888;
+      margin-top: 1rem;
+    }
+
+    /* Lightbox */
+    .lightbox {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.95);
+      z-index: 1000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .lightbox.active {
+      display: flex;
+      opacity: 1;
+    }
+
+    .lightbox__content {
+      position: relative;
+      max-width: 95vw;
+      max-height: 95vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .lightbox__image {
+      max-width: 100%;
+      max-height: 85vh;
+      object-fit: contain;
+      border-radius: 8px;
+    }
+
+    .lightbox__caption {
+      text-align: center;
+      color: #ccc;
+      margin-top: 1.5rem;
+      font-size: 1rem;
+      max-width: 800px;
+    }
+
+    .lightbox__close {
+      position: absolute;
+      top: 2rem;
+      right: 2rem;
+      width: 50px;
+      height: 50px;
+      border: 2px solid #fff;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+
+    .lightbox__close:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: rotate(90deg);
+    }
+
+    .lightbox__close::before,
+    .lightbox__close::after {
+      content: '';
+      position: absolute;
+      width: 24px;
+      height: 2px;
+      background: #fff;
+    }
+
+    .lightbox__close::before {
+      transform: rotate(45deg);
+    }
+
+    .lightbox__close::after {
+      transform: rotate(-45deg);
+    }
+
+    @media (max-width: 768px) {
+      .video iframe {
+        height: 400px;
+      }
+
+      .lookbook__bar {
+        flex-direction: column;
+        gap: 1rem;
+        padding: 0 1rem;
+      }
+
+      .lookbook__frame,
+      .lookbook__list {
+        width: 90%;
+      }
+    }
+  </style>
+</head>
+<body class="body">
+  <div class="content demo">
+    <div class="statline">
+      <span><i><b>
+        <a href="https://vimeo.com/1112136226?share=copy" target="_blank">SpiMole</a>
+      </b></i></span>
+    </div>
+    <div class="statline"><span>Single channel video with audio</span></div>
+    <div class="statline">
+      <span><a href="https://www.marciebegleiter.com/" target="_blank">Marcie Begleiter</a></span>
+    </div>
+
+    <div class="video">
+      <iframe src="https://player.vimeo.com/video/1112136226?autoplay=0&loop=1&controls=1"
+              frameborder="0"
+              allow="autoplay; fullscreen; picture-in-picture"
+              allowfullscreen>
+      </iframe>
+    </div>
+
+    <div class="campaign">
+      <div class="lookbook__head__title">
+        <h2 class="h-h2 gradient">Chimera of the Post-Anthropocene</h2>
+      </div>
+
+      <div class="hero-text">
+        <a href="https://www.marciebegleiter.com/" target="_blank">Marcie Begleiter</a>
+      </div>
+
+      <div class="intro">
+        <div class="intro-inner">
+          <div class="intro-desc">
+            <p>
+              As a photographer and filmmaker my work has focused, in the
+              past 3 years, on engaging with stressed ecosystems. Chimera
+              of the Post-Anthropocene, my current series, explores objects that are assembled from
+              nature but not of it. The photographic tableaus and short
+              videos are based on specific biomes, envisioning dramatic and
+              unpredictable futures of flora and fungi.
+            </p>
+            <br>
+            <p>
+              These hybrid sculptures are photographed in a style inspired
+              by classic natural history museum dioramas. Recent work has
+              been created in the fire scorched High Sierras of Yosemite, the
+              sub-Alpine forests of Banff, Estero Bay in Central California
+              and during a residency at the Sitka Center for Art and Ecology
+              in Cascade Head, the estuary in Oregon formed by the
+              confluence of the Salmon River and the Pacific.
+            </p>
+          </div>
+        </div>
+      </div>
+
+  <div class="lookbook__bar" id="counter">
+      <div class="lookbook__counter">
+        <div class="lookbook__counter__number">01</div>
+        <div class="lookbook__counter__div">/</div>
+        <div class="lookbook__counter__total">08</div>
+      </div>
+      <div class="lookbook__pagination">
+        <div class="lookbook__pagination__left">
+          <img src="https://assets-global.website-files.com/603fe89ec4bbcece7ee6a53a/60bf3147f7b2218c930288d9_arrow-long-left.svg" loading="lazy" alt="" class="lookbook__pagination__left__icon" />
+        </div>
+        <div class="lookbook__pagination__right">
+          <img src="https://assets-global.website-files.com/603fe89ec4bbcece7ee6a53a/60bf31486c24692394e3ca0d_arrow-long-right.svg" loading="lazy" alt="" class="lookbook__pagination__right__icon" />
+        </div>
+      </div>
+    </div>
+
+      <div class="lookbook">
+        <div class="lookbook__bar">
+          <div class="lookbook__head">
+            <h2 class="lookbook__title">Building Blocks for Chimera</h2>
+          </div>
+          <!-- <div class="lookbook__counter">
+            <div class="lookbook__counter__number">01</div>
+            <div class="lookbook__counter__div">/</div>
+            <div class="lookbook__counter__total">08</div>
+          </div>
+          <div class="lookbook__pagination">
+            <div class="lookbook__pagination__left">
+              <img src="https://assets-global.website-files.com/603fe89ec4bbcece7ee6a53a/60bf3147f7b2218c930288d9_arrow-long-left.svg" loading="lazy" alt="" class="lookbook__pagination__left__icon" />
+            </div>
+            <div class="lookbook__pagination__right">
+              <img src="https://assets-global.website-files.com/603fe89ec4bbcece7ee6a53a/60bf31486c24692394e3ca0d_arrow-long-right.svg" loading="lazy" alt="" class="lookbook__pagination__right__icon" />
+            </div>
+          </div> -->
+        </div>
+
+        <div class="lookbook__frame">
+          <svg viewBox="0 0 483 721" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1 55V1H54.5" stroke="#BBB9B9" />
+            <path d="M54.75 719.5L0.75 719.5L0.749998 666" stroke="#BBB9B9" />
+            <path d="M482.5 665.75L482.5 719.75L429 719.75" stroke="#BBB9B9" />
+            <path d="M428 1.25L482 1.25L482 54.75" stroke="#BBB9B9" />
+          </svg>
+        </div>
+
+        <div class="lookbook__list">
+          <div class="lookbook__list__media active" data-title="Building Blocks for Chimera">
+            <img src="assets/img/haiku/backstage 0.png" alt="Building blocks" class="lookbook__list__image">
+            <div class="image-caption">Biological samples collected from ecosystems</div>
+          </div>
+          <div class="lookbook__list__media" data-title="Debris Sculptures">
+            <img src="assets/img/haiku/sculpture1.png" alt="Debris sculpture" class="lookbook__list__image">
+            <div class="image-caption">Hybrid forms between nature and artifice</div>
+          </div>
+          <div class="lookbook__list__media" data-title="Backstage at The Dioramas">
+            <img src="assets/img/haiku/backstage 1.png" alt="Backstage setup" class="lookbook__list__image">
+            <div class="image-caption">Setting up photographic tableaus</div>
+          </div>
+          <div class="lookbook__list__media" data-title="Photo Tableau">
+            <img src="assets/img/haiku/tableau.png" alt="Photo tableau" class="lookbook__list__image">
+            <div class="image-caption">Final photographic compositions</div>
+          </div>
+          <div class="lookbook__list__media" data-title="AI Co-creator Profile">
+            <img src="assets/img/haiku/backstage 3.png" alt="AI collaboration" class="lookbook__list__image">
+            <div class="image-caption">Photography + Poetry & AI = Moving Images</div>
+          </div>
+          <div class="lookbook__list__media" data-title="AI Interpretation">
+            <img src="assets/img/haiku/AI.png" alt="AI interpretation" class="lookbook__list__image">
+            <div class="image-caption">Tableau prompted with Haiku poetry</div>
+          </div>
+          <div class="lookbook__list__media" data-title="Poetry & Movement">
+            <img src="assets/img/haiku/handwritting.png" alt="Handwritten haiku" class="lookbook__list__image">
+            <div class="image-caption">Haiku written in response to diorama images</div>
+          </div>
+          <div class="lookbook__list__media" data-title="Creative Divergence">
+            <img src="assets/img/haiku/AI2.png" alt="Creative divergence" class="lookbook__list__image">
+            <div class="image-caption">World building with AI collaboration</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Lightbox -->
+    <div class="lightbox">
+      <div class="lightbox__close"></div>
+      <div class="lightbox__content">
+        <img src="" alt="" class="lightbox__image">
+        <div class="lightbox__caption"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.lookbook__list__media');
+    const totalSlides = slides.length;
+    const counterNumber = document.querySelector('.lookbook__counter__number');
+    const lookbookTitle = document.querySelector('.lookbook__title');
+    const leftArrow = document.querySelector('.lookbook__pagination__left');
+    const rightArrow = document.querySelector('.lookbook__pagination__right');
+
+    // Lightbox elements
+    const lightbox = document.querySelector('.lightbox');
+    const lightboxImage = document.querySelector('.lightbox__image');
+    const lightboxCaption = document.querySelector('.lightbox__caption');
+    const lightboxClose = document.querySelector('.lightbox__close');
+    const allImages = document.querySelectorAll('.lookbook__list__image');
+
+    function updateSlide() {
+      slides.forEach((slide, index) => {
+        slide.classList.toggle('active', index === currentSlide);
+      });
+      counterNumber.textContent = String(currentSlide + 1).padStart(2, '0');
+
+      // Update the title based on current slide
+      const currentSlideElement = slides[currentSlide];
+      const title = currentSlideElement.dataset.title;
+      lookbookTitle.textContent = title;
+    }
+
+    function nextSlide() {
+      currentSlide = (currentSlide + 1) % totalSlides;
+      updateSlide();
+    }
+
+    function prevSlide() {
+      currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+      updateSlide();
+    }
+
+    // Lightbox functions
+    function openLightbox(imgSrc, caption) {
+      lightboxImage.src = imgSrc;
+      lightboxCaption.textContent = caption;
+      lightbox.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      lightbox.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    // Add click listeners to all images
+    allImages.forEach((img) => {
+      img.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const parentMedia = img.closest('.lookbook__list__media');
+        const caption = parentMedia.querySelector('.image-caption').textContent;
+        openLightbox(img.src, caption);
+      });
+    });
+
+    // Close lightbox handlers
+    lightboxClose.addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) {
+        closeLightbox();
+      }
+    });
+
+    leftArrow.addEventListener('click', prevSlide);
+    rightArrow.addEventListener('click', nextSlide);
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (lightbox.classList.contains('active')) {
+        if (e.key === 'Escape') closeLightbox();
+      } else {
+        if (e.key === 'ArrowLeft') prevSlide();
+        if (e.key === 'ArrowRight') nextSlide();
+      }
+    });
+
+    // Touch swipe support
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    document.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    });
+
+    document.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      if (touchStartX - touchEndX > 50) nextSlide();
+      if (touchEndX - touchStartX > 50) prevSlide();
+    });
+  </script>
+</body>
+</html>
