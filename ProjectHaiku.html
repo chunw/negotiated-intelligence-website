@@ -199,335 +199,335 @@
     }
 
 
-        /* Grid Overview */
-        .grid-overview {
-          max-width: 1400px;
-          margin: 0 auto;
-          padding: 2rem;
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-          gap: 2rem;
-        }
+    /* Grid Overview */
+    .grid-overview {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 2rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
 
-        .grid-item {
-          position: relative;
-          cursor: pointer;
-          border: 1px solid #333;
-          border-radius: 8px;
-          overflow: hidden;
-          transition: all 0.3s ease;
-          background: #0a0a0a;
-        }
+    .grid-item {
+      position: relative;
+      cursor: pointer;
+      border: 1px solid #333;
+      border-radius: 8px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      background: #0a0a0a;
+    }
 
-        .grid-item:hover {
-          border-color: #666;
-          transform: translateY(-4px);
-          box-shadow: 0 8px 20px rgba(0,0,0,0.5);
-        }
+    .grid-item:hover {
+      border-color: #666;
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+    }
 
-        .grid-item__image {
-          width: 100%;
-          height: 300px;
-          object-fit: cover;
-          display: block;
-        }
+    .grid-item__image {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+      display: block;
+    }
 
-        .grid-item__info {
-          padding: 1.5rem;
-        }
+    .grid-item__info {
+      padding: 1.5rem;
+    }
 
-        .grid-item__title {
-          font-size: 1.1rem;
-          font-weight: 400;
-          color: #fff;
-          margin-bottom: 0.5rem;
-        }
+    .grid-item__title {
+      font-size: 1.1rem;
+      font-weight: 400;
+      color: #fff;
+      margin-bottom: 0.5rem;
+    }
 
-        .grid-item__caption {
-          font-size: 0.9rem;
-          color: #888;
-          line-height: 1.5;
-        }
+    .grid-item__caption {
+      font-size: 0.9rem;
+      color: #888;
+      line-height: 1.5;
+    }
 
-        /* Fullscreen Slideshow */
-        .slideshow-fullscreen {
-          position: fixed;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          background: #030303;
-          z-index: 2000;
-          display: none;
-          opacity: 0;
-          transition: opacity 0.3s ease;
-        }
+    /* Fullscreen Slideshow */
+    .slideshow-fullscreen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #030303;
+      z-index: 2000;
+      display: none;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
 
-        .slideshow-fullscreen.active {
-          display: block;
-          opacity: 1;
-        }
+    .slideshow-fullscreen.active {
+      display: block;
+      opacity: 1;
+    }
 
-        .slideshow__bar {
-          position: absolute;
-          top: 2rem;
-          left: 0;
-          right: 0;
-          z-index: 10;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          padding: 0 3rem;
-        }
+    .slideshow__bar {
+      position: absolute;
+      top: 2rem;
+      left: 0;
+      right: 0;
+      z-index: 10;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 3rem;
+    }
 
-        .slideshow__head h2 {
-          font-size: 1.2rem;
-          font-weight: 400;
-          color: #fff;
-          margin: 0;
-        }
+    .slideshow__head h2 {
+      font-size: 1.2rem;
+      font-weight: 400;
+      color: #fff;
+      margin: 0;
+    }
 
-        .slideshow__counter {
-          display: flex;
-          align-items: center;
-          gap: 0.5rem;
-          font-size: 1.5rem;
-          color: #bbb;
-        }
+    .slideshow__counter {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1.5rem;
+      color: #bbb;
+    }
 
-        .slideshow__pagination {
-          display: flex;
-          gap: 2rem;
-        }
+    .slideshow__pagination {
+      display: flex;
+      gap: 2rem;
+    }
 
-        .slideshow__pagination__left,
-        .slideshow__pagination__right {
-          cursor: pointer;
-          opacity: 1;
-          transition: opacity 0.3s ease;
-        }
+    .slideshow__pagination__left,
+    .slideshow__pagination__right {
+      cursor: pointer;
+      opacity: 1;
+      transition: opacity 0.3s ease;
+    }
 
-        .slideshow__pagination__left:hover,
-        .slideshow__pagination__right:hover {
-          opacity: 0.6;
-        }
+    .slideshow__pagination__left:hover,
+    .slideshow__pagination__right:hover {
+      opacity: 0.6;
+    }
 
-        .slideshow__pagination__icon {
-          width: 50px;
-          height: auto;
-        }
+    .slideshow__pagination__icon {
+      width: 50px;
+      height: auto;
+    }
 
-        .slideshow__close {
-          position: absolute;
-          top: 2rem;
-          right: 3rem;
-          width: 50px;
-          height: 50px;
-          border: 2px solid #fff;
-          border-radius: 50%;
-          background: rgba(255, 255, 255, 0.1);
-          cursor: pointer;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          transition: all 0.3s ease;
-          z-index: 20;
-        }
+    .slideshow__close {
+      position: absolute;
+      top: 2rem;
+      right: 3rem;
+      width: 50px;
+      height: 50px;
+      border: 2px solid #fff;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      z-index: 20;
+    }
 
-        .slideshow__close:hover {
-          background: rgba(255, 255, 255, 0.2);
-          transform: rotate(90deg);
-        }
+    .slideshow__close:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: rotate(90deg);
+    }
 
-        .slideshow__close::before,
-        .slideshow__close::after {
-          content: '';
-          position: absolute;
-          width: 24px;
-          height: 2px;
-          background: #fff;
-        }
+    .slideshow__close::before,
+    .slideshow__close::after {
+      content: '';
+      position: absolute;
+      width: 24px;
+      height: 2px;
+      background: #fff;
+    }
 
-        .slideshow__close::before {
-          transform: rotate(45deg);
-        }
+    .slideshow__close::before {
+      transform: rotate(45deg);
+    }
 
-        .slideshow__close::after {
-          transform: rotate(-45deg);
-        }
+    .slideshow__close::after {
+      transform: rotate(-45deg);
+    }
 
-        .slideshow__frame {
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-          width: 95%;
-          height: 85%;
-          pointer-events: none;
-          z-index: 5;
-        }
+    .slideshow__frame {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 95%;
+      height: 85%;
+      pointer-events: none;
+      z-index: 5;
+    }
 
-        .frame svg {
-          width: 100%;
-          height: 100%;
-        }
+    .frame svg {
+      width: 100%;
+      height: 100%;
+    }
 
-        .slideshow__list {
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-          width: 95%;
-          height: 85%;
-          z-index: 3;
-        }
+    .slideshow__list {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 95%;
+      height: 85%;
+      z-index: 3;
+    }
 
-        .slideshow__list__media {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          opacity: 0;
-          pointer-events: none;
-          transition: opacity 0.6s ease;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          padding: 2rem;
-        }
+    .slideshow__list__media {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.6s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
 
-        .slideshow__list__media.active {
-          opacity: 1;
-          pointer-events: auto;
-        }
+    .slideshow__list__media.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
 
-        .slideshow__list__image {
-          width: 100%;
-          height: 100%;
-          object-fit: contain;
-          border-radius: 8px;
-          cursor: pointer;
-          transition: transform 0.3s ease;
-        }
+    .slideshow__list__image {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
 
-        .slideshow__list__image:hover {
-          transform: scale(1.02);
-        }
+    .slideshow__list__image:hover {
+      transform: scale(1.02);
+    }
 
-        .image-caption {
-          text-align: center;
-          font-size: 0.9rem;
-          color: #888;
-          margin-top: 1rem;
-        }
+    .image-caption {
+      text-align: center;
+      font-size: 0.9rem;
+      color: #888;
+      margin-top: 1rem;
+    }
 
-        /* Lightbox */
-        .lightbox {
-          position: fixed;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          background: rgba(0, 0, 0, 0.95);
-          z-index: 3000;
-          display: none;
-          align-items: center;
-          justify-content: center;
-          opacity: 0;
-          transition: opacity 0.3s ease;
-        }
+    /* Lightbox */
+    .lightbox {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.95);
+      z-index: 3000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
 
-        .lightbox.active {
-          display: flex;
-          opacity: 1;
-        }
+    .lightbox.active {
+      display: flex;
+      opacity: 1;
+    }
 
-        .lightbox__content {
-          position: relative;
-          max-width: 95vw;
-          max-height: 95vh;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-        }
+    .lightbox__content {
+      position: relative;
+      max-width: 95vw;
+      max-height: 95vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
 
-        .lightbox__image {
-          max-width: 100%;
-          max-height: 85vh;
-          object-fit: contain;
-          border-radius: 8px;
-        }
+    .lightbox__image {
+      max-width: 100%;
+      max-height: 85vh;
+      object-fit: contain;
+      border-radius: 8px;
+    }
 
-        .lightbox__caption {
-          text-align: center;
-          color: #ccc;
-          margin-top: 1.5rem;
-          font-size: 1rem;
-          max-width: 800px;
-        }
+    .lightbox__caption {
+      text-align: center;
+      color: #ccc;
+      margin-top: 1.5rem;
+      font-size: 1rem;
+      max-width: 800px;
+    }
 
-        .lightbox__close {
-          position: absolute;
-          top: 2rem;
-          right: 2rem;
-          width: 50px;
-          height: 50px;
-          border: 2px solid #fff;
-          border-radius: 50%;
-          background: rgba(255, 255, 255, 0.1);
-          cursor: pointer;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          transition: all 0.3s ease;
-        }
+    .lightbox__close {
+      position: absolute;
+      top: 2rem;
+      right: 2rem;
+      width: 50px;
+      height: 50px;
+      border: 2px solid #fff;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
 
-        .lightbox__close:hover {
-          background: rgba(255, 255, 255, 0.2);
-          transform: rotate(90deg);
-        }
+    .lightbox__close:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: rotate(90deg);
+    }
 
-        .lightbox__close::before,
-        .lightbox__close::after {
-          content: '';
-          position: absolute;
-          width: 24px;
-          height: 2px;
-          background: #fff;
-        }
+    .lightbox__close::before,
+    .lightbox__close::after {
+      content: '';
+      position: absolute;
+      width: 24px;
+      height: 2px;
+      background: #fff;
+    }
 
-        .lightbox__close::before {
-          transform: rotate(45deg);
-        }
+    .lightbox__close::before {
+      transform: rotate(45deg);
+    }
 
-        .lightbox__close::after {
-          transform: rotate(-45deg);
-        }
+    .lightbox__close::after {
+      transform: rotate(-45deg);
+    }
 
-        @media (max-width: 768px) {
-          .video iframe {
-            height: 400px;
-          }
+    @media (max-width: 768px) {
+      .video iframe {
+        height: 400px;
+      }
 
-          .grid-overview {
-            grid-template-columns: 1fr;
-            gap: 1.5rem;
-          }
+      .grid-overview {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
 
-          .slideshow__bar {
-            flex-direction: column;
-            gap: 1rem;
-            padding: 0 1rem;
-          }
+      .slideshow__bar {
+        flex-direction: column;
+        gap: 1rem;
+        padding: 0 1rem;
+      }
 
-          .slideshow__frame,
-          .slideshow__list {
-            width: 90%;
-          }
-        }
+      .slideshow__frame,
+      .slideshow__list {
+        width: 90%;
+      }
+    }
   </style>
 
 </head>
@@ -585,9 +585,9 @@
           </a>
 
         </span></div>
-        <br>
-        <div class="statline"><b></div>
-        🎧 Best Experienced with Headphones</b>
+      <br>
+      <div class="statline"><b></div>
+      🎧 Best Experienced with Headphones</b>
 
 
 
@@ -692,24 +692,52 @@
           <div class="grid-item" data-index="5">
             <img src="assets/img/haiku/AI.png" alt="AI interpretation" class="grid-item__image">
             <div class="grid-item__info">
-              <div class="grid-item__title">AI Interpretation</div>
-              <div class="grid-item__caption">Tableau prompted with Haiku poetry</div>
+              <div class="grid-item__title">AI Interpretation of Poetry</div>
+              <div class="grid-item__caption">Tableau are shared with an AI collaborator
+                who is prompted with Haiku.
+                Movement added to Diorama
+                Photographs by AI Collaborator
+                is an interpretation of the poetry.
+              </div>
             </div>
           </div>
 
           <div class="grid-item" data-index="6">
-            <img src="assets/img/haiku/handwritting.png" alt="Handwritten haiku" class="grid-item__image">
+            <img src="assets/img/haiku/Doc2.png" alt="Video editing" class="grid-item__image">
             <div class="grid-item__info">
-              <div class="grid-item__title">Poetry & Movement</div>
-              <div class="grid-item__caption">Haiku written in response to diorama images</div>
+              <div class="grid-item__title">Video Editing Process</div>
+              <div class="grid-item__caption">Most raw clips are 5 seconds and are edited in Capcut.</div>
             </div>
           </div>
 
           <div class="grid-item" data-index="7">
+            <img src="assets/img/haiku/handwritting.png" alt="Handwritten haiku" class="grid-item__image">
+            <div class="grid-item__info">
+              <div class="grid-item__title">Human Reponses with Poetry </div>
+              <div class="grid-item__caption">Haiku / Poems written by human artist in
+                response to the diorama images.
+              </div>
+            </div>
+          </div>
+
+          <div class="grid-item" data-index="8">
             <img src="assets/img/haiku/AI2.png" alt="Creative divergence" class="grid-item__image">
             <div class="grid-item__info">
               <div class="grid-item__title">Creative Divergence</div>
-              <div class="grid-item__caption">World building with AI collaboration</div>
+              <div class="grid-item__caption">
+                I am looking for consistency in my world building.
+                The AI collaborator, on occasion, will run off on flights of fancy.
+                Though entertaining, the hallucinations do not make the final cut</div>
+            </div>
+          </div>
+
+          <div class="grid-item" data-index="9">
+            <img src="assets/img/haiku/AI3.png" alt="AI hallucinations" class="grid-item__image">
+            <div class="grid-item__info">
+              <div class="grid-item__title">Creative Divergence </div>
+              <div class="grid-item__caption">
+                Rejected imagery
+              </div>
             </div>
           </div>
         </div>
@@ -725,7 +753,7 @@
             <div class="slideshow__counter">
               <div class="slideshow__counter__number">01</div>
               <div class="slideshow__counter__div">/</div>
-              <div class="slideshow__counter__total">08</div>
+              <div class="slideshow__counter__total">10</div>
             </div>
             <div class="slideshow__pagination">
               <div class="slideshow__pagination__left">
@@ -749,7 +777,8 @@
           <div class="slideshow__list">
             <div class="slideshow__list__media active" data-title="Building Blocks for Chimera">
               <img src="assets/img/haiku/backstage 0.png" alt="Building blocks" class="slideshow__list__image">
-              <div class="image-caption">Biological samples collected from ecosystems</div>
+              <div class="image-caption">Biological samples collected from ecosystems
+              </div>
             </div>
             <div class="slideshow__list__media" data-title="Debris Sculptures">
               <img src="assets/img/haiku/sculpture1.png" alt="Debris sculpture" class="slideshow__list__image">
@@ -765,19 +794,61 @@
             </div>
             <div class="slideshow__list__media" data-title="AI Co-creator Profile">
               <img src="assets/img/haiku/backstage 3.png" alt="AI collaboration" class="slideshow__list__image">
-              <div class="image-caption">Photography + Poetry & AI = Moving Images</div>
+              <div class="image-caption">
+                <div>
+                  AI Co-creator Profile:
+                  <br><br>
+                  Topaz Photo
+                  AI - for
+                  cleaning
+                  images
+
+                  <br>
+                  Photoshop
+                  Beta - for
+                  image
+                  development
+                  <br>
+
+                  Kling 1.6
+                  for adding
+                  movement to
+                  the clips -
+                  accessed
+                  through
+                  OpenArtAI
+
+                  <br>
+                  Capcut -
+                  Editing
+
+                </div>
+              </div>
             </div>
             <div class="slideshow__list__media" data-title="AI Interpretation">
               <img src="assets/img/haiku/AI.png" alt="AI interpretation" class="slideshow__list__image">
-              <div class="image-caption">Tableau prompted with Haiku poetry</div>
+              <div class="image-caption">Tableau are shared with an AI collaborator
+                who is prompted with Haiku. The resulting
+                movement is an interpretation of poetry.
+              </div>
+            </div>
+            <div class="slideshow__list__media" data-title="Video Editing Process">
+              <img src="assets/img/haiku/Doc2.png" alt="Video editing" class="slideshow__list__image">
+              <div class="image-caption">Most raw clips are 5 seconds and are edited in Capcut.</div>
             </div>
             <div class="slideshow__list__media" data-title="Poetry & Movement">
               <img src="assets/img/haiku/handwritting.png" alt="Handwritten haiku" class="slideshow__list__image">
-              <div class="image-caption">Haiku written in response to diorama images</div>
+              <div class="image-caption">Haiku / Poems written by human artist in
+                response to the diorama images.
+              </div>
             </div>
             <div class="slideshow__list__media" data-title="Creative Divergence">
               <img src="assets/img/haiku/AI2.png" alt="Creative divergence" class="slideshow__list__image">
               <div class="image-caption">World building with AI collaboration</div>
+            </div>
+            <div class="slideshow__list__media" data-title="Creative Divergence: Flights of Fancy">
+              <img src="assets/img/haiku/AI3.png" alt="AI hallucinations" class="slideshow__list__image">
+              <div class="image-caption">I am looking for consistency in my world building. The AI collaborator, on occasion, will run off on flights of fancy. Though entertaining, the hallucinations do not make the final cut.</div>
             </div>
           </div>
         </div>
