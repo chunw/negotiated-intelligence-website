@@ -509,18 +509,8 @@
           // Check if the clicked object is any of the interactive layers
           for (let i = 0; i < intersects.length; i++) {
             const object = intersects[i].object;
-            if (object.userData && (
-              object.userData.isSecondDrawingLayer ||
-              object.userData.isMuralLayer ||
-              object.userData.isThirdDrawingLayer
-            )) {
-              // Redirect to different URLs based on layer
-              if (object.userData.isThirdDrawingLayer) {
-                window.open('https://example.com/third-layer', '_blank');
-              } else {
-                window.open('https://byaikea.com/', '_blank');
-              }
-              break;
+            if (object.userData) {
+              window.open('ProjectAveMaria.html', '_blank');
             }
           }
         }

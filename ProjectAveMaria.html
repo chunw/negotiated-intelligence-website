@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html data-wf-page="61c5e06d4c32b4d376aaf502" data-wf-site="603fe89ec4bbcece7ee6a53a" lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <title>Negotiated Intelligence | The Wrong Biennale 7th Edition</title>
+  <meta content="Negotiated Intelligence" name="description" />
+  <meta content="Negotiated Intelligence" property="og:title" />
+  <meta content="Negotiated Intelligence" property="og:description" />
+  <meta property="og:type" content="website" />
+  <meta content="width=device-width, initial-scale=1" name="viewport" />
+  <link href="base.css" rel="stylesheet" type="text/css" />
+  <link href="assets/img/favicon.png" rel="shortcut icon" type="image/x-icon" />
+  <link href="assets/img/favicon.png" rel="apple-touch-icon" />
+  <script src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.5.1.min.dc5e7f18c8.js?site=603fe89ec4bbcece7ee6a53a" type="text/javascript" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/gsap.min.js"></script>
+
+  <script type="text/javascript">
+    ! function(o, c) {
+      var n = c.documentElement,
+        t = " w-mod-";
+      n.className += t + "js", ("ontouchstart" in o || o.DocumentTouch && c instanceof DocumentTouch) && (n.className += t + "touch")
+    }(window, document);
+  </script>
+
+  <style>
+    .collection {
+      opacity: 0;
+    }
+
+    .info-img-gradient.bottom {
+      transform: scaleY(-1);
+    }
+  </style>
+
+  <style>
+    *,
+    *::after,
+    *::before {
+      box-sizing: border-box;
+    }
+
+    html {
+      background: #030303;
+    }
+
+    body {
+      -webkit-tap-highlight-color: transparent;
+      -webkit-font-smoothing: subpixel-antialiased;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      -webkit-overflow-scrolling: touch;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      overscroll-behavior: none;
+    }
+
+    .content {
+      position: relative;
+      z-index: 2;
+    }
+
+
+    /*Disable Text Selection */
+    @media (min-width: 991px) {
+      * {
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+    }
+
+    input,
+    textarea {
+      -webkit-user-select: text;
+      -khtml-user-select: text;
+      -moz-user-select: text;
+      -ms-user-select: text;
+      user-select: text;
+    }
+
+    /*Remove Scrollbar */
+    ::-webkit-scrollbar {
+      -ms-overflow-style: none;
+      display: none;
+      overflow: -moz-scrollbars-none;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      -ms-overflow-style: -ms-autohiding-scrollbar;
+    }
+
+    .grid-w {
+      display: none;
+    }
+
+    .underline-style {
+      text-underline-offset: 0.3rem;
+      text-decoration-thickness: 1px;
+    }
+
+    .blend_back {
+      background-blend-mode: luminosity;
+      background-color: #030303;
+      opacity: 0.1;
+      display: block;
+    }
+
+    canvas {
+      left: 0;
+      position: fixed;
+      top: 0;
+      z-index: 1;
+    }
+
+    [data-animation="slider"],
+    [data-animation="slider"] .collection-list {
+      display: inline-block;
+      width: auto !important;
+      white-space: nowrap;
+    }
+
+    [data-animation="slider-item"] {
+      display: inline-block !important;
+      height: 38vw;
+      position: relative;
+      width: 55vw;
+    }
+
+    [data-animation="slider-item"] img {
+      border: 2px solid #bbb9b94a;
+      border-radius: 18px;
+      position: absolute;
+      object-fit: cover;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: calc(100% - 2vw);
+    }
+
+    .menu {
+      height: 100vh;
+      height: calc(var(--vh, 1vh) * 100);
+    }
+
+    .loader {
+      display: block;
+    }
+
+    .hero.home,
+    .wait {
+      height: 100vh;
+      /* height: calc(var(--vh, 1vh) * 100); */
+    }
+
+    audio {
+      opacity: 0.8;
+    }
+
+    audio::-webkit-media-controls-panel {
+      background-color: #535353;
+    }
+
+    audio::-webkit-media-controls-current-time-display {
+      text-shadow: none;
+      color: white;
+    }
+
+    audio::-webkit-media-controls-time-remaining-display {
+      text-shadow: none;
+      color: white;
+    }
+
+    .dataset .h-h2.desc {
+      font-size: 1.5rem;
+      line-height: 1.3;
+      font-weight: 300;
+      border-bottom: 1px solid #ddd;
+      padding: 8px;
+    }
+
+    thead {
+      background-color: #585858;
+      color: white;
+      font-weight: 300;
+    }
+
+    th,
+    td {
+      border-bottom: 1px solid #ddd;
+      padding: 8px;
+    }
+
+    table {
+      border-collapse: collapse;
+      border-top: 2px solid black;
+      border-bottom: 2px solid black;
+    }
+
+
+    /* Grid Overview */
+    .grid-overview {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 2rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .grid-item {
+      position: relative;
+      cursor: pointer;
+      border: 1px solid #333;
+      border-radius: 8px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      background: #0a0a0a;
+    }
+
+    .grid-item:hover {
+      border-color: #666;
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+    }
+
+    .grid-item__image {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .grid-item__info {
+      padding: 1.5rem;
+    }
+
+    .grid-item__title {
+      font-size: 1.1rem;
+      font-weight: 400;
+      color: #fff;
+      margin-bottom: 0.5rem;
+    }
+
+    .grid-item__caption {
+      font-size: 0.9rem;
+      color: #888;
+      line-height: 1.5;
+    }
+
+    /* Fullscreen Slideshow */
+    .slideshow-fullscreen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #030303;
+      z-index: 2000;
+      display: none;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .slideshow-fullscreen.active {
+      display: block;
+      opacity: 1;
+    }
+
+    .slideshow__bar {
+      position: absolute;
+      top: 2rem;
+      left: 0;
+      right: 0;
+      z-index: 10;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 3rem;
+    }
+
+    .slideshow__head h2 {
+      font-size: 1.2rem;
+      font-weight: 400;
+      color: #fff;
+      margin: 0;
+    }
+
+    .slideshow__counter {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1.5rem;
+      color: #bbb;
+    }
+
+    .slideshow__pagination {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .slideshow__pagination__left,
+    .slideshow__pagination__right {
+      cursor: pointer;
+      opacity: 1;
+      transition: opacity 0.3s ease;
+    }
+
+    .slideshow__pagination__left:hover,
+    .slideshow__pagination__right:hover {
+      opacity: 0.6;
+    }
+
+    .slideshow__pagination__icon {
+      width: 50px;
+      height: auto;
+    }
+
+    .slideshow__close {
+      position: absolute;
+      top: 2rem;
+      right: 3rem;
+      width: 50px;
+      height: 50px;
+      border: 2px solid #fff;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      z-index: 20;
+    }
+
+    .slideshow__close:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: rotate(90deg);
+    }
+
+    .slideshow__close::before,
+    .slideshow__close::after {
+      content: '';
+      position: absolute;
+      width: 24px;
+      height: 2px;
+      background: #fff;
+    }
+
+    .slideshow__close::before {
+      transform: rotate(45deg);
+    }
+
+    .slideshow__close::after {
+      transform: rotate(-45deg);
+    }
+
+    .slideshow__frame {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 95%;
+      height: 85%;
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    .frame svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .slideshow__list {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 95%;
+      height: 85%;
+      z-index: 3;
+    }
+
+    .slideshow__list__media {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.6s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    .slideshow__list__media.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .slideshow__list__image {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .slideshow__list__image:hover {
+      transform: scale(1.02);
+    }
+
+    .image-caption {
+      text-align: center;
+      font-size: 0.9rem;
+      color: #888;
+      margin-top: 1rem;
+    }
+
+    /* Lightbox */
+    .lightbox {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.95);
+      z-index: 3000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .lightbox.active {
+      display: flex;
+      opacity: 1;
+    }
+
+    .lightbox__content {
+      position: relative;
+      max-width: 95vw;
+      max-height: 95vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .lightbox__image {
+      max-width: 100%;
+      max-height: 85vh;
+      object-fit: contain;
+      border-radius: 8px;
+    }
+
+    .lightbox__caption {
+      text-align: center;
+      color: #ccc;
+      margin-top: 1.5rem;
+      font-size: 1rem;
+      max-width: 800px;
+    }
+
+    .lightbox__close {
+      position: absolute;
+      top: 2rem;
+      right: 2rem;
+      width: 50px;
+      height: 50px;
+      border: 2px solid #fff;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+
+    .lightbox__close:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: rotate(90deg);
+    }
+
+    .lightbox__close::before,
+    .lightbox__close::after {
+      content: '';
+      position: absolute;
+      width: 24px;
+      height: 2px;
+      background: #fff;
+    }
+
+    .lightbox__close::before {
+      transform: rotate(45deg);
+    }
+
+    .lightbox__close::after {
+      transform: rotate(-45deg);
+    }
+
+    @media (max-width: 768px) {
+      .video iframe {
+        height: 400px;
+      }
+
+      .grid-overview {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+
+      .slideshow__bar {
+        flex-direction: column;
+        gap: 1rem;
+        padding: 0 1rem;
+      }
+
+      .slideshow__frame,
+      .slideshow__list {
+        width: 90%;
+      }
+    }
+  </style>
+
+</head>
+
+<body class="body" data-ix="pre-loader">
+  <div class="gradient-embed w-embed">
+    <style>
+      .gradient {
+        -webkit-text-fill-color: transparent;
+        -webkit-background-clip: text;
+      }
+
+      .blend {
+        mix-blend-mode: difference;
+      }
+    </style>
+  </div>
+
+  <div class="navbar navbar__shop" style="display:none; padding:1rem 0.5vw 0 2.5vw ">
+    <div class="n-block left">
+      <div data-w-id="2264dfe2-412c-a750-b778-fffb7eb6b996" class="n-wrap">
+        <div data-w-id="2264dfe2-412c-a750-b778-fffb7eb6b997" class="n-trigger">
+          <div data-w-id="2264dfe2-412c-a750-b778-fffb7eb6b998" class="n-line"></div>
+          <div data-w-id="2264dfe2-412c-a750-b778-fffb7eb6b999" class="n-line bottom"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="n-block center"><a rel="noopener" draggable="false" href="/" aria-current="page" class="n-link w-inline-block w--current"><img style="opacity: 0.9; width: 200px;"
+          src="https://freight.cargo.site/w/217/q/94/i/fb2b46cd634f8600d388c1fddfc23c48e2c1e3593988f576bbec4237426c8fcb/CAMLab.png" loading="lazy" class="n-brand" /></a>
+    </div>
+    <div class="n-block right"></div>
+  </div>
+
+
+  <main data-template="home" class="content demo">
+
+    <div id="dataset" class="collection" style="margin-top: 0vw">
+
+
+
+      <div class="campaign">
+        <div style="text-align: center; " class="lookbook__head__title">
+          <h2 style=" line-height: 1.1; padding-top: 2rem;" class="h-h2 gradient">
+            Ave Maria
+          </h2>
+        </div>
+
+        <div class="hero-text">
+          <a href="hmarielemoigne.com" target="_blank">
+            Marie Le Moigne
+          </a>
+        </div>
+
+
+
+
+        <div class="intro" style="padding: 5% 15% 0">
+          <div class="intro-inner">
+            <div class="intro-desc">
+              <h2 class="h-h2 desc" style="line-height: 1.5; margin-bottom: 1rem; text-align: left;">
+                Ave Maria – Augmented Version is an experimental photographic series that explores the
+                transformation of feminine identity in the digital age. By combining self-portraits, generative AI,
+                hand embroidery, and printed photography, the project questions the boundaries between real
+                and virtual, between embodied body and simulated image.
+
+                <br>
+                <br>
+
+                Some images are generated from scanned analog photographs, sometimes almost identically
+                reproduced by artificial intelligence. This process does not aim to reinforce materiality, but rather
+                to disturb perception, to blur the line between original image and recreated image, between
+                analog memory and digital illusion. This shift creates a deliberate confusion, a loss of bearings,
+                raising the question of what it means today to see a body.
+
+                <br>
+                <br>
+                I also work with selfies taken on an iPhone, transformed by AI, then printed and hand-
+                embroidered. This back-and-forth between algorithmic and manual gestures builds a dialogue
+
+                between machine and matter, where each portrait becomes an augmented, unstable, fragmented
+                self-portrait. The faces multiply, distort, and move away from a fixed truth to open onto a fluid,
+                recomposed identity. The body thus becomes a site of experimentation — both intimate and
+                political.
+
+                <br>
+
+                <br>
+
+                Through this hybridization, Ave Maria – Augmented Version diverts the sacred imagery
+                associated with the figure of the Virgin to explore a contemporary otherness: that of a feminine
+                identity both unstable and dissolved in data flows, yet reaffirmed through the act of creation. The
+                work questions our relationship to aura, to bodily truth, and to the persistence of the sensitive in
+                the face of artificiality.
+
+                <br>
+                <br>
+                Between ritual, alteration, and a deflected prayer, this series offers a visual reflection on how our
+                identities — and our flesh — are being redefined in a world where artificial intelligence is already
+                shaping our faces.
+
+
+              </h2>
+
+
+
+            </div>
+          </div>
+        </div>
+
+
+
+        <div class="process-title">
+          <h2>Negotiation Arena</h2>
+        </div>
+
+        <!-- Grid Overview -->
+        <div class="grid-overview">
+          <div class="grid-item" data-index="0">
+            <img src="assets/img/haiku/backstage 0.png" alt="Building blocks" class="grid-item__image">
+            <div class="grid-item__info">
+              <div class="grid-item__title">Building Blocks for Chimera</div>
+              <div class="grid-item__caption">Biological samples collected from ecosystems</div>
+            </div>
+          </div>
+
+          <div class="grid-item" data-index="1">
+            <img src="assets/img/haiku/sculpture1.png" alt="Debris sculpture" class="grid-item__image">
+            <div class="grid-item__info">
+              <div class="grid-item__title">Debris Sculptures</div>
+              <div class="grid-item__caption">Hybrid forms between nature and artifice</div>
+            </div>
+          </div>
+
+          <div class="grid-item" data-index="2">
+            <img src="assets/img/haiku/backstage 1.png" alt="Backstage setup" class="grid-item__image">
+            <div class="grid-item__info">
+              <div class="grid-item__title">Backstage at The Dioramas</div>
+              <div class="grid-item__caption">Setting up photographic tableaus</div>
+            </div>
+          </div>
+
+          <div class="grid-item" data-index="3">
+            <img src="assets/img/haiku/tableau.png" alt="Photo tableau" class="grid-item__image">
+            <div class="grid-item__info">
+              <div class="grid-item__title">Photo Tableau</div>
+              <div class="grid-item__caption">Final photographic compositions</div>
+            </div>
+          </div>
+
+          <div class="grid-item" data-index="4">
+            <img src="assets/img/haiku/backstage 3.png" alt="AI collaboration" class="grid-item__image">
+            <div class="grid-item__info">
+              <div class="grid-item__title">AI Co-creator Profile</div>
+              <div class="grid-item__caption">Photography + Poetry & AI = Moving Images</div>
+            </div>
+          </div>
+
+          <div class="grid-item" data-index="5">
+            <img src="assets/img/haiku/AI.png" alt="AI interpretation" class="grid-item__image">
+            <div class="grid-item__info">
+              <div class="grid-item__title">AI Interpretation of Poetry</div>
+              <div class="grid-item__caption">Tableau are shared with an AI collaborator
+                who is prompted with Haiku.
+                Movement added to Diorama
+                Photographs by AI Collaborator
+                is an interpretation of the poetry.
+              </div>
+            </div>
+          </div>
+
+          <div class="grid-item" data-index="6">
+            <img src="assets/img/haiku/Doc2.png" alt="Video editing" class="grid-item__image">
+            <div class="grid-item__info">
+              <div class="grid-item__title">Video Editing Process</div>
+              <div class="grid-item__caption">Most raw clips are 5 seconds and are edited in Capcut.</div>
+            </div>
+          </div>
+
+          <div class="grid-item" data-index="7">
+            <img src="assets/img/haiku/handwritting.png" alt="Handwritten haiku" class="grid-item__image">
+            <div class="grid-item__info">
+              <div class="grid-item__title">Human Reponses with Poetry </div>
+              <div class="grid-item__caption">Haiku / Poems written by human artist in
+                response to the diorama images.
+              </div>
+            </div>
+          </div>
+
+          <div class="grid-item" data-index="8">
+            <img src="assets/img/haiku/AI2.png" alt="Creative divergence" class="grid-item__image">
+            <div class="grid-item__info">
+              <div class="grid-item__title">Creative Divergence</div>
+              <div class="grid-item__caption">
+                I am looking for consistency in my world building.
+                The AI collaborator, on occasion, will run off on flights of fancy.
+                Though entertaining, the hallucinations do not make the final cut</div>
+            </div>
+          </div>
+
+          <div class="grid-item" data-index="9">
+            <img src="assets/img/haiku/AI3.png" alt="AI hallucinations" class="grid-item__image">
+            <div class="grid-item__info">
+              <div class="grid-item__title">Creative Divergence </div>
+              <div class="grid-item__caption">
+                Rejected imagery
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Fullscreen Slideshow -->
+        <div class="slideshow-fullscreen">
+          <div class="slideshow__close"></div>
+
+          <div class="slideshow__bar">
+            <div class="slideshow__head">
+              <h2 class="slideshow__title">Building Blocks for Chimera</h2>
+            </div>
+            <div class="slideshow__counter">
+              <div class="slideshow__counter__number">01</div>
+              <div class="slideshow__counter__div">/</div>
+              <div class="slideshow__counter__total">10</div>
+            </div>
+            <div class="slideshow__pagination">
+              <div class="slideshow__pagination__left">
+                <img src="https://assets-global.website-files.com/603fe89ec4bbcece7ee6a53a/60bf3147f7b2218c930288d9_arrow-long-left.svg" loading="lazy" alt="" class="slideshow__pagination__icon" />
+              </div>
+              <div class="slideshow__pagination__right">
+                <img src="https://assets-global.website-files.com/603fe89ec4bbcece7ee6a53a/60bf31486c24692394e3ca0d_arrow-long-right.svg" loading="lazy" alt="" class="slideshow__pagination__icon" />
+              </div>
+            </div>
+          </div>
+
+          <div class="slideshow__frame">
+            <svg viewBox="0 0 483 721" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M1 55V1H54.5" stroke="#BBB9B9" />
+              <path d="M54.75 719.5L0.75 719.5L0.749998 666" stroke="#BBB9B9" />
+              <path d="M482.5 665.75L482.5 719.75L429 719.75" stroke="#BBB9B9" />
+              <path d="M428 1.25L482 1.25L482 54.75" stroke="#BBB9B9" />
+            </svg>
+          </div>
+
+          <div class="slideshow__list">
+            <div class="slideshow__list__media active" data-title="Building Blocks for Chimera">
+              <img src="assets/img/haiku/backstage 0.png" alt="Building blocks" class="slideshow__list__image">
+              <div class="image-caption">Biological samples collected from ecosystems
+              </div>
+            </div>
+            <div class="slideshow__list__media" data-title="Debris Sculptures">
+              <img src="assets/img/haiku/sculpture1.png" alt="Debris sculpture" class="slideshow__list__image">
+              <div class="image-caption">Hybrid forms between nature and artifice</div>
+            </div>
+            <div class="slideshow__list__media" data-title="Backstage at The Dioramas">
+              <img src="assets/img/haiku/backstage 1.png" alt="Backstage setup" class="slideshow__list__image">
+              <div class="image-caption">Setting up photographic tableaus</div>
+            </div>
+            <div class="slideshow__list__media" data-title="Photo Tableau">
+              <img src="assets/img/haiku/tableau.png" alt="Photo tableau" class="slideshow__list__image">
+              <div class="image-caption">Final photographic compositions</div>
+            </div>
+            <div class="slideshow__list__media" data-title="AI Co-creator Profile">
+              <img src="assets/img/haiku/backstage 3.png" alt="AI collaboration" class="slideshow__list__image">
+              <div class="image-caption">
+                <div>
+                  AI Co-creator Profile:
+                  <br><br>
+                  Topaz Photo
+                  AI - for
+                  cleaning
+                  images
+
+                  <br>
+                  Photoshop
+                  Beta - for
+                  image
+                  development
+                  <br>
+
+                  Kling 1.6
+                  for adding
+                  movement to
+                  the clips -
+                  accessed
+                  through
+                  OpenArtAI
+
+                  <br>
+                  Capcut -
+                  Editing
+
+                </div>
+              </div>
+            </div>
+            <div class="slideshow__list__media" data-title="AI Interpretation">
+              <img src="assets/img/haiku/AI.png" alt="AI interpretation" class="slideshow__list__image">
+              <div class="image-caption">Tableau are shared with an AI collaborator
+                who is prompted with Haiku. The resulting
+                movement is an interpretation of poetry.
+              </div>
+            </div>
+            <div class="slideshow__list__media" data-title="Video Editing Process">
+              <img src="assets/img/haiku/Doc2.png" alt="Video editing" class="slideshow__list__image">
+              <div class="image-caption">Most raw clips are 5 seconds and are edited in Capcut.</div>
+            </div>
+            <div class="slideshow__list__media" data-title="Poetry & Movement">
+              <img src="assets/img/haiku/handwritting.png" alt="Handwritten haiku" class="slideshow__list__image">
+              <div class="image-caption">Haiku / Poems written by human artist in
+                response to the diorama images.
+              </div>
+            </div>
+            <div class="slideshow__list__media" data-title="Creative Divergence">
+              <img src="assets/img/haiku/AI2.png" alt="Creative divergence" class="slideshow__list__image">
+              <div class="image-caption">World building with AI collaboration</div>
+            </div>
+            <div class="slideshow__list__media" data-title="Creative Divergence: Flights of Fancy">
+              <img src="assets/img/haiku/AI3.png" alt="AI hallucinations" class="slideshow__list__image">
+              <div class="image-caption">I am looking for consistency in my world building. The AI collaborator, on occasion, will run off on flights of fancy. Though entertaining, the hallucinations do not make the final cut.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Lightbox -->
+        <div class="lightbox">
+          <div class="lightbox__close"></div>
+          <div class="lightbox__content">
+            <img src="" alt="" class="lightbox__image">
+            <div class="lightbox__caption"></div>
+          </div>
+        </div>
+
+
+
+  </main>
+
+
+
+
+  </main>
+  <div class="grid-event w-embed">
+    <style>
+      .grid-w {
+        pointer-events: none;
+      }
+    </style>
+  </div>
+  <script src="./composition_master.js" type="text/javascript"></script>
+
+  <script src="assets/js/player.js"></script>
+  <script>
+    // Slideshow state
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slideshow__list__media');
+    const totalSlides = slides.length;
+    const counterNumber = document.querySelector('.slideshow__counter__number');
+    const slideshowTitle = document.querySelector('.slideshow__title');
+    const leftArrow = document.querySelector('.slideshow__pagination__left');
+    const rightArrow = document.querySelector('.slideshow__pagination__right');
+    const slideshow = document.querySelector('.slideshow-fullscreen');
+    const slideshowClose = document.querySelector('.slideshow__close');
+
+    // Grid items
+    const gridItems = document.querySelectorAll('.grid-item');
+
+    // Lightbox elements
+    const lightbox = document.querySelector('.lightbox');
+    const lightboxImage = document.querySelector('.lightbox__image');
+    const lightboxCaption = document.querySelector('.lightbox__caption');
+    const lightboxClose = document.querySelector('.lightbox__close');
+    const allSlideshowImages = document.querySelectorAll('.slideshow__list__image');
+
+    // Open slideshow at specific index
+    function openSlideshow(index) {
+      currentSlide = index;
+      updateSlide();
+      slideshow.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    // Close slideshow
+    function closeSlideshow() {
+      slideshow.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    // Update slide
+    function updateSlide() {
+      slides.forEach((slide, index) => {
+        slide.classList.toggle('active', index === currentSlide);
+      });
+      counterNumber.textContent = String(currentSlide + 1).padStart(2, '0');
+
+      const currentSlideElement = slides[currentSlide];
+      const title = currentSlideElement.dataset.title;
+      slideshowTitle.textContent = title;
+    }
+
+    function nextSlide() {
+      currentSlide = (currentSlide + 1) % totalSlides;
+      updateSlide();
+    }
+
+    function prevSlide() {
+      currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+      updateSlide();
+    }
+
+    // Grid item click handlers
+    gridItems.forEach(item => {
+      item.addEventListener('click', () => {
+        const index = parseInt(item.dataset.index);
+        openSlideshow(index);
+      });
+    });
+
+    // Slideshow navigation
+    slideshowClose.addEventListener('click', closeSlideshow);
+    leftArrow.addEventListener('click', prevSlide);
+    rightArrow.addEventListener('click', nextSlide);
+
+    // Lightbox functions
+    function openLightbox(imgSrc, caption) {
+      lightboxImage.src = imgSrc;
+      lightboxCaption.textContent = caption;
+      lightbox.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      lightbox.classList.remove('active');
+      document.body.style.overflow = slideshow.classList.contains('active') ? 'hidden' : '';
+    }
+
+    // Add click listeners to slideshow images
+    allSlideshowImages.forEach((img) => {
+      img.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const parentMedia = img.closest('.slideshow__list__media');
+        const caption = parentMedia.querySelector('.image-caption').textContent;
+        openLightbox(img.src, caption);
+      });
+    });
+
+    // Close lightbox handlers
+    lightboxClose.addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) {
+        closeLightbox();
+      }
+    });
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (lightbox.classList.contains('active')) {
+        if (e.key === 'Escape') closeLightbox();
+      } else if (slideshow.classList.contains('active')) {
+        if (e.key === 'Escape') closeSlideshow();
+        if (e.key === 'ArrowLeft') prevSlide();
+        if (e.key === 'ArrowRight') nextSlide();
+      }
+    });
+
+    // Touch swipe support for slideshow
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    slideshow.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    });
+
+    slideshow.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      if (touchStartX - touchEndX > 50) nextSlide();
+      if (touchEndX - touchStartX > 50) prevSlide();
+    });
+  </script>
+  <script>
+    //100vh Fix on Mobile
+    let vh = window.innerHeight * 0.01;
+    let size = 0;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+    window.addEventListener('resize', () => {
+      if (window.innerWidth === size) return;
+      size = window.innerWidth;
+      let vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty('--vh', `${vh}px`);
+    });
+
+    TweenMax.to(".collection", 10, {
+      opacity: 1
+    });
+  </script>
+
+</body>
+
+
+</html>
