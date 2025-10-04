@@ -272,8 +272,9 @@
           drawing_y = 0,
           drawing_z = 0,
           drawing_z_target = 5,
-          drawing_scale = 3;
-        let drawing_scaleX = 4.5; // Drawing width
+           drawing_scale = 5; // INCREASED from 3 to 5 to match mural height
+           let drawing_scaleX = 3; // DECREASED from 4.5 to 3 to make narrower
+
         let secondDrawing_x = 0,
           secondDrawing_y = 0,
           secondDrawing_z = 10,
@@ -289,7 +290,7 @@
         // File paths
         const SCENE_BACKGROUND = 'textures/dunhuang/amo_data_bg_dimmed_black.png';
         const MURAL = 'assets/img/silence/Doc.png';
-        const DRAWING = 'assets/img/silence/Process.png';
+        const DRAWING = 'assets/img/silence/ProcessInverted.png';
         const SECOND_DRAWING = 'assets/img/silence/Final.png';
 
         const OUTLINE_ON_MOUSEPOINT = false;
@@ -339,7 +340,7 @@
 
         // First Drawing Image
         const drawingloader = new THREE.TextureLoader();
-        const opacity = 1;
+        const opacity = 0.8;
         const drawingCubeMaterials = [
           new THREE.MeshPhongMaterial({
             opacity: opacity,
@@ -382,7 +383,7 @@
         const imageLoader = new THREE.TextureLoader();
         const imageTexture = imageLoader.load(SECOND_DRAWING); // Using the SECOND_DRAWING path
 
-        const imageOpacity = 0.8;
+        const imageOpacity = 0.9;
         const imageCubeMaterials = [
           new THREE.MeshPhongMaterial({
             opacity: 0,
@@ -584,7 +585,7 @@
             <div class="col" style="margin-top:2vw">
               <div class="col" style="margin-top:2vw">
                 <div class="statline"><span><i><b>
-                  <a href="https://byaikea.com/" target="_blank">
+                  <a href="https://margarita-wenzel.com/sounds" target="_blank">
                     Silence is not the Absence of Speech </a>
 
              </b></i></span></div>
@@ -597,7 +598,7 @@
                 <div class="statline"><span>
                 2025  </span></div>
                 <div class="statline"><span>
-                  <a href="https://margarita-wenzel.com/sounds
+                  <a href="https://margarita-wenzel.com/
                         " target="_blank">
                     Margarita Wenzel</a>
                   </span></div>
