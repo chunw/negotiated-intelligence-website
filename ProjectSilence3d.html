@@ -266,7 +266,7 @@
         let mural_x = 2,
           mural_y = 0,
           mural_z = -5,
-          mural_scale = 3;
+          mural_scale = 5; // Increased height from 3 to 5
         let mural_scaleX = 4.5; // Mural width
         let drawing_x = 0,
           drawing_y = 0,
@@ -289,8 +289,8 @@
         // File paths
         const SCENE_BACKGROUND = 'textures/dunhuang/amo_data_bg_dimmed_black.png';
         const MURAL = 'assets/img/silence/Doc.png';
-        const DRAWING = 'assets/img/silence/Final.png';
-        const SECOND_DRAWING = 'textures/dunhuang/反弹琵琶一式inverted.jpg';
+        const DRAWING = 'assets/img/silence/Process.png';
+        const SECOND_DRAWING = 'assets/img/silence/Final.png';
 
         const OUTLINE_ON_MOUSEPOINT = false;
         let selectedObjects = [];
@@ -378,111 +378,56 @@
         scene.add(drawing);
         drawing.position.set(drawing_x, drawing_y, drawing_z);
 
-        // Video Layer (replaces BVH skeleton)
-        const video = document.createElement('video');
-        video.src = '';
-        video.crossOrigin = 'anonymous';
-        video.loop = true;
-        video.muted = true;
-        video.playsInline = true;
+        // Image Layer (replaces video layer)
+        const imageLoader = new THREE.TextureLoader();
+        const imageTexture = imageLoader.load(SECOND_DRAWING); // Using the SECOND_DRAWING path
 
-        // Wait for video metadata to load
-        video.addEventListener('loadedmetadata', () => {
-          // Create video texture after metadata is loaded
-          const videoTexture = new THREE.VideoTexture(video);
-          videoTexture.minFilter = THREE.LinearFilter;
-          videoTexture.magFilter = THREE.LinearFilter;
-          videoTexture.format = THREE.RGBAFormat;
-          videoTexture.generateMipmaps = false;
-          videoTexture.wrapS = THREE.ClampToEdgeWrapping;
-          videoTexture.wrapT = THREE.ClampToEdgeWrapping;
+        const imageOpacity = 0.8;
+        const imageCubeMaterials = [
+          new THREE.MeshPhongMaterial({
+            opacity: 0,
+            transparent: true,
+            color: 0x000000
+          }),
+          new THREE.MeshPhongMaterial({
+            opacity: 0,
+            transparent: true,
+            color: 0x000000
+          }),
+          new THREE.MeshPhongMaterial({
+            opacity: 0,
+            transparent: true,
+            color: 0x000000
+          }),
+          new THREE.MeshPhongMaterial({
+            opacity: 0,
+            transparent: true,
+            color: 0x000000
+          }),
+          new THREE.MeshPhongMaterial({
+            opacity: 0,
+            transparent: true,
+            map: imageTexture
+          }),
+          new THREE.MeshPhongMaterial({
+            opacity: 0,
+            transparent: true,
+            map: imageTexture
+          }),
+        ];
 
-          const videoOpacity = 0.8;
-          const videoCubeMaterials = [
-            new THREE.MeshPhongMaterial({
-              opacity: 0,
-              transparent: true,
-              color: 0x000000
-            }),
-            new THREE.MeshPhongMaterial({
-              opacity: 0,
-              transparent: true,
-              color: 0x000000
-            }),
-            new THREE.MeshPhongMaterial({
-              opacity: 0,
-              transparent: true,
-              color: 0x000000
-            }),
-            new THREE.MeshPhongMaterial({
-              opacity: 0,
-              transparent: true,
-              color: 0x000000
-            }),
-            new THREE.MeshPhongMaterial({
-              opacity: 0,
-              transparent: true,
-              map: videoTexture
-            }),
-            new THREE.MeshPhongMaterial({
-              opacity: 0,
-              transparent: true,
-              map: videoTexture
-            }),
-          ];
+        const imageGeometry = new THREE.BoxGeometry(3, 3, 0.01);
+        secondDrawing = new THREE.Mesh(imageGeometry, imageCubeMaterials);
+        secondDrawing.scale.set(secondDrawing_scaleX, secondDrawing_scale, secondDrawing_scale);
+        secondDrawing.position.set(secondDrawing_x, secondDrawing_y, secondDrawing_z);
 
-          const videoGeometry = new THREE.BoxGeometry(3, 3, 0.01);
-          secondDrawing = new THREE.Mesh(videoGeometry, videoCubeMaterials);
-          // Made the second layer wider by scaling X differently
-          secondDrawing.scale.set(secondDrawing_scaleX, secondDrawing_scale, secondDrawing_scale);
-          secondDrawing.position.set(secondDrawing_x, secondDrawing_y, secondDrawing_z);
+        // Add userData to identify this as the image layer
+        secondDrawing.userData = { isImageLayer: true };
 
-          // Add userData to identify this as the video layer
-          secondDrawing.userData = { isVideoLayer: true };
+        scene.add(secondDrawing);
 
-          scene.add(secondDrawing);
-
-          // Store videoOpacity for animation
-          window.videoOpacity = videoOpacity;
-
-          // Start playing video
-          video.play().catch(e => {
-            console.log('Video autoplay failed, will try on user interaction:', e);
-            document.addEventListener('click', () => {
-              video.play().catch(console.error);
-            }, { once: true });
-          });
-        });
-
-        video.addEventListener('error', (e) => {
-          console.error('Video loading error:', e);
-          createFallbackLayer();
-        });
-
-        function createFallbackLayer() {
-          const fallbackMaterials = [
-            new THREE.MeshPhongMaterial({ opacity: 0, transparent: true, color: 0x000000 }),
-            new THREE.MeshPhongMaterial({ opacity: 0, transparent: true, color: 0x000000 }),
-            new THREE.MeshPhongMaterial({ opacity: 0, transparent: true, color: 0x000000 }),
-            new THREE.MeshPhongMaterial({ opacity: 0, transparent: true, color: 0x000000 }),
-            new THREE.MeshPhongMaterial({ opacity: 0, transparent: true, color: 0x4a90e2 }),
-            new THREE.MeshPhongMaterial({ opacity: 0, transparent: true, color: 0x4a90e2 }),
-          ];
-
-          const videoGeometry = new THREE.BoxGeometry(3, 3, 0.01);
-          secondDrawing = new THREE.Mesh(videoGeometry, fallbackMaterials);
-          secondDrawing.scale.set(secondDrawing_scaleX, secondDrawing_scale, secondDrawing_scale);
-          secondDrawing.position.set(secondDrawing_x, secondDrawing_y, secondDrawing_z);
-
-          secondDrawing.userData = { isVideoLayer: true };
-
-          scene.add(secondDrawing);
-
-          window.videoOpacity = 0.8;
-        }
-
-        // Load video
-        video.load();
+        // Store imageOpacity for animation
+        window.imageOpacity = imageOpacity;
 
         if (!animated_drawing_clicked) animated_drawing_clicked = true;
         if (!animated_secondDrawing_clicked) animated_secondDrawing_clicked = true;
@@ -503,11 +448,11 @@
 
           for (let i = 0; i < intersects.length; i++) {
             const object = intersects[i].object;
-            if (object.userData && (object.userData.isMuralLayer )) {
+            if (object.userData && (object.userData.isMuralLayer)) {
               window.open('ProjectSilence.html', '_blank');
               break;
             }
-            if (object.userData && (object.userData.isVideoLayer )) {
+            if (object.userData && (object.userData.isImageLayer)) {
               window.open('https://margarita-wenzel.com/sounds', '_blank');
               break;
             }
@@ -532,12 +477,12 @@
             }
           }
 
-          // Video layer animation
+          // Image layer animation (replaces video layer animation)
           if (secondDrawing && animated_secondDrawing_clicked && !animated_secondDrawing) {
             for (let i = 0; i < secondDrawing.material.length; i++) {
               const material = secondDrawing.material[i];
               if (i === 4 || i === 5) {
-                if (material.opacity < (window.videoOpacity || 0.8)) {
+                if (material.opacity < (window.imageOpacity || 0.8)) {
                   material.opacity += 0.005;
                 }
               } else {
@@ -547,7 +492,7 @@
               }
             }
 
-            if (secondDrawing.material[4].opacity >= (window.videoOpacity || 0.8)) {
+            if (secondDrawing.material[4].opacity >= (window.imageOpacity || 0.8)) {
               animated_secondDrawing = true;
             }
           }
