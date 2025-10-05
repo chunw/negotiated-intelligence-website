@@ -291,7 +291,6 @@
         const MURAL = 'assets/img/exhibition/Process1.png';
         const DRAWING = 'assets/img/exhibition/Process2.png';
         const SECOND_DRAWING = 'textures/dunhuang/反弹琵琶一式inverted.jpg';
-
         const OUTLINE_ON_MOUSEPOINT = false;
         let selectedObjects = [];
         const raycaster = new THREE.Raycaster();
@@ -299,11 +298,15 @@
 
         const scene = new THREE.Scene();
         scene.background = new THREE.Color(0x000000);
-      //  scene.fog = new THREE.Fog(0x000000, 500, 4000);
+        //  scene.fog = new THREE.Fog(0x000000, 500, 4000);
 
         const clock = new THREE.Clock();
         const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
-        camera.position.set(screen.width > 497 ? -12 : 12, 6, screen.width > 497 ? 25 : 28);
+        const PRINT_CAMERA_POS = false;
+        const cameraPos = {x: '-11.74', y: '11.47', z: '23.15'};
+        camera.position.set(screen.width > 497 ? cameraPos.x : 12, cameraPos.y, screen.width > 497 ? cameraPos.z : 28);
+
+
 
         const renderer = new THREE.WebGLRenderer({
           canvas: document.querySelector('#hero-threejs'),
@@ -551,11 +554,14 @@
           const time = -performance.now() * 0.0003;
           controls.update();
 
-                    console.log('Camera Position:', {
-                  x: camera.position.x.toFixed(2),
-                  y: camera.position.y.toFixed(2),
-                  z: camera.position.z.toFixed(2)
-                });
+          if (PRINT_CAMERA_POS) {
+                console.log('Camera Position:', {
+              x: camera.position.x.toFixed(2),
+              y: camera.position.y.toFixed(2),
+              z: camera.position.z.toFixed(2)
+            });
+          }
+
 
           // First drawing animation
           if (animated_drawing_clicked && !animated_drawing) {
@@ -684,13 +690,12 @@
             <div class="col" style="margin-top:2vw">
               <div class="col" style="margin-top:2vw">
                 <div class="statline"><span><i><b>
-                        <a href="https://byaikea.com/" target="_blank">
-                          A.Ikea </a>
+                        <a href="https://negotiated-intelligence.org/" target="_blank">
+                          Negotiated Intelligence</a>
                       </b></i></span></div>
                 <div class="statline"><span>Website</span></div>
                 <div class="statline"><span>
-                    <a href="https://valyang.xyz/" target="_blank">
-                      Val Yang</a>
+                  2025
                   </span></div>
               </div>
             </div>
