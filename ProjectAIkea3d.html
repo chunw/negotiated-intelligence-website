@@ -238,11 +238,11 @@
       <div class="loader"></div>
       <script type="importmap">
         {
-  "imports": {
-    "three": "https://cdn.jsdelivr.net/npm/three@0.152.2/build/three.module.js"
-  }
-}
-</script>
+        "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three@0.152.2/build/three.module.js"
+        }
+      }
+      </script>
 
       <script type="module">
         import * as THREE from 'https://esm.sh/three@0.152.2';
@@ -277,7 +277,7 @@
         let secondDrawing_x = 0,
           secondDrawing_y = 0,
           secondDrawing_z = 10,
-          secondDrawing_z_target = 15,
+          secondDrawing_z_target = 12,
           secondDrawing_scale = 2.8;
         let secondDrawing_scaleX = 4.5; // Third layer width - made wider
         let wire_x = 0,
@@ -288,8 +288,8 @@
 
         // File paths
         const SCENE_BACKGROUND = 'textures/dunhuang/amo_data_bg_dimmed_black.png';
-        const MURAL = 'assets/img/aikea/Concept.png';
-        const DRAWING = 'assets/img/aikea/Product1.png';
+        const MURAL = 'assets/img/aikea/Process1.png';
+        const DRAWING = 'assets/img/aikea/Process2.png';
         const SECOND_DRAWING = 'textures/dunhuang/反弹琵琶一式inverted.jpg';
 
         const OUTLINE_ON_MOUSEPOINT = false;
@@ -299,7 +299,7 @@
 
         const scene = new THREE.Scene();
         scene.background = new THREE.Color(0x000000);
-        scene.fog = new THREE.Fog(0x000000, 500, 4000);
+      //  scene.fog = new THREE.Fog(0x000000, 500, 4000);
 
         const clock = new THREE.Clock();
         const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -333,13 +333,14 @@
         mural.position.set(mural_x, mural_y, mural_z);
 
         // Add userData to identify this as the mural layer
-        mural.userData = { isMuralLayer: true };
-
+        mural.userData = {
+          isMuralLayer: true
+        };
         scene.add(mural);
 
         // First Drawing Image
         const drawingloader = new THREE.TextureLoader();
-        const opacity = 1;
+        const opacity = 0.6;
         const drawingCubeMaterials = [
           new THREE.MeshPhongMaterial({
             opacity: opacity,
@@ -380,7 +381,7 @@
 
         // Video Layer (replaces BVH skeleton)
         const video = document.createElement('video');
-        video.src = '';
+        video.src = 'https://camlab-cave-dance.oss-cn-hongkong.aliyuncs.com/negotiated-intelligence/aikea3.mp4';
         video.crossOrigin = 'anonymous';
         video.loop = true;
         video.muted = true;
@@ -397,7 +398,7 @@
           videoTexture.wrapS = THREE.ClampToEdgeWrapping;
           videoTexture.wrapT = THREE.ClampToEdgeWrapping;
 
-          const videoOpacity = 0.8;
+          const videoOpacity = 0.9;
           const videoCubeMaterials = [
             new THREE.MeshPhongMaterial({
               opacity: 0,
@@ -438,7 +439,9 @@
           secondDrawing.position.set(secondDrawing_x, secondDrawing_y, secondDrawing_z);
 
           // Add userData to identify this as the video layer
-          secondDrawing.userData = { isVideoLayer: true };
+          secondDrawing.userData = {
+            isVideoLayer: true
+          };
 
           scene.add(secondDrawing);
 
@@ -450,7 +453,9 @@
             console.log('Video autoplay failed, will try on user interaction:', e);
             document.addEventListener('click', () => {
               video.play().catch(console.error);
-            }, { once: true });
+            }, {
+              once: true
+            });
           });
         });
 
@@ -461,12 +466,36 @@
 
         function createFallbackLayer() {
           const fallbackMaterials = [
-            new THREE.MeshPhongMaterial({ opacity: 0, transparent: true, color: 0x000000 }),
-            new THREE.MeshPhongMaterial({ opacity: 0, transparent: true, color: 0x000000 }),
-            new THREE.MeshPhongMaterial({ opacity: 0, transparent: true, color: 0x000000 }),
-            new THREE.MeshPhongMaterial({ opacity: 0, transparent: true, color: 0x000000 }),
-            new THREE.MeshPhongMaterial({ opacity: 0, transparent: true, color: 0x4a90e2 }),
-            new THREE.MeshPhongMaterial({ opacity: 0, transparent: true, color: 0x4a90e2 }),
+            new THREE.MeshPhongMaterial({
+              opacity: 0,
+              transparent: true,
+              color: 0x000000
+            }),
+            new THREE.MeshPhongMaterial({
+              opacity: 0,
+              transparent: true,
+              color: 0x000000
+            }),
+            new THREE.MeshPhongMaterial({
+              opacity: 0,
+              transparent: true,
+              color: 0x000000
+            }),
+            new THREE.MeshPhongMaterial({
+              opacity: 0,
+              transparent: true,
+              color: 0x000000
+            }),
+            new THREE.MeshPhongMaterial({
+              opacity: 0,
+              transparent: true,
+              color: 0x4a90e2
+            }),
+            new THREE.MeshPhongMaterial({
+              opacity: 0,
+              transparent: true,
+              color: 0x4a90e2
+            }),
           ];
 
           const videoGeometry = new THREE.BoxGeometry(3, 3, 0.01);
@@ -474,11 +503,13 @@
           secondDrawing.scale.set(secondDrawing_scaleX, secondDrawing_scale, secondDrawing_scale);
           secondDrawing.position.set(secondDrawing_x, secondDrawing_y, secondDrawing_z);
 
-          secondDrawing.userData = { isVideoLayer: true };
+          secondDrawing.userData = {
+            isVideoLayer: true
+          };
 
           scene.add(secondDrawing);
 
-          window.videoOpacity = 0.8;
+          window.videoOpacity = 0.9;
         }
 
         // Load video
@@ -529,21 +560,32 @@
           }
 
           // Video layer animation
+          // Video layer animation - push out on z-axis AND fade in
           if (secondDrawing && animated_secondDrawing_clicked && !animated_secondDrawing) {
+            // Animate z-position
+            if (secondDrawing.position.z <= secondDrawing_z_target) {
+              secondDrawing.position.z += 0.05;
+            }
+
+            // Animate opacity
             for (let i = 0; i < secondDrawing.material.length; i++) {
               const material = secondDrawing.material[i];
               if (i === 4 || i === 5) {
-                if (material.opacity < (window.videoOpacity || 0.8)) {
+                // Front and back faces with video texture
+                if (material.opacity < (window.videoOpacity || 0.9)) {
                   material.opacity += 0.005;
                 }
               } else {
+                // Side faces
                 if (material.opacity < 0.2) {
                   material.opacity += 0.005;
                 }
               }
             }
 
-            if (secondDrawing.material[4].opacity >= (window.videoOpacity || 0.8)) {
+            // Check if animation is complete (both z-position and opacity)
+            if (secondDrawing.position.z >= secondDrawing_z_target &&
+              secondDrawing.material[4].opacity >= (window.videoOpacity || 0.9)) {
               animated_secondDrawing = true;
             }
           }
@@ -635,13 +677,13 @@
             <div class="col" style="margin-top:2vw">
               <div class="col" style="margin-top:2vw">
                 <div class="statline"><span><i><b>
-                  <a href="https://byaikea.com/" target="_blank">
-                    A.Ikea </a>
-                  </b></i></span></div>
+                        <a href="https://byaikea.com/" target="_blank">
+                          A.Ikea </a>
+                      </b></i></span></div>
                 <div class="statline"><span>Website</span></div>
                 <div class="statline"><span>
-                  <a href="https://valyang.xyz/" target="_blank">
-                    Val Yang</a>
+                    <a href="https://valyang.xyz/" target="_blank">
+                      Val Yang</a>
                   </span></div>
               </div>
             </div>

@@ -741,8 +741,6 @@
           scene.add(new THREE.GridHelper(400, 10));
 
 
-          scene.add(new THREE.GridHelper(400, 10));
-
           // Add lights - VERY BRIGHT VERSION
           const ambientLight = new THREE.AmbientLight(0xffffff, 3.0);
           scene.add(ambientLight);
@@ -889,11 +887,42 @@
     </div>
 
 
-    <!-- <div class="intro-inner" >
+    <div style="z-index:9999; position: relative; margin-top:-18vh">
+      <h4 style="text-align: center; margin-left: auto; margin-right: auto;
+      margin-top: 4vw;">
+      <img src="assets/img/down_arrow.png" loading="lazy" style="width: 2vw; pointer:cursor" class="img ico" />
+    </h4>
+
+    <a style="z-index:9999; text-align: center; margin-left: auto; margin-right: auto;
+    margin-top: -6vw;
+    width: 2rem;
+    opacity: 0.4; z-index:9 !important" data-animation="cursor"
+    rel="noopener" href="#intro" class="cta-wrap w-inline-block">
+    </a>
+    </div>
+
+    <div class="campaign">
+      <iframe style="border:none; z-index: 999; width: 100%; min-height: 800px" src="flashlight.html" title=""></iframe>
+      <div class="campagin-head">
+        <h4 class="h-h4 disclaimer" style="text-align: center; margin-left: auto; margin-right: auto;
+        margin-top: 4vw;">
       <img src="assets/img/down_arrow.png" loading="lazy" style="width: 2vw; " class="img ico" />
-    </div> -->
+      </h4>
+      <a style="text-align: center; margin-left: auto; margin-right: auto;
+      margin-top: -6vw;
+      width: 10rem;
+      opacity: 0.4; z-index:9 !important" data-animation="cursor"
+      rel="noopener" href="#intro" class="cta-wrap w-inline-block">
+      </a>
+      </div>
+    </div>
+
+
     <div class="intro" id="intro">
       <div class="intro-inner">
+
+          <h1 style="font-size: 7rem;">Abstract</h1>
+
         <div class="intro-desc">
           <h2 class="h-h2 desc">
             <i>Negotiated Intelligence</i> dives into the curious dance between human imagination and AI collaboration. This exhibition uncovers the behind-the-scenes stories of co-creation, teasing out the power dynamics, surprises, and little
@@ -928,7 +957,9 @@
 
       <div class="campaign">
         <div class="lookbook__head__title">
-          <h2 style="font-size: 10vw;" class="h-h2 gradient">Explore the <i>Negotiated Intelligence</i> database</h2>
+          <h2 style="font-size: 10vw;" class="h-h2 gradient">
+            Explore the <i>Negotiated Intelligence</i> database
+          </h2>
         </div>
 
         <div id="team" style="font-size: 1.3rem; line-height: 150%; margin: 5% 15% 0;">
@@ -957,8 +988,13 @@
           </table>
         </div>
 
+
+
         <div class="campaign">
-          <iframe style="border:none; z-index: 999; width: 100%; min-height: 800px" src="flashlight.html" title="Explore"></iframe>
+
+          <!-- <iframe style="border:none; z-index: 999; width: 100%; min-height: 800px" src="flashlight.html" title=""></iframe> -->
+
+
           <div class="campagin-head">
             <h4 class="h-h4 disclaimer" style="text-align: center; margin-left: auto; margin-right: auto;
             margin-top: 4vw;">Explore</h4>

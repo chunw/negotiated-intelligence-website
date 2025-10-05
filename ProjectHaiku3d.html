@@ -267,11 +267,15 @@
           mural_y = 0,
           mural_z = -5,
           mural_scale = 3;
+        let mural_scaleX = 5.5; // Made WIDER (was 3, increased to 5.5)
+
         let drawing_x = 0,
           drawing_y = 0,
           drawing_z = 0,
           drawing_z_target = 5,
           drawing_scale = 2.8;
+        let drawing_scaleY = 3.5; // Made TALLER (was 2.8, increased to 3.5)
+
         let secondDrawing_x = 0,
           secondDrawing_y = 0,
           secondDrawing_z = 10,
@@ -326,7 +330,10 @@
         composer = new EffectComposer(renderer);
         const renderPass = new RenderPass(scene, camera);
         composer.addPass(renderPass);
-        mural.scale.set(mural_scale, mural_scale, mural_scale);
+        //    mural.scale.set(mural_scale, mural_scale, mural_scale);
+        // Update mural creation - make it wider
+        mural.scale.set(mural_scaleX, mural_scale, mural_scale); // Now uses mural_scaleX for width
+
         mural.position.set(mural_x, mural_y, mural_z);
 
         // Add userData to identify this as the mural layer
@@ -373,12 +380,15 @@
         ];
         const geometry = new THREE.BoxGeometry(3, 3, 0.01);
         drawing = new THREE.Mesh(geometry, drawingCubeMaterials);
-        drawing.scale.set(drawing_scale, drawing_scale, drawing_scale);
+        drawing.scale.set(drawing_scale, drawing_scaleY, drawing_scale);
+
+
         scene.add(drawing);
         drawing.position.set(drawing_x, drawing_y, drawing_z);
 
         // Video Layer (replaces BVH skeleton)
         const video = document.createElement('video');
+
         video.src = 'https://vimeo.com/1074810303/de745dfd50?share=copy';
         video.crossOrigin = 'anonymous';
         video.loop = true;
@@ -538,7 +548,7 @@
           // Check if the clicked object is the video layer or mural layer
           for (let i = 0; i < intersects.length; i++) {
             const object = intersects[i].object;
-            if (object.userData && (object.userData.isVideoLayer )) {
+            if (object.userData && (object.userData.isVideoLayer)) {
               // Redirect to Google
               window.open('https://vimeo.com/1074810303/de745dfd50?share=copy', '_blank');
               break;
