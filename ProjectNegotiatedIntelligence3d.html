@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html data-wf-page="61c5e06d4c32b4d376aaf502" data-wf-site="603fe89ec4bbcece7ee6a53a" lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <title>Negotiated Intelligence | The Wrong Biennale 7th Edition</title>
+  <meta content="Negotiated Intelligence" name="description" />
+  <meta content="Negotiated Intelligence" property="og:title" />
+  <meta content="Negotiated Intelligence" property="og:description" />
+  <meta property="og:type" content="website" />
+  <meta content="width=device-width, initial-scale=1" name="viewport" />
+  <link href="base.css" rel="stylesheet" type="text/css" />
+  <link href="assets/img/favicon.png" rel="shortcut icon" type="image/x-icon" />
+  <link href="assets/img/favicon.png" rel="apple-touch-icon" />
+  <script src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.5.1.min.dc5e7f18c8.js?site=603fe89ec4bbcece7ee6a53a" type="text/javascript" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/gsap.min.js"></script>
+
+  <style>
+    *,
+    *::after,
+    *::before {
+      box-sizing: border-box;
+    }
+
+    html {
+      background: #030303;
+    }
+
+    body {
+      -webkit-tap-highlight-color: transparent;
+      -webkit-font-smoothing: subpixel-antialiased;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      overscroll-behavior: none;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .content {
+      position: relative;
+      z-index: 2;
+    }
+
+    #hero-threejs {
+      cursor: pointer;
+      display: block;
+    }
+
+    @media (min-width: 991px) {
+      * {
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+    }
+
+    input,
+    textarea {
+      -webkit-user-select: text;
+      -khtml-user-select: text;
+      -moz-user-select: text;
+      -ms-user-select: text;
+      user-select: text;
+    }
+
+    ::-webkit-scrollbar {
+      display: none;
+    }
+
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw !important;
+      height: 100vh !important;
+      z-index: 1;
+    }
+
+    .statlines {
+      font-family: "Segoe UI", Verdana, sans-serif;
+      color: #b9b8b8;
+      z-index: 99;
+      line-height: 1.5;
+      right: 2vw;
+      text-align: right;
+      bottom: 4vw;
+      position: fixed;
+      font-size: 0.7rem;
+      max-width: 250px;
+    }
+  </style>
+</head>
+
+<body class="body">
+  <div class="gradient-embed w-embed">
+    <style>
+      .gradient {
+        -webkit-text-fill-color: transparent;
+        -webkit-background-clip: text;
+      }
+
+      .blend {
+        mix-blend-mode: difference;
+      }
+    </style>
+  </div>
+
+  <main data-template="home" class="content demo">
+    <script type="module">
+      import * as THREE from 'https://esm.sh/three@0.152.2';
+      import { OrbitControls } from 'https://esm.sh/three@0.152.2/examples/jsm/controls/OrbitControls.js';
+      import { TextGeometry } from 'https://esm.sh/three@0.152.2/examples/jsm/geometries/TextGeometry.js';
+      import { FontLoader } from 'https://esm.sh/three@0.152.2/examples/jsm/loaders/FontLoader.js';
+
+      let animated_drawing, animated_secondDrawing;
+      let mural, drawing, secondDrawing;
+      const textMeshes = [];
+
+      // Constants
+      let mural_x = 2, mural_y = 0, mural_z = -5, mural_scale = 3;
+      let mural_scaleX = 4.5;
+      let drawing_x = 0, drawing_y = 0, drawing_z = 0, drawing_z_target = 5, drawing_scale = 3;
+      let drawing_scaleX = 4.5;
+      let secondDrawing_x = 0, secondDrawing_y = 0, secondDrawing_z = 10, secondDrawing_z_target = 12, secondDrawing_scale = 2.8;
+      let secondDrawing_scaleX = 4.5;
+
+      const MURAL = 'assets/img/exhibition/Process1.png';
+      const DRAWING = 'assets/img/exhibition/Process2.png';
+
+      const raycaster = new THREE.Raycaster();
+      const mouse = new THREE.Vector2();
+
+      const scene = new THREE.Scene();
+      scene.background = new THREE.Color(0x000000);
+
+      const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+      const cameraPos = { x: '-11.74', y: '11.47', z: '23.15' };
+      camera.position.set(screen.width > 497 ? cameraPos.x : 12, cameraPos.y, screen.width > 497 ? cameraPos.z : 28);
+
+      const renderer = new THREE.WebGLRenderer({
+        canvas: document.querySelector('#hero-threejs'),
+        antialias: true
+      });
+      renderer.setPixelRatio(window.devicePixelRatio);
+      renderer.setSize(window.innerWidth, window.innerHeight);
+
+      // Lights
+      const pointLight = new THREE.PointLight(0xffffff);
+      pointLight.position.set(5, 5, 5);
+      const ambientLight = new THREE.AmbientLight(0xffffff);
+      scene.add(pointLight, ambientLight);
+
+      const controls = new OrbitControls(camera, renderer.domElement);
+
+      // Mural Image
+      const muralTexture = new THREE.TextureLoader().load(MURAL);
+      mural = new THREE.Mesh(new THREE.BoxGeometry(3, 3, 0.05), new THREE.MeshBasicMaterial({ map: muralTexture }));
+      mural.scale.set(mural_scaleX, mural_scale, mural_scale);
+      mural.position.set(mural_x, mural_y, mural_z);
+      mural.userData = { isMuralLayer: true };
+      scene.add(mural);
+
+      // First Drawing Image
+      const drawingloader = new THREE.TextureLoader();
+      const opacity = 0.6;
+      const drawingCubeMaterials = [
+        new THREE.MeshPhongMaterial({ opacity: opacity, transparent: true, map: drawingloader.load('textures/dunhuang/black.jpg') }),
+        new THREE.MeshPhongMaterial({ opacity: opacity, transparent: true, map: drawingloader.load('textures/dunhuang/black.jpg') }),
+        new THREE.MeshPhongMaterial({ opacity: opacity, transparent: true, map: drawingloader.load('textures/dunhuang/black.jpg') }),
+        new THREE.MeshPhongMaterial({ opacity: opacity, transparent: true, map: drawingloader.load('textures/dunhuang/black.jpg') }),
+        new THREE.MeshPhongMaterial({ opacity: opacity, transparent: true, map: drawingloader.load(DRAWING) }),
+        new THREE.MeshPhongMaterial({ opacity: opacity, transparent: true, map: drawingloader.load(DRAWING) }),
+      ];
+      const geometry = new THREE.BoxGeometry(3, 3, 0.01);
+      drawing = new THREE.Mesh(geometry, drawingCubeMaterials);
+      drawing.scale.set(drawing_scaleX, drawing_scale, drawing_scale);
+      scene.add(drawing);
+      drawing.position.set(drawing_x, drawing_y, drawing_z);
+
+      // Video Layer
+      const video = document.createElement('video');
+      video.src = 'https://camlab-cave-dance.oss-cn-hongkong.aliyuncs.com/negotiated-intelligence/backgroundcompressed.mp4';
+      video.crossOrigin = 'anonymous';
+      video.loop = true;
+      video.muted = true;
+      video.playsInline = true;
+
+      video.addEventListener('loadedmetadata', () => {
+        const videoTexture = new THREE.VideoTexture(video);
+        videoTexture.minFilter = THREE.LinearFilter;
+        videoTexture.magFilter = THREE.LinearFilter;
+        videoTexture.format = THREE.RGBAFormat;
+
+        const videoOpacity = 0.9;
+        const videoCubeMaterials = [
+          new THREE.MeshPhongMaterial({ opacity: 0, transparent: true, color: 0x000000 }),
+          new THREE.MeshPhongMaterial({ opacity: 0, transparent: true, color: 0x000000 }),
+          new THREE.MeshPhongMaterial({ opacity: 0, transparent: true, color: 0x000000 }),
+          new THREE.MeshPhongMaterial({ opacity: 0, transparent: true, color: 0x000000 }),
+          new THREE.MeshPhongMaterial({ opacity: 0, transparent: true, map: videoTexture }),
+          new THREE.MeshPhongMaterial({ opacity: 0, transparent: true, map: videoTexture }),
+        ];
+
+        const videoGeometry = new THREE.BoxGeometry(3, 3, 0.01);
+        secondDrawing = new THREE.Mesh(videoGeometry, videoCubeMaterials);
+        secondDrawing.scale.set(secondDrawing_scaleX, secondDrawing_scale, secondDrawing_scale);
+        secondDrawing.position.set(secondDrawing_x, secondDrawing_y, secondDrawing_z);
+        secondDrawing.userData = { isVideoLayer: true };
+        scene.add(secondDrawing);
+        window.videoOpacity = videoOpacity;
+
+        video.play().catch(e => {
+          console.log('Video autoplay failed:', e);
+          document.addEventListener('click', () => {
+            video.play().catch(console.error);
+          }, { once: true });
+        });
+      });
+
+      video.load();
+
+      // Project data
+      const projects = [
+        { artist: 'Daria Belkina', title: 'Elsewhere Gallery', url: 'NegotiatedIntelligence3d2.html?project=elsewhere-gallery', pos: [-8, 6, 15] },
+        { artist: 'Val Yang', title: 'A.Ikea', url: 'NegotiatedIntelligence3d2.html?project=aikea', pos: [10, 8, 8] },
+        { artist: 'Marcie Begleiter', title: 'Chimera Haiku', url: 'NegotiatedIntelligence3d2.html?project=chimera-haiku', pos: [-12, 2, 20] },
+        { artist: 'Aaron Oldenberg', title: 'Fractured Star', url: 'NegotiatedIntelligence3d2.html?project=fractured-star', pos: [8, -2, 18] },
+        { artist: 'Margarita Wenzel', title: 'Silence', url: 'NegotiatedIntelligence3d2.html?project=silence', pos: [0, 10, 25] },
+        { artist: 'Marie Le Moigne', title: 'Ave Maria', url: 'NegotiatedIntelligence3d2.html?project=ave-maria', pos: [-6, -4, 22] },
+        { artist: 'Sahra Azadzoy & Leo Bayly Barton', title: 'Elara', url: 'NegotiatedIntelligence3d2.html?project=elara', pos: [5, 4, 28] },
+        {artist: 'Slitrobo', title:'Mythology', url: 'NegotiatedIntelligence3d2.html?project=mythology', pos: [5, 40, 28]}
+      ];
+
+      // Load font and create 3D text
+      const fontLoader = new FontLoader();
+      fontLoader.load('https://threejs.org/examples/fonts/helvetiker_regular.typeface.json', function(font) {
+        projects.forEach(project => {
+          // Artist name (smaller, thinner)
+          const artistGeometry = new TextGeometry(project.artist, {
+            font: font,
+            size: 0.4,
+            height: 0.05,
+          });
+
+          const artistMaterial = new THREE.MeshPhongMaterial({
+            color: 0xaaaaaa,
+            transparent: true,
+            opacity: 0.8
+          });
+          const artistMesh = new THREE.Mesh(artistGeometry, artistMaterial);
+
+          // Title (larger, bolder through emissive)
+          const titleGeometry = new TextGeometry(project.title, {
+            font: font,
+            size: 0.5,
+            height: 0.08,
+          });
+
+          const titleMaterial = new THREE.MeshPhongMaterial({
+            color: 0xffffff,
+            emissive: 0x444444,
+            transparent: true,
+            opacity: 0.9
+          });
+          const titleMesh = new THREE.Mesh(titleGeometry, titleMaterial);
+
+          // Position texts
+          artistMesh.position.set(project.pos[0], project.pos[1] + 0.6, project.pos[2]);
+          titleMesh.position.set(project.pos[0], project.pos[1], project.pos[2]);
+
+          // Make them face camera initially
+          artistMesh.lookAt(camera.position);
+          titleMesh.lookAt(camera.position);
+
+          // Store URL in userData
+          titleMesh.userData = { url: project.url, isClickable: true };
+          artistMesh.userData = { url: project.url, isClickable: true };
+
+          scene.add(artistMesh);
+          scene.add(titleMesh);
+
+          textMeshes.push(artistMesh, titleMesh);
+        });
+      });
+
+      animated_drawing = false;
+      animated_secondDrawing = false;
+
+      // Click handler
+      function onCanvasClick(event) {
+        const rect = renderer.domElement.getBoundingClientRect();
+        mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+        mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+
+        raycaster.setFromCamera(mouse, camera);
+        const intersects = raycaster.intersectObjects(textMeshes);
+
+        if (intersects.length > 0) {
+          const object = intersects[0].object;
+          if (object.userData.isClickable && object.userData.url) {
+            window.location.href = object.userData.url;
+          }
+        }
+      }
+
+      renderer.domElement.addEventListener('click', onCanvasClick);
+
+      // Hover effect
+      function onPointerMove(event) {
+        const rect = renderer.domElement.getBoundingClientRect();
+        mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+        mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+
+        raycaster.setFromCamera(mouse, camera);
+        const intersects = raycaster.intersectObjects(textMeshes);
+
+        // Reset all texts
+        textMeshes.forEach(mesh => {
+          if (mesh.material.emissive) {
+            mesh.material.emissive.setHex(0x444444);
+          }
+        });
+
+        // Highlight hovered
+        if (intersects.length > 0) {
+          const object = intersects[0].object;
+          if (object.material.emissive) {
+            object.material.emissive.setHex(0x666666);
+          }
+          renderer.domElement.style.cursor = 'pointer';
+        } else {
+          renderer.domElement.style.cursor = 'default';
+        }
+      }
+
+      renderer.domElement.addEventListener('pointermove', onPointerMove);
+
+      // Animation Loop
+      function animate() {
+        requestAnimationFrame(animate);
+        controls.update();
+
+        // Make text meshes face camera
+        textMeshes.forEach(mesh => {
+          mesh.lookAt(camera.position);
+        });
+
+        if (!animated_drawing) {
+          if (drawing.position.z <= drawing_z_target) {
+            drawing.position.z += 0.05;
+          } else {
+            animated_drawing = true;
+          }
+        }
+
+        if (secondDrawing && !animated_secondDrawing) {
+          if (secondDrawing.position.z <= secondDrawing_z_target) {
+            secondDrawing.position.z += 0.05;
+          }
+
+          for (let i = 0; i < secondDrawing.material.length; i++) {
+            const material = secondDrawing.material[i];
+            if (i === 4 || i === 5) {
+              if (material.opacity < (window.videoOpacity || 0.9)) {
+                material.opacity += 0.005;
+              }
+            } else {
+              if (material.opacity < 0.2) {
+                material.opacity += 0.005;
+              }
+            }
+          }
+
+          if (secondDrawing.position.z >= secondDrawing_z_target &&
+            secondDrawing.material[4].opacity >= (window.videoOpacity || 0.9)) {
+            animated_secondDrawing = true;
+          }
+        }
+
+        renderer.render(scene, camera);
+      }
+
+      animate();
+
+      // Handle window resize
+      window.addEventListener('resize', () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      });
+    </script>
+
+    <div class="statlines">
+      <div class="statline"><span><i><b>
+        <a href="https://negotiated-intelligence.org/" target="_blank">Negotiated Intelligence</a>
+      </b></i></span></div>
+      <div class="statline"><span>Website</span></div>
+      <div class="statline"><span>2025</span></div>
+    </div>
+
+    <canvas id="hero-threejs"></canvas>
+
+  </main>
+
+  <script>
+    let vh = window.innerHeight * 0.01;
+    let size = 0;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+    window.addEventListener('resize', () => {
+      if (window.innerWidth === size) return;
+      size = window.innerWidth;
+      let vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty('--vh', `${vh}px`);
+    });
+  </script>
+
+</body>
+
+</html>
