@@ -281,7 +281,10 @@
           secondDrawing_y = 0,
           secondDrawing_z = 0,
           secondDrawing_z_target = 10,
-          secondDrawing_scale = 2.8;
+          secondDrawing_scale_x = 4.2,
+          secondDrawing_scale_y = 2.8,
+          secondDrawing_scale_z = 2.8;
+
         let wire_x = 0,
           wire_y = -4,
           wire_z = -4,
@@ -291,9 +294,9 @@
         // File paths
         const SCENE_BACKGROUND = 'textures/dunhuang/amo_data_bg_dimmed_black.png';
         const MURAL = 'assets/img/elara/Doc.png';
-        const DRAWING = 'assets/img/elara/Process1.png';
+        const DRAWING = 'assets/img/elara/Process2.png';
+        const THIRD_DRAWING = 'assets/img/elara/Process1.png';
         const SECOND_DRAWING = 'assets/img/elara/Final.png';
-        const THIRD_DRAWING = 'assets/img/elara/Elara_ Or What Does OpenAI See When They Look in the Mirror_.png';
 
         const OUTLINE_ON_MOUSEPOINT = false;
         let selectedObjects = [];
@@ -424,7 +427,7 @@
         // Changed geometry to make it taller: width=3, height=4.5 (50% taller)
         const secondGeometry = new THREE.BoxGeometry(3, 4.5, 0.01);
         secondDrawing = new THREE.Mesh(secondGeometry, secondDrawingCubeMaterials);
-        secondDrawing.scale.set(secondDrawing_scale, secondDrawing_scale, secondDrawing_scale);
+        secondDrawing.scale.set(secondDrawing_scale_x, secondDrawing_scale_y, secondDrawing_scale_z);
         secondDrawing.position.set(secondDrawing_x, secondDrawing_y, secondDrawing_z);
 
         // Add userData to identify this as the second drawing layer
@@ -674,7 +677,7 @@
         <div class="col" style="margin-top:2vw">
           <div class="col" style="margin-top:2vw">
             <div class="statline"><span><i><b>
-                    <a href="https://miro.com/app/board/uXjVJ8m5_Tg=/?share_link_id=939088407112" target="_blank">
+                    <a href="ProjectElaraFullScreen.html" target="_blank">
                       Elara </a>
                   </b></i></span></div>
             <div class="statline"><span>Research-Based Generative Art</span></div>
