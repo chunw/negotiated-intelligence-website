@@ -3,10 +3,10 @@
 
 <head>
   <meta charset="utf-8" />
-  <title>Negotiated Intelligence | The Wrong Biennale 7th Edition</title>
-  <meta content="Negotiated Intelligence" name="description" />
-  <meta content="Negotiated Intelligence" property="og:title" />
-  <meta content="Negotiated Intelligence" property="og:description" />
+  <title>(In)visible Systems | The Wrong Biennale 7th Edition</title>
+  <meta content="(In)visible Systems" name="description" />
+  <meta content="(In)visible Systems" property="og:title" />
+  <meta content="(In)visible Systems" property="og:description" />
   <meta property="og:type" content="website" />
   <meta content="width=device-width, initial-scale=1" name="viewport" />
   <link href="base.css" rel="stylesheet" type="text/css" />
@@ -185,7 +185,6 @@
     .wait {
       height: 100vh;
       display: none;
-      /* height: calc(var(--vh, 1vh) * 100); */
     }
 
 
@@ -224,7 +223,6 @@
       <div data-w-id="53ee3c76-c537-5088-f0d4-fc00e8f8c98a" class="wait-bar">
         <div class="outer hero-t" style="line-height: 150%">
           <div class="text disclaimer load" style="font-size: 12px">
-            <!-- CAMLab is a multidisciplinary <br /> research lab at Harvard University. -->
           </div>
         </div>
         <div class="progress-bar">
@@ -257,9 +255,9 @@
         } from 'https://cdn.jsdelivr.net/npm/three@0.152.2/examples/jsm/postprocessing/RenderPass.js';
 
         let composer, effectSobel;
-        let animated_drawing, animated_secondDrawing, animated_thirdDrawing, animated_wire;
-        let animated_drawing_clicked, animated_secondDrawing_clicked, animated_thirdDrawing_clicked, animated_wire_clicked;
-        let mural, drawing, secondDrawing, thirdDrawing, wire;
+        let animated_drawing, animated_secondDrawing, animated_wire;
+        let animated_drawing_clicked, animated_secondDrawing_clicked, animated_wire_clicked;
+        let mural, drawing, secondDrawing, wire;
 
         // Constants
         const Z_offset = 0;
@@ -267,20 +265,19 @@
           mural_y = 0,
           mural_z = -5,
           mural_scale = 3;
+        let mural_scaleX = 5.5;
+
         let drawing_x = 0,
           drawing_y = 0,
           drawing_z = 0,
           drawing_z_target = 5,
-          drawing_scale = 4;
-          let thirdDrawing_x = 1,
-            thirdDrawing_y = 1,
-            thirdDrawing_z = 0,
-            thirdDrawing_z_target = 10,
-            thirdDrawing_scale = 3;
+          drawing_scale = 2.8;
+        let drawing_scaleY = 3.5;
+
         let secondDrawing_x = 0,
           secondDrawing_y = 0,
-          secondDrawing_z = 0,
-          secondDrawing_z_target = 10,
+          secondDrawing_z = 10,
+          secondDrawing_z_target = 15,
           secondDrawing_scale = 2.8;
         let wire_x = 0,
           wire_y = -4,
@@ -288,12 +285,11 @@
           wire_z_target = 18,
           wire_scale = 40;
 
-        // File paths
+        // File paths - using placeholder images
         const SCENE_BACKGROUND = 'textures/dunhuang/amo_data_bg_dimmed_black.png';
-        const MURAL = 'assets/img/elara/Doc.png';
-        const DRAWING = 'assets/img/elara/Process1.png';
-        const SECOND_DRAWING = 'assets/img/elara/Final.png';
-        const THIRD_DRAWING = 'assets/img/elara/Elara_ Or What Does OpenAI See When They Look in the Mirror_.png';
+        const MURAL = 'assets/img/systems/glass_cage_time.jpg';
+        const DRAWING = 'assets/img/systems/feed_me_labels.jpg';
+        const SECOND_DRAWING = 'assets/img/systems/sirenbanshee404.jpg';
 
         const OUTLINE_ON_MOUSEPOINT = false;
         let selectedObjects = [];
@@ -316,10 +312,10 @@
         renderer.setSize(window.innerWidth, window.innerHeight);
         renderer.render(scene, camera);
 
-        // Lights
-        const pointLight = new THREE.PointLight(0xffffff);
+        // Dim Lights
+        const pointLight = new THREE.PointLight(0xffffff, 0.15);
         pointLight.position.set(5, 5, 5);
-        const ambientLight = new THREE.AmbientLight(0xffffff);
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.1);
         scene.add(pointLight, ambientLight);
 
         const controls = new OrbitControls(camera, renderer.domElement);
@@ -332,193 +328,137 @@
         composer = new EffectComposer(renderer);
         const renderPass = new RenderPass(scene, camera);
         composer.addPass(renderPass);
-        mural.scale.set(mural_scale, mural_scale, mural_scale);
+        mural.scale.set(mural_scaleX, mural_scale, mural_scale);
+
         mural.position.set(mural_x, mural_y, mural_z);
 
-        // Add userData to identify this as the mural layer
-        mural.userData = { isMuralLayer: true };
+        mural.userData = {
+          isMuralLayer: true
+        };
 
         scene.add(mural);
 
         // First Drawing Image
         const drawingloader = new THREE.TextureLoader();
-        const opacity = 0.5;
+        const opacity = 0.9;
         const drawingCubeMaterials = [
           new THREE.MeshPhongMaterial({
             opacity: opacity,
             transparent: true,
             map: drawingloader.load('textures/dunhuang/black.jpg')
-          }), //right side
+          }),
           new THREE.MeshPhongMaterial({
             opacity: opacity,
             transparent: true,
             map: drawingloader.load('textures/dunhuang/black.jpg')
-          }), //left side
+          }),
           new THREE.MeshPhongMaterial({
             opacity: opacity,
             transparent: true,
             map: drawingloader.load('textures/dunhuang/black.jpg')
-          }), //top side
+          }),
           new THREE.MeshPhongMaterial({
             opacity: opacity,
             transparent: true,
             map: drawingloader.load('textures/dunhuang/black.jpg')
-          }), //bottom side
+          }),
           new THREE.MeshPhongMaterial({
             opacity: opacity,
             transparent: true,
             map: drawingloader.load(DRAWING)
-          }), //front side
+          }),
           new THREE.MeshPhongMaterial({
             opacity: opacity,
             transparent: true,
             map: drawingloader.load(DRAWING)
-          }), //back side
+          }),
         ];
         const geometry = new THREE.BoxGeometry(3, 3, 0.01);
         drawing = new THREE.Mesh(geometry, drawingCubeMaterials);
-        drawing.scale.set(drawing_scale, drawing_scale, drawing_scale);
+        drawing.scale.set(drawing_scale, drawing_scaleY, drawing_scale);
+
         scene.add(drawing);
         drawing.position.set(drawing_x, drawing_y, drawing_z);
 
-        // Second Drawing Image Layer (taller version)
-        const secondDrawingLoader = new THREE.TextureLoader();
-        const secondOpacity = 0.9;
-
-        // Load the image texture
-        const secondImageTexture = secondDrawingLoader.load(SECOND_DRAWING);
-
+        // Second Drawing Layer
+        const secondDrawingTexture = new THREE.TextureLoader().load(SECOND_DRAWING);
+        const secondDrawingOpacity = 0.8;
         const secondDrawingCubeMaterials = [
           new THREE.MeshPhongMaterial({
             opacity: 0,
             transparent: true,
-            map: secondDrawingLoader.load('textures/dunhuang/black.jpg')
-          }), //right side
+            color: 0x000000
+          }),
           new THREE.MeshPhongMaterial({
             opacity: 0,
             transparent: true,
-            map: secondDrawingLoader.load('textures/dunhuang/black.jpg')
-          }), //left side
+            color: 0x000000
+          }),
           new THREE.MeshPhongMaterial({
             opacity: 0,
             transparent: true,
-            map: secondDrawingLoader.load('textures/dunhuang/black.jpg')
-          }), //top side
+            color: 0x000000
+          }),
           new THREE.MeshPhongMaterial({
             opacity: 0,
             transparent: true,
-            map: secondDrawingLoader.load('textures/dunhuang/black.jpg')
-          }), //bottom side
+            color: 0x000000
+          }),
           new THREE.MeshPhongMaterial({
             opacity: 0,
             transparent: true,
-            map: secondImageTexture
-          }), //front side
+            map: secondDrawingTexture
+          }),
           new THREE.MeshPhongMaterial({
             opacity: 0,
             transparent: true,
-            map: secondImageTexture
-          }), //back side
+            map: secondDrawingTexture
+          }),
         ];
 
-        // Changed geometry to make it taller: width=3, height=4.5 (50% taller)
-        const secondGeometry = new THREE.BoxGeometry(3, 4.5, 0.01);
-        secondDrawing = new THREE.Mesh(secondGeometry, secondDrawingCubeMaterials);
+        const secondDrawingGeometry = new THREE.BoxGeometry(3, 3, 0.01);
+        secondDrawing = new THREE.Mesh(secondDrawingGeometry, secondDrawingCubeMaterials);
         secondDrawing.scale.set(secondDrawing_scale, secondDrawing_scale, secondDrawing_scale);
         secondDrawing.position.set(secondDrawing_x, secondDrawing_y, secondDrawing_z);
 
-        // Add userData to identify this as the second drawing layer
-        secondDrawing.userData = { isSecondDrawingLayer: true };
+        secondDrawing.userData = {
+          isSecondLayer: true
+        };
 
         scene.add(secondDrawing);
 
-        // Store secondOpacity for animation
-        window.secondOpacity = secondOpacity;
+        window.secondDrawingOpacity = secondDrawingOpacity;
 
-        // Third Drawing Image Layer
-        const thirdDrawingLoader = new THREE.TextureLoader();
-        const thirdOpacity = 0.7;
-        const thirdDrawingCubeMaterials = [
-          new THREE.MeshPhongMaterial({
-            opacity: 0,
-            transparent: true,
-            map: thirdDrawingLoader.load('textures/dunhuang/black.jpg')
-          }), //right side
-          new THREE.MeshPhongMaterial({
-            opacity: 0,
-            transparent: true,
-            map: thirdDrawingLoader.load('textures/dunhuang/black.jpg')
-          }), //left side
-          new THREE.MeshPhongMaterial({
-            opacity: 0,
-            transparent: true,
-            map: thirdDrawingLoader.load('textures/dunhuang/black.jpg')
-          }), //top side
-          new THREE.MeshPhongMaterial({
-            opacity: 0,
-            transparent: true,
-            map: thirdDrawingLoader.load('textures/dunhuang/black.jpg')
-          }), //bottom side
-          new THREE.MeshPhongMaterial({
-            opacity: 0,
-            transparent: true,
-            map: thirdDrawingLoader.load(THIRD_DRAWING)
-          }), //front side
-          new THREE.MeshPhongMaterial({
-            opacity: 0,
-            transparent: true,
-            map: thirdDrawingLoader.load(THIRD_DRAWING)
-          }), //back side
-        ];
-        const thirdGeometry = new THREE.BoxGeometry(3, 3, 0.01);
-        thirdDrawing = new THREE.Mesh(thirdGeometry, thirdDrawingCubeMaterials);
-        thirdDrawing.scale.set(thirdDrawing_scale, thirdDrawing_scale, thirdDrawing_scale);
-        thirdDrawing.position.set(thirdDrawing_x, thirdDrawing_y, thirdDrawing_z);
-
-        // Add userData to identify this as the third drawing layer
-        thirdDrawing.userData = { isThirdDrawingLayer: true };
-
-        scene.add(thirdDrawing);
-
-        // Store thirdOpacity for animation
-        window.thirdOpacity = thirdOpacity;
-
-        // Initialize animation flags
         if (!animated_drawing_clicked) animated_drawing_clicked = true;
         if (!animated_secondDrawing_clicked) animated_secondDrawing_clicked = true;
-        if (!animated_thirdDrawing_clicked) animated_thirdDrawing_clicked = true;
         if (!animated_wire_clicked) animated_wire_clicked = true;
         animated_drawing = false;
         animated_secondDrawing = false;
-        animated_thirdDrawing = false;
         animated_wire = false;
 
         // Click event handler
         function onCanvasClick(event) {
-          // Calculate mouse position in normalized device coordinates
           const rect = renderer.domElement.getBoundingClientRect();
           mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
           mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
 
-          // Update the picking ray with the camera and mouse position
           raycaster.setFromCamera(mouse, camera);
 
-          // Calculate objects intersecting the picking ray
           const intersects = raycaster.intersectObjects(scene.children);
 
-          // Check if the clicked object is any of the interactive layers
           for (let i = 0; i < intersects.length; i++) {
             const object = intersects[i].object;
-            if (object.userData.isSecondDrawingLayer) {
-              const url = "ProjectElaraFullScreen.html";
-              window.open(url, '_blank');
-            } else if (object.userData) {
-              window.open('ProjectElara.html', '_blank');
+            if (object.userData && (object.userData.isSecondLayer)) {
+              window.open('./invisible_systems_detail.html', '_blank');
+              break;
+            }
+            if (object.userData && (object.userData.isMuralLayer)) {
+              window.open('./invisible_systems_detail.html', '_blank');
+              break;
             }
           }
         }
 
-        // Add click event listener to the canvas
         renderer.domElement.addEventListener('click', onCanvasClick);
 
         // Animation Loop
@@ -537,57 +477,23 @@
             }
           }
 
-          // Second drawing animation (image layer with position animation)
+          // Second drawing animation
           if (secondDrawing && animated_secondDrawing_clicked && !animated_secondDrawing) {
-            // Animate position forward
-            if (secondDrawing.position.z <= secondDrawing_z_target) {
-              secondDrawing.position.z += 0.05;
-            }
-
-            // Fade in second drawing materials
             for (let i = 0; i < secondDrawing.material.length; i++) {
               const material = secondDrawing.material[i];
-              if (i === 4 || i === 5) { // Front and back faces with the image
-                if (material.opacity < (window.secondOpacity || 0.8)) {
+              if (i === 4 || i === 5) {
+                if (material.opacity < (window.secondDrawingOpacity || 0.8)) {
                   material.opacity += 0.005;
                 }
-              } else { // Side faces
+              } else {
                 if (material.opacity < 0.2) {
                   material.opacity += 0.005;
                 }
               }
             }
 
-            // Check if animation is complete (both position and opacity)
-            if (secondDrawing.position.z >= secondDrawing_z_target &&
-                secondDrawing.material[4].opacity >= (window.secondOpacity || 0.8)) {
+            if (secondDrawing.material[4].opacity >= (window.secondDrawingOpacity || 0.8)) {
               animated_secondDrawing = true;
-            }
-          }
-
-          // Third drawing animation
-          if (thirdDrawing && animated_thirdDrawing_clicked && !animated_thirdDrawing) {
-            // Fade in third drawing materials
-            for (let i = 0; i < thirdDrawing.material.length; i++) {
-              const material = thirdDrawing.material[i];
-              if (i === 4 || i === 5) { // Front and back faces with the image
-                if (material.opacity < (window.thirdOpacity || 0.7)) {
-                  material.opacity += 0.003;
-                }
-              } else { // Side faces
-                if (material.opacity < 0.1) {
-                  material.opacity += 0.003;
-                }
-              }
-            }
-
-            // Add slight rotation for visual interest
-            thirdDrawing.rotation.y = Math.sin(time * 0.5) * 0.1;
-            thirdDrawing.rotation.x = Math.cos(time * 0.3) * 0.05;
-
-            // Check if animation is complete
-            if (thirdDrawing.material[4].opacity >= (window.thirdOpacity || 0.7)) {
-              animated_thirdDrawing = true;
             }
           }
 
@@ -671,23 +577,18 @@
     <div class="statlines">
       <div class="title"></div>
       <div class="table">
-        <div class="col" style="margin-top:2vw">
-          <div class="col" style="margin-top:2vw">
-            <div class="statline"><span><i><b>
-                    <a href="https://miro.com/app/board/uXjVJ8m5_Tg=/?share_link_id=939088407112" target="_blank">
-                      Elara </a>
-                  </b></i></span></div>
-            <div class="statline"><span>Research-Based Generative Art</span></div>
-            <div class="statline"><span>2024</span></div>
-            <div class="statline"><span>
-                <a href="marielemoigne.com" target="_blank">
-                  Sahra Azadzoy, Leo Bayly Barton
-                </a>
-              </span></div>
+        <div class="col">
+          <img class="drawing" src="" />
+          <div class="table">
+
+            <div class="col" style="margin-top:2vw">
+              <div class="statline"><span><i><b><a href="./invisible_systems_detail.html" target="_blank">(In)visible Systems</a></b></i></span></div>
+              <div class="statline"><span>Digital Video Series</span></div>
+              <div class="statline"><span>Yan Longdan</span></div>
+            </div>
           </div>
         </div>
       </div>
-
     </div>
 
     <canvas id="hero-threejs" style="height: 400px; width:100%"></canvas>
@@ -703,9 +604,31 @@
 
   <script>
     const script = fetch('./composition_master_main.js').then(async result => {
-      // Your additional scripts here
+      result.text().then(text => {
+        const scriptElement = document.createElement('script');
+        scriptElement.innerHTML = text;
+        document.body.appendChild(scriptElement);
+      });
+    });
+
+    window.onpageshow = function(event) {
+      if (event.persisted) {
+        window.location.reload()
+      }
+    };
+
+    //100vh Fix on Mobile
+    let vh = window.innerHeight * 0.01;
+    let size = 0;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+    window.addEventListener('resize', () => {
+      if (window.innerWidth === size) return;
+      size = window.innerWidth;
+      let vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty('--vh', `${vh}px`);
     });
   </script>
+
 </body>
 
 </html>

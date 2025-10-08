@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html data-wf-page="61c5e06d4c32b4d376aaf502" data-wf-site="603fe89ec4bbcece7ee6a53a" lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <title>Negotiated Intelligence | The Wrong Biennale 7th Edition</title>
+  <meta content="Negotiated Intelligence" name="description" />
+  <meta content="Negotiated Intelligence" property="og:title" />
+  <meta content="Negotiated Intelligence" property="og:description" />
+  <meta property="og:type" content="website" />
+  <meta content="width=device-width, initial-scale=1" name="viewport" />
+  <link href="base.css" rel="stylesheet" type="text/css" />
+  <link href="assets/img/favicon.png" rel="shortcut icon" type="image/x-icon" />
+  <link href="assets/img/favicon.png" rel="apple-touch-icon" />
+  <script src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.5.1.min.dc5e7f18c8.js?site=603fe89ec4bbcece7ee6a53a" type="text/javascript" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/gsap.min.js"></script>
+
+  <script type="text/javascript">
+    ! function(o, c) {
+      var n = c.documentElement,
+        t = " w-mod-";
+      n.className += t + "js", ("ontouchstart" in o || o.DocumentTouch && c instanceof DocumentTouch) && (n.className += t + "touch")
+    }(window, document);
+  </script>
+
+  <style>
+    .collection {
+      opacity: 0;
+    }
+
+    .info-img-gradient.bottom {
+      transform: scaleY(-1);
+    }
+  </style>
+
+  <style>
+    *,
+    *::after,
+    *::before {
+      box-sizing: border-box;
+    }
+
+    html {
+      background: #030303;
+    }
+
+    body {
+      -webkit-tap-highlight-color: transparent;
+      -webkit-font-smoothing: subpixel-antialiased;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      -webkit-overflow-scrolling: touch;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      overscroll-behavior: none;
+    }
+
+    .content {
+      position: relative;
+      z-index: 2;
+    }
+
+
+    /*Disable Text Selection */
+    @media (min-width: 991px) {
+      * {
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+    }
+
+    input,
+    textarea {
+      -webkit-user-select: text;
+      -khtml-user-select: text;
+      -moz-user-select: text;
+      -ms-user-select: text;
+      user-select: text;
+    }
+
+    /*Remove Scrollbar */
+    ::-webkit-scrollbar {
+      -ms-overflow-style: none;
+      display: none;
+      overflow: -moz-scrollbars-none;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      -ms-overflow-style: -ms-autohiding-scrollbar;
+    }
+
+    .grid-w {
+      display: none;
+    }
+
+    .underline-style {
+      text-underline-offset: 0.3rem;
+      text-decoration-thickness: 1px;
+    }
+
+    .blend_back {
+      background-blend-mode: luminosity;
+      background-color: #030303;
+      opacity: 0.1;
+      display: block;
+    }
+
+    canvas {
+      left: 0;
+      position: fixed;
+      top: 0;
+      z-index: 1;
+    }
+
+    [data-animation="slider"],
+    [data-animation="slider"] .collection-list {
+      display: inline-block;
+      width: auto !important;
+      white-space: nowrap;
+    }
+
+    [data-animation="slider-item"] {
+      display: inline-block !important;
+      height: 38vw;
+      position: relative;
+      width: 55vw;
+    }
+
+    [data-animation="slider-item"] img {
+      border: 2px solid #bbb9b94a;
+      border-radius: 18px;
+      position: absolute;
+      object-fit: cover;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: calc(100% - 2vw);
+    }
+
+    .menu {
+      height: 100vh;
+      height: calc(var(--vh, 1vh) * 100);
+    }
+
+    .loader {
+      display: block;
+    }
+
+    .hero.home,
+    .wait {
+      height: 100vh;
+      /* height: calc(var(--vh, 1vh) * 100); */
+    }
+
+    audio {
+      opacity: 0.8;
+    }
+
+    audio::-webkit-media-controls-panel {
+      background-color: #535353;
+    }
+
+    audio::-webkit-media-controls-current-time-display {
+      text-shadow: none;
+      color: white;
+    }
+
+    audio::-webkit-media-controls-time-remaining-display {
+      text-shadow: none;
+      color: white;
+    }
+
+    .dataset .h-h2.desc {
+      font-size: 1.5rem;
+      line-height: 1.3;
+      font-weight: 300;
+      border-bottom: 1px solid #ddd;
+      padding: 8px;
+    }
+
+    thead {
+      background-color: #585858;
+      color: white;
+      font-weight: 300;
+    }
+
+    th,
+    td {
+      border-bottom: 1px solid #ddd;
+      padding: 8px;
+    }
+
+    table {
+      border-collapse: collapse;
+      border-top: 2px solid black;
+      border-bottom: 2px solid black;
+    }
+
+
+    /* Grid Overview */
+    .grid-overview {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 2rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .grid-item {
+      position: relative;
+      cursor: pointer;
+      border: 1px solid #333;
+      border-radius: 8px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      background: #0a0a0a;
+    }
+
+    .grid-item:hover {
+      border-color: #666;
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+    }
+
+    .grid-item__image {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .grid-item__info {
+      padding: 1.5rem;
+    }
+
+    .grid-item__title {
+      font-size: 1.1rem;
+      font-weight: 400;
+      color: #fff;
+      margin-bottom: 0.5rem;
+    }
+
+    .grid-item__caption {
+      font-size: 0.9rem;
+      color: #888;
+      line-height: 1.5;
+    }
+
+    /* Fullscreen Slideshow */
+    .slideshow-fullscreen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #030303;
+      z-index: 2000;
+      display: none;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .slideshow-fullscreen.active {
+      display: block;
+      opacity: 1;
+    }
+
+    .slideshow__bar {
+      position: absolute;
+      top: 2rem;
+      left: 0;
+      right: 0;
+      z-index: 10;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 3rem;
+    }
+
+    .slideshow__head h2 {
+      font-size: 1.2rem;
+      font-weight: 400;
+      color: #fff;
+      margin: 0;
+    }
+
+    .slideshow__counter {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1.5rem;
+      color: #bbb;
+    }
+
+    .slideshow__pagination {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .slideshow__pagination__left,
+    .slideshow__pagination__right {
+      cursor: pointer;
+      opacity: 1;
+      transition: opacity 0.3s ease;
+    }
+
+    .slideshow__pagination__left:hover,
+    .slideshow__pagination__right:hover {
+      opacity: 0.6;
+    }
+
+    .slideshow__pagination__icon {
+      width: 50px;
+      height: auto;
+    }
+
+    .slideshow__close {
+      position: absolute;
+      top: 2rem;
+      right: 3rem;
+      width: 50px;
+      height: 50px;
+      border: 2px solid #fff;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      z-index: 20;
+    }
+
+    .slideshow__close:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: rotate(90deg);
+    }
+
+    .slideshow__close::before,
+    .slideshow__close::after {
+      content: '';
+      position: absolute;
+      width: 24px;
+      height: 2px;
+      background: #fff;
+    }
+
+    .slideshow__close::before {
+      transform: rotate(45deg);
+    }
+
+    .slideshow__close::after {
+      transform: rotate(-45deg);
+    }
+
+    .slideshow__frame {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 95%;
+      height: 85%;
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    .frame svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .slideshow__list {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 95%;
+      height: 85%;
+      z-index: 3;
+    }
+
+    .slideshow__list__media {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.6s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    .slideshow__list__media.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .slideshow__list__image {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .slideshow__list__image:hover {
+      transform: scale(1.02);
+    }
+
+    .image-caption {
+      text-align: center;
+      font-size: 0.9rem;
+      color: #888;
+      margin-top: 1rem;
+    }
+
+    /* Lightbox */
+    .lightbox {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.95);
+      z-index: 3000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .lightbox.active {
+      display: flex;
+      opacity: 1;
+    }
+
+    .lightbox__content {
+      position: relative;
+      max-width: 95vw;
+      max-height: 95vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .lightbox__image {
+      max-width: 100%;
+      max-height: 85vh;
+      object-fit: contain;
+      border-radius: 8px;
+    }
+
+    .lightbox__caption {
+      text-align: center;
+      color: #ccc;
+      margin-top: 1.5rem;
+      font-size: 1rem;
+      max-width: 800px;
+    }
+
+    .lightbox__close {
+      position: absolute;
+      top: 2rem;
+      right: 2rem;
+      width: 50px;
+      height: 50px;
+      border: 2px solid #fff;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+
+    .lightbox__close:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: rotate(90deg);
+    }
+
+    .lightbox__close::before,
+    .lightbox__close::after {
+      content: '';
+      position: absolute;
+      width: 24px;
+      height: 2px;
+      background: #fff;
+    }
+
+    .lightbox__close::before {
+      transform: rotate(45deg);
+    }
+
+    .lightbox__close::after {
+      transform: rotate(-45deg);
+    }
+
+    @media (max-width: 768px) {
+      .video iframe {
+        height: 400px;
+      }
+
+      .grid-overview {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+
+      .slideshow__bar {
+        flex-direction: column;
+        gap: 1rem;
+        padding: 0 1rem;
+      }
+
+      .slideshow__frame,
+      .slideshow__list {
+        width: 90%;
+      }
+    }
+  </style>
+
+</head>
+
+<body class="body" data-ix="pre-loader">
+  <div class="gradient-embed w-embed">
+    <style>
+      .gradient {
+        -webkit-text-fill-color: transparent;
+        -webkit-background-clip: text;
+      }
+
+      .blend {
+        mix-blend-mode: difference;
+      }
+    </style>
+  </div>
+
+  <div class="navbar navbar__shop" style="display:none; padding:1rem 0.5vw 0 2.5vw ">
+    <div class="n-block left">
+      <div data-w-id="2264dfe2-412c-a750-b778-fffb7eb6b996" class="n-wrap">
+        <div data-w-id="2264dfe2-412c-a750-b778-fffb7eb6b997" class="n-trigger">
+          <div data-w-id="2264dfe2-412c-a750-b778-fffb7eb6b998" class="n-line"></div>
+          <div data-w-id="2264dfe2-412c-a750-b778-fffb7eb6b999" class="n-line bottom"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="n-block center"><a rel="noopener" draggable="false" href="/" aria-current="page" class="n-link w-inline-block w--current"><img style="opacity: 0.9; width: 200px;"
+          src="https://freight.cargo.site/w/217/q/94/i/fb2b46cd634f8600d388c1fddfc23c48e2c1e3593988f576bbec4237426c8fcb/CAMLab.png" loading="lazy" class="n-brand" /></a>
+    </div>
+    <div class="n-block right"></div>
+  </div>
+
+
+  <main data-template="home" class="content demo">
+
+    <div id="dataset" class="collection" style="margin-top: 0vw">
+
+
+
+      <div class="campaign">
+        <div style="text-align: center; " class="lookbook__head__title">
+          <h2 style=" line-height: 1.1; padding-top: 2rem;" class="h-h2 gradient">
+            <i>Elara</i>
+            <br>
+            Or What Does OpenAI See When They Look in the Mirror?
+          </h2>
+        </div>
+
+        <div class="hero-text">
+          <a href="hmarielemoigne.com" target="_blank">
+            Leo Bayly Barton & Sahra Azadzoy
+          </a>
+        </div>
+
+
+
+
+        <div class="intro" style="padding: 5% 15% 0">
+          <div class="intro-inner">
+            <div class="intro-desc">
+
+              <h2 class="h-h2 desc" style="line-height: 1.5; margin-bottom: 1rem; text-align: left;">
+                Since Large Language Models (LLMs) have been widely available for public use, their
+                outputs have flooded both professional and personal spaces. While the usefulness of such
+                tools are hard to dispute, a number of questions remain open. Elara probes one of them:
+                should we be able to recognise algorithmically generated outputs? This question runs deep
+                through the field of generative AI, touching on everything from plagiarism and fakes to the
+                distinctions between human-made and machine-made knowledge. <br> <br>
+                Elara approaches the question of output recognition by turning the generated content back
+                towards its creator, asking whether OpenAI can detect content generated using their publicly
+                available platform ChatGPT (GPT-4). To test this, we fabricated a job application for the
+                company’s ‘Security Engineer, Detection and Response’ job opening, using text solely
+                generated by GPT-4. <br>
+                <br>
+                This work primarily takes two angles to the question of generation:
+                <br> <br>
+                First, it asks ‘can generated results reliably be detected by OpenAI’? Particularly in the wake
+                of the company removing public access to their short-lived ‘AI Classifier’ which was unveiled
+                six months prior, in January 2023. According to OpenAI,
+                “the AI classifier is no longer
+                available due to its low rate of accuracy” (Kirchner et al. 2023). While a plethora of
+                independently produced LLM detection tools are publicly available, they suffer from the
+                same reliability issues (Orenstrakh et al. 2023). This is concerning as it has been argued that
+                the detection of black-box style systems will “ultimately become infeasible”
+                , with alternative
+                methods like in-text style watermarking being limited at best (Tang, Chuang, and Hu 2023,
+                8). Begging the question: if the company creating this software cannot detect its outputs,
+                who will be able to?
+                <br> <br>
+                Second, by generating a hypothetical candidate Elara explores GPT-4’s output bias.
+                Through extensive testing and the final generation, this project exposes some potential
+                biases relating to sex, ethnicity and educational background during profile generation. While
+                it is unclear whether these biases are from training data, intentional censorship or other
+                factors, their existence mirrors existing studies (Oketunji, Anas, and Saina 2023). <br> <br>
+                Together, Elara questions whether we should be able to recognise LLM outputs, while
+                revealing some of the possible biases we will be exposed to if we cannot.
+
+
+                <br>
+                <br>
+                <b>The Anatomy of Elara</b><br> <br>
+                Elara exists on a few levels.<br>
+                First, Elara is a job application sent to OpenAI.<br>
+                Second, Elara is a fictional persona encapsulated in a resume, profile picture and cover
+                letter.<br> <br>
+                And third Elara is a comprehensive walkthrough of the entire creation process of this
+                persona - from locating the job listing to undertaking multiple testing phases to generating
+                the final application materials.<br> <br>
+                Inspired by the format of police evidence boards, the artwork exposes the step-by-step
+                process of creating Elara. Creating an anatomy of generation. In turn probing the questions
+                of bias and detection at the core of the work.<br> <br>
+                Elara is created at a time of abstract, black-box LLMs and undisclosed training data.
+                Currently the only way to attempt to understand their architecture is by tracing outputs,
+                underlying patterns and corporate incentives. Elara attempts to illuminate the current state of
+                generative technology and detection – something many AI companies are hesitant to do.
+                Though we cannot fully unravel the black box mystery, we can trace outputs with rigorous
+                testing and analysis of the system, documentation, open sharing and discussion.
+
+              </h2>
+
+
+
+              <div class="process-title" style="margin-top:10vh">
+                <h2>Negotiation Arena</h2>
+              </div>
+              <h2 class="h-h2 desc" style="line-height: 1.5; margin-bottom: 1rem; text-align: left;">
+              <br>
+                <b>
+                  From Scraping to Probing
+                </b>
+                <br> <br>
+                Initially, this project was going to be centred around model generation. The concept was to
+                take publicly available employee data from the target company, using this to train a model
+                which would generate the ideal, typical candidate for that company. This method was chosen
+                as it would tie the results closely to the (public facing) image of the company, highlighting
+                real workforce demographics.<br> <br>
+                However, obtaining and using employee data raised some legal and ethical red flags. Most
+                notably regarding web scraping (using automated tools to extract information from web
+                pages) and the use of (publicly available) personal data.<br> <br>
+                The legality of web scraping initially seemed black-and-white. LinkedIn appeared as the only
+                publicly available database of employees we could use, and their user agreement strictly
+                prohibited scraping (LinkedIn 2022). Yet, further investigation revealed a legal quagmire.<br> <br>
+                The US legal case of hiQ Labs v. LinkedIn was heard multiple times between 2019 and 2022
+                (Neuburger 2022). hiQ Labs , a data analytics firm, has previously received a cease and
+                desist from LinkedIn for scraping their servers, breaching the aforementioned user
+                agreement. In the legal case, hiQ was seeking to restrain LinkedIn from invoking the
+                Computer Fraud and Abuse Act (CFAA) and the Digital Millennium Copyright Act (DMCA)
+                under California law, claiming their scraping was lawful. While the initial 2019 hearing ruled
+                that hiQ had the legal right to do web scraping, the Supreme Court demanded further review
+                in 2021 on the basis of other contradictory court rulings. In April 2022, the second ruling reaffirmed the original decision. Yet a third hearing ruled that hiQ had indeed breached
+                LinkedIn’s User Agreement, forcing a settlement between the two parties. This case
+                underlined the legal complexity and contradictions of web scraping.<br> <br>
+                Yet the decision to use an alternative method for this project came not from scraping, but
+                concerns about using personal data–particularly under Europe’s GDPR. In our
+                understanding, GDPR protects all personal data, even if it is publicly available. As illustrated
+                by a Polish data analytics company being heavily fined for collecting data from public
+                registers (European Data Protection Board 2021). With a stronger understanding of GDPR,
+                a standard whose fundamentals we agree with, it became clear that we would not be able to
+                legally use employee information to train a model.<br> <br>
+                Thus, we pivoted our approach. Instead of basing a model on real web-scraped employee
+                information, we would probe LLMs to expose their own training/tuning biases in creating an
+                ideal employee. This approach would allow us to sidestep data privacy concerns while
+                exposing in-built demographic biases within the system. While these demographic biases
+                are likely to be totally different to those found in the employee record, such biases more
+                directly impact users, perhaps making them even more worthy of study.<br> <br>
+
+
+                <b>Towards Elara</b><br> <br>
+                After a number of initial tests using different LLMs to create hypothetical candidates for given
+                job titles, some trends became clear. Particular names and certain demographics were
+                generated time and again, prompting more thorough analysis. Thus we generated 81 results
+                using a handful of different job titles and various prompts, allowing the LLMs to decide age,
+                sex, ethnicity and level of qualification among other factors. We found an overwhelming bias
+                for generating female candidates with PhD-level education who were white. The most
+                surprising result being that the vast majority, 85%, of generations were female. These results
+                could be interpreted in a number of ways; as a bias in the dataset, a reflection of workplace
+                demographics or as revealing an intentionally censored model (Glukhov et al. 2023). To find
+                concrete cause more extensive research would need to be conducted. But for us, these
+                demographic boundaries would form the basis for generating Elara’s image.<br>
+                <br>
+                Focusing in, for this incarnation of the project we decided to only apply to a job at OpenAI,
+                as the creators of the most widely used and divesely functional LLMs available today. Thus,
+                we focused on using ChatGPT as a tool. To help ChatGPT show its biases during
+                generation, we crafted each generation from a new, empty chat using as few generation
+                prompts as possible while maintaining a high quality and believable output. This applied for
+                all three core generations: (1) the profile, (2) their image and (3) the cover letter. The full,
+                final prompts can be seen within the artwork itself. While we will not detail the entire process
+                of each generation here, there are a few nuances which are worth discussing.<br> <br>
+                We split the profile generation into five phases. Phase 1 framed the entire generation by
+                placing the candidate’s qualifiedness for the role on a scale. We found significantly more
+                believable (nuanced and varied) results by requesting a 4. Above this, the model would only
+                present incredibly similar information on every generation. Phases 2 and 3 presented
+                information about the job and the specifics of the generation respectively. Phase 4 and 5
+                were introduced later, after presenting early profile generations (using phase 1-3) to peers
+                for review. Interestingly, the profile already fared well, with over 50% believing the profile was
+                not fake. Still, we received useful feedback regarding style and specificity from which we
+                crafted phase 4 and 5. We labelled phase 4 the failure state as this prompt (either its content
+                or wording) consistently produced poorer results than the original generation. However,
+                initiating phase 5 after phase 4 consistently produced better results than omitting phase 4–a
+                surprising result.<br> <br>
+                We undertook similar processes of trial, error and review when creating the other two
+                prompts.<br> <br>
+                Once we were satisfied with the calibre of results produced from each prompt, we began the
+                final generation. Here, we were keen to remove our biases and desired outcomes from the
+                equation. Thus, using our refined prompts, we used the first generated profile, image and
+                cover letter–resulting in the creation of Elara as seen in the final work. Fortunately, we were
+                both convinced and happy with these results.<br>
+                For clarity, it is worth noting that we made six minor tweaks to the direct output to ensure
+                credibility. Most of these are documented on the artwork itself. These changes were:
+                1. Removing the mention of OpenAI in the resume’s personal statement.<br>
+                2. Generating a new, believable phone number that didn’t include the fake code “555”
+                3. Removing the fake number and road name from the address.<br>
+                4. Changing the employer CloudTech Innovations to a real alternative based in San
+                Francisco; we asked ChatGPT to define the new choice and took the first result.<br>
+                5. Implementing a real email, which we created.<br>
+                6. Tweaking exposure and colour of the image and reducing its resolution to
+                320x320px.<br> <br>
+                Choosing the first generation and leaving it with minimal edits ensure that the profile
+                elements all remain reflective of the LLM’s initial output to the prompts.
+                That said, after generation we had to undertake the rest of the tasks manually. These
+                included: formatting the resume and cover letter, creating a believable email address,
+                creating the LinkedIn profile from the generated information, and applying for the job. While
+                these were mainly simple data-entry tasks, it would have been exciting for these tasks to
+                also be completed by the LLM in order to provide a larger window for its expression and
+                biases to shine through. One particular example here would be the answers to the
+                demographic questions on OpenAI’s application form which we instead opted to leave
+                unanswered.<br> <br>
+                Overall, throughout the generation process we provided considered guidance through few,
+                carefully engineered prompts. Leaving responses relatively untouched to ensure ChatGPT’s
+                decisions and biases remain. Together, this aimed to reduce our input biases while still
+                achieving a usable and credible output.<br>
+
+
+
+                <b>Expanding Elara</b><br><br>
+                While satisfied with the current work, Elara has potential for further expansion; in both the
+                artwork and surrounding research.<br><br>
+                Elara’s application to OpenAI resulted in no response. While we had hoped for feedback that
+                might help answer the main question posed by the artwork—can generated results reliably
+                be detected by OpenAI?—the lack of response has not deterred us. Even a rejection would
+                have provided limited insight, but a response indicating detection of the generated content
+                would have been particularly interesting. An invitation for an interview would have opened up
+                exciting possibilities, such as live voice generation and more. Nevertheless, we are now
+                looking beyond OpenAI to explore other avenues and expand the project's scope.<br><br>
+                Beyond OpenAI, we are also interested in broadening the scope of the project to target
+                different companies and their generation tools. This would expand our initial research
+                question and create room for comparisons between different models and companies.
+                Presenting questions such as “which models produce which demographics and why?”
+                ,
+                prompting further inquiry into the different workforces, company ideologies and training sets.
+                Moving in this direction and analysing differences in outputs could reveal how built-in biases
+                show themselves differently across systems.<br><br>
+                If done, it would also be interested in further increasing the credibility of the profiles through
+                more rigorous human testing. For example, an expansive database of generated profiles and
+                real profiles could be mixed up to be evaluated and categorised by a group of respondents,
+                ideally including recruiters.<br><br>
+                Regarding process, another goal for the expansion of Elara would be to have the target AI
+                tools generate and execute every single part of the application process. As previously
+                outlined, for Elara some aspects were undertaken manually by us, such as the resume
+                formatting and filling out the application form on the OpenAI website. Allowing the chosen AI
+                system to also complete these tasks would further the opportunity to have the LLM express
+                itself.<br><br>
+
+
+                <b>Model Employee</b><br><br>
+While we are no longer waiting for a response from OpenAI regarding Elara’s application,
+the process has already revealed some demographic generation biases that likely run far
+deeper than explored here. It also raised new questions.
+In generating Elara we were struck by the ease with which LLMs would generate seemingly
+credible false documentation, which appeared genuine under scrutiny from human eyes and
+detection software alike. In a case like this, regarding identity generation, there are clear
+ethical concerns which remain unaddressed by the software itself. Prompting some
+interconnected questions: should all generated content be recognisable? If so, should it be
+recognisable only by software or by the human eye? And, finally, who should be responsible
+for this detectability–the companies who generate the tools, or someone else?
+
+
+
+              </h2>
+
+
+
+
+
+            </div>
+          </div>
+        </div>
+
+
+
+  </main>
+
+
+
+
+  </main>
+  <div class="grid-event w-embed">
+    <style>
+      .grid-w {
+        pointer-events: none;
+      }
+    </style>
+  </div>
+  <script src="./composition_master.js" type="text/javascript"></script>
+
+  <script src="assets/js/player.js"></script>
+  <script>
+    // Slideshow state
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slideshow__list__media');
+    const totalSlides = slides.length;
+    const counterNumber = document.querySelector('.slideshow__counter__number');
+    const slideshowTitle = document.querySelector('.slideshow__title');
+    const leftArrow = document.querySelector('.slideshow__pagination__left');
+    const rightArrow = document.querySelector('.slideshow__pagination__right');
+    const slideshow = document.querySelector('.slideshow-fullscreen');
+    const slideshowClose = document.querySelector('.slideshow__close');
+
+    // Grid items
+    const gridItems = document.querySelectorAll('.grid-item');
+
+    // Lightbox elements
+    const lightbox = document.querySelector('.lightbox');
+    const lightboxImage = document.querySelector('.lightbox__image');
+    const lightboxCaption = document.querySelector('.lightbox__caption');
+    const lightboxClose = document.querySelector('.lightbox__close');
+    const allSlideshowImages = document.querySelectorAll('.slideshow__list__image');
+
+    // Open slideshow at specific index
+    function openSlideshow(index) {
+      currentSlide = index;
+      updateSlide();
+      slideshow.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    // Close slideshow
+    function closeSlideshow() {
+      slideshow.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    // Update slide
+    function updateSlide() {
+      slides.forEach((slide, index) => {
+        slide.classList.toggle('active', index === currentSlide);
+      });
+      counterNumber.textContent = String(currentSlide + 1).padStart(2, '0');
+
+      const currentSlideElement = slides[currentSlide];
+      const title = currentSlideElement.dataset.title;
+      slideshowTitle.textContent = title;
+    }
+
+    function nextSlide() {
+      currentSlide = (currentSlide + 1) % totalSlides;
+      updateSlide();
+    }
+
+    function prevSlide() {
+      currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+      updateSlide();
+    }
+
+    // Grid item click handlers
+    gridItems.forEach(item => {
+      item.addEventListener('click', () => {
+        const index = parseInt(item.dataset.index);
+        openSlideshow(index);
+      });
+    });
+
+    // Slideshow navigation
+    slideshowClose.addEventListener('click', closeSlideshow);
+    leftArrow.addEventListener('click', prevSlide);
+    rightArrow.addEventListener('click', nextSlide);
+
+    // Lightbox functions
+    function openLightbox(imgSrc, caption) {
+      lightboxImage.src = imgSrc;
+      lightboxCaption.textContent = caption;
+      lightbox.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      lightbox.classList.remove('active');
+      document.body.style.overflow = slideshow.classList.contains('active') ? 'hidden' : '';
+    }
+
+    // Add click listeners to slideshow images
+    allSlideshowImages.forEach((img) => {
+      img.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const parentMedia = img.closest('.slideshow__list__media');
+        const caption = parentMedia.querySelector('.image-caption').textContent;
+        openLightbox(img.src, caption);
+      });
+    });
+
+    // Close lightbox handlers
+    lightboxClose.addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) {
+        closeLightbox();
+      }
+    });
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (lightbox.classList.contains('active')) {
+        if (e.key === 'Escape') closeLightbox();
+      } else if (slideshow.classList.contains('active')) {
+        if (e.key === 'Escape') closeSlideshow();
+        if (e.key === 'ArrowLeft') prevSlide();
+        if (e.key === 'ArrowRight') nextSlide();
+      }
+    });
+
+    // Touch swipe support for slideshow
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    slideshow.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    });
+
+    slideshow.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      if (touchStartX - touchEndX > 50) nextSlide();
+      if (touchEndX - touchStartX > 50) prevSlide();
+    });
+  </script>
+  <script>
+    //100vh Fix on Mobile
+    let vh = window.innerHeight * 0.01;
+    let size = 0;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+    window.addEventListener('resize', () => {
+      if (window.innerWidth === size) return;
+      size = window.innerWidth;
+      let vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty('--vh', `${vh}px`);
+    });
+
+    TweenMax.to(".collection", 10, {
+      opacity: 1
+    });
+  </script>
+
+</body>
+
+
+</html>
