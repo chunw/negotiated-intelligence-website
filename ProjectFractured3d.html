@@ -238,11 +238,11 @@
       <div class="loader"></div>
       <script type="importmap">
         {
-  "imports": {
-    "three": "https://cdn.jsdelivr.net/npm/three@0.152.2/build/three.module.js"
-  }
-}
-</script>
+        "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three@0.152.2/build/three.module.js"
+        }
+      }
+      </script>
 
       <script type="module">
         import * as THREE from 'https://esm.sh/three@0.152.2';
@@ -267,16 +267,19 @@
           mural_y = 0,
           mural_z = -5,
           mural_scale = 3;
+        let mural_scaleX = 4.5; // Mural width
         let drawing_x = 0,
           drawing_y = 0,
           drawing_z = 0,
           drawing_z_target = 5,
           drawing_scale = 3;
+        let drawing_scaleX = 4.5; // Drawing width
         let secondDrawing_x = 0,
           secondDrawing_y = 0,
           secondDrawing_z = 10,
-          secondDrawing_z_target = 15,
+          secondDrawing_z_target = 12,
           secondDrawing_scale = 2.8;
+        let secondDrawing_scaleX = 4.5; // Third layer width - made wider
         let wire_x = 0,
           wire_y = -4,
           wire_z = -4,
@@ -285,9 +288,9 @@
 
         // File paths
         const SCENE_BACKGROUND = 'textures/dunhuang/amo_data_bg_dimmed_black.png';
-        const MURAL = 'assets/img/fractured/Doc.png'; //'textures/dunhuang/反弹琵琶一式壁画trimmed2.jpeg';
-        const DRAWING = 'assets/img/fractured/Twine_02.png';//'textures/dunhuang/反弹琵琶一式inverted.jpg';
-        const SECOND_DRAWING = 'textures/dunhuang/反弹琵琶一式inverted.jpg'; // Change this to your second drawing
+        const MURAL = 'assets/img/fractured/Doc.png';
+        const DRAWING = 'assets/img/fractured/Twine_03.png';
+        const SECOND_DRAWING = 'textures/dunhuang/反弹琵琶一式inverted.jpg';
 
         const OUTLINE_ON_MOUSEPOINT = false;
         let selectedObjects = [];
@@ -296,7 +299,7 @@
 
         const scene = new THREE.Scene();
         scene.background = new THREE.Color(0x000000);
-        scene.fog = new THREE.Fog(0x000000, 500, 4000);
+      //  scene.fog = new THREE.Fog(0x000000, 500, 4000);
 
         const clock = new THREE.Clock();
         const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -326,58 +329,59 @@
         composer = new EffectComposer(renderer);
         const renderPass = new RenderPass(scene, camera);
         composer.addPass(renderPass);
-        mural.scale.set(mural_scale, mural_scale, mural_scale);
+        mural.scale.set(mural_scaleX, mural_scale, mural_scale);
         mural.position.set(mural_x, mural_y, mural_z);
 
         // Add userData to identify this as the mural layer
-        mural.userData = { isMuralLayer: true };
-
+        mural.userData = {
+          isMuralLayer: true
+        };
         scene.add(mural);
 
         // First Drawing Image
         const drawingloader = new THREE.TextureLoader();
-        const opacity = 1;
+        const opacity = 0.6;
         const drawingCubeMaterials = [
           new THREE.MeshPhongMaterial({
             opacity: opacity,
             transparent: true,
             map: drawingloader.load('textures/dunhuang/black.jpg')
-          }), //right side
+          }),
           new THREE.MeshPhongMaterial({
             opacity: opacity,
             transparent: true,
             map: drawingloader.load('textures/dunhuang/black.jpg')
-          }), //left side
+          }),
           new THREE.MeshPhongMaterial({
             opacity: opacity,
             transparent: true,
             map: drawingloader.load('textures/dunhuang/black.jpg')
-          }), //top side
+          }),
           new THREE.MeshPhongMaterial({
             opacity: opacity,
             transparent: true,
             map: drawingloader.load('textures/dunhuang/black.jpg')
-          }), //bottom side
+          }),
           new THREE.MeshPhongMaterial({
             opacity: opacity,
             transparent: true,
             map: drawingloader.load(DRAWING)
-          }), //front side
+          }),
           new THREE.MeshPhongMaterial({
             opacity: opacity,
             transparent: true,
             map: drawingloader.load(DRAWING)
-          }), //back side
+          }),
         ];
         const geometry = new THREE.BoxGeometry(3, 3, 0.01);
         drawing = new THREE.Mesh(geometry, drawingCubeMaterials);
-        drawing.scale.set(drawing_scale, drawing_scale, drawing_scale);
+        drawing.scale.set(drawing_scaleX, drawing_scale, drawing_scale);
         scene.add(drawing);
         drawing.position.set(drawing_x, drawing_y, drawing_z);
 
         // Video Layer (replaces BVH skeleton)
         const video = document.createElement('video');
-        video.src = '';
+        video.src = 'https://camlab-cave-dance.oss-cn-hongkong.aliyuncs.com/negotiated-intelligence/aikea3.mp4';
         video.crossOrigin = 'anonymous';
         video.loop = true;
         video.muted = true;
@@ -389,52 +393,55 @@
           const videoTexture = new THREE.VideoTexture(video);
           videoTexture.minFilter = THREE.LinearFilter;
           videoTexture.magFilter = THREE.LinearFilter;
-          videoTexture.format = THREE.RGBAFormat; // Changed to RGBA for better compatibility
+          videoTexture.format = THREE.RGBAFormat;
           videoTexture.generateMipmaps = false;
           videoTexture.wrapS = THREE.ClampToEdgeWrapping;
           videoTexture.wrapT = THREE.ClampToEdgeWrapping;
 
-          const videoOpacity = 0.8;
+          const videoOpacity = 0.9;
           const videoCubeMaterials = [
             new THREE.MeshPhongMaterial({
               opacity: 0,
               transparent: true,
               color: 0x000000
-            }), //right side
+            }),
             new THREE.MeshPhongMaterial({
               opacity: 0,
               transparent: true,
               color: 0x000000
-            }), //left side
+            }),
             new THREE.MeshPhongMaterial({
               opacity: 0,
               transparent: true,
               color: 0x000000
-            }), //top side
+            }),
             new THREE.MeshPhongMaterial({
               opacity: 0,
               transparent: true,
               color: 0x000000
-            }), //bottom side
+            }),
             new THREE.MeshPhongMaterial({
               opacity: 0,
               transparent: true,
               map: videoTexture
-            }), //front side
+            }),
             new THREE.MeshPhongMaterial({
               opacity: 0,
               transparent: true,
               map: videoTexture
-            }), //back side
+            }),
           ];
 
           const videoGeometry = new THREE.BoxGeometry(3, 3, 0.01);
           secondDrawing = new THREE.Mesh(videoGeometry, videoCubeMaterials);
-          secondDrawing.scale.set(secondDrawing_scale, secondDrawing_scale, secondDrawing_scale);
+          // Made the second layer wider by scaling X differently
+          secondDrawing.scale.set(secondDrawing_scaleX, secondDrawing_scale, secondDrawing_scale);
           secondDrawing.position.set(secondDrawing_x, secondDrawing_y, secondDrawing_z);
 
           // Add userData to identify this as the video layer
-          secondDrawing.userData = { isVideoLayer: true };
+          secondDrawing.userData = {
+            isVideoLayer: true
+          };
 
           scene.add(secondDrawing);
 
@@ -444,40 +451,65 @@
           // Start playing video
           video.play().catch(e => {
             console.log('Video autoplay failed, will try on user interaction:', e);
-            // Fallback: try to play on first user interaction
             document.addEventListener('click', () => {
               video.play().catch(console.error);
-            }, { once: true });
+            }, {
+              once: true
+            });
           });
         });
 
         video.addEventListener('error', (e) => {
           console.error('Video loading error:', e);
-          // Fallback to a solid color material if video fails
           createFallbackLayer();
         });
 
         function createFallbackLayer() {
           const fallbackMaterials = [
-            new THREE.MeshPhongMaterial({ opacity: 0, transparent: true, color: 0x000000 }),
-            new THREE.MeshPhongMaterial({ opacity: 0, transparent: true, color: 0x000000 }),
-            new THREE.MeshPhongMaterial({ opacity: 0, transparent: true, color: 0x000000 }),
-            new THREE.MeshPhongMaterial({ opacity: 0, transparent: true, color: 0x000000 }),
-            new THREE.MeshPhongMaterial({ opacity: 0, transparent: true, color: 0x4a90e2 }),
-            new THREE.MeshPhongMaterial({ opacity: 0, transparent: true, color: 0x4a90e2 }),
+            new THREE.MeshPhongMaterial({
+              opacity: 0,
+              transparent: true,
+              color: 0x000000
+            }),
+            new THREE.MeshPhongMaterial({
+              opacity: 0,
+              transparent: true,
+              color: 0x000000
+            }),
+            new THREE.MeshPhongMaterial({
+              opacity: 0,
+              transparent: true,
+              color: 0x000000
+            }),
+            new THREE.MeshPhongMaterial({
+              opacity: 0,
+              transparent: true,
+              color: 0x000000
+            }),
+            new THREE.MeshPhongMaterial({
+              opacity: 0,
+              transparent: true,
+              color: 0x4a90e2
+            }),
+            new THREE.MeshPhongMaterial({
+              opacity: 0,
+              transparent: true,
+              color: 0x4a90e2
+            }),
           ];
 
           const videoGeometry = new THREE.BoxGeometry(3, 3, 0.01);
           secondDrawing = new THREE.Mesh(videoGeometry, fallbackMaterials);
-          secondDrawing.scale.set(secondDrawing_scale, secondDrawing_scale, secondDrawing_scale);
+          secondDrawing.scale.set(secondDrawing_scaleX, secondDrawing_scale, secondDrawing_scale);
           secondDrawing.position.set(secondDrawing_x, secondDrawing_y, secondDrawing_z);
 
-          // Add userData to identify this as the video layer
-          secondDrawing.userData = { isVideoLayer: true };
+          secondDrawing.userData = {
+            isVideoLayer: true
+          };
 
           scene.add(secondDrawing);
 
-          window.videoOpacity = 0.8;
+          window.videoOpacity = 0.9;
         }
 
         // Load video
@@ -492,29 +524,23 @@
 
         // Click event handler
         function onCanvasClick(event) {
-          // Calculate mouse position in normalized device coordinates
           const rect = renderer.domElement.getBoundingClientRect();
           mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
           mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
 
-          // Update the picking ray with the camera and mouse position
           raycaster.setFromCamera(mouse, camera);
 
-          // Calculate objects intersecting the picking ray
           const intersects = raycaster.intersectObjects(scene.children);
 
-          // Check if the clicked object is the video layer or mural layer
           for (let i = 0; i < intersects.length; i++) {
             const object = intersects[i].object;
             if (object.userData && (object.userData.isVideoLayer || object.userData.isMuralLayer)) {
-              // Redirect to Google
               window.open('https://byaikea.com/', '_blank');
               break;
             }
           }
         }
 
-        // Add click event listener to the canvas
         renderer.domElement.addEventListener('click', onCanvasClick);
 
         // Animation Loop
@@ -533,24 +559,33 @@
             }
           }
 
-          // Video layer animation (replaces BVH animation)
+          // Video layer animation
+          // Video layer animation - push out on z-axis AND fade in
           if (secondDrawing && animated_secondDrawing_clicked && !animated_secondDrawing) {
-            // Fade in video materials
+            // Animate z-position
+            if (secondDrawing.position.z <= secondDrawing_z_target) {
+              secondDrawing.position.z += 0.05;
+            }
+
+            // Animate opacity
             for (let i = 0; i < secondDrawing.material.length; i++) {
               const material = secondDrawing.material[i];
-              if (i === 4 || i === 5) { // Front and back faces with the video
-                if (material.opacity < (window.videoOpacity || 0.8)) {
+              if (i === 4 || i === 5) {
+                // Front and back faces with video texture
+                if (material.opacity < (window.videoOpacity || 0.9)) {
                   material.opacity += 0.005;
                 }
-              } else { // Side faces
+              } else {
+                // Side faces
                 if (material.opacity < 0.2) {
                   material.opacity += 0.005;
                 }
               }
             }
 
-            // Check if animation is complete
-            if (secondDrawing.material[4].opacity >= (window.videoOpacity || 0.8)) {
+            // Check if animation is complete (both z-position and opacity)
+            if (secondDrawing.position.z >= secondDrawing_z_target &&
+              secondDrawing.material[4].opacity >= (window.videoOpacity || 0.9)) {
               animated_secondDrawing = true;
             }
           }
@@ -632,32 +667,25 @@
       </div>
     </div>
 
-    <div class="statlines">
-      <div class="title"></div>
-      <div class="table">
-        <div class="col">
-          <img class="drawing" src="" />
-          <div class="table">
+    <div class="table">
 
-            <div class="col" style="margin-top:2vw">
-              <div class="col" style="margin-top:2vw">
-                <div class="statline"><span><i><b>
-                  <a href="https://aaronoldenburg.itch.io/fractured-star-projections" target="_blank">
-                    Fractured Star Projections</a>
-                  </b></i></span></div>
-                <div class="statline"><span>Web Game</span></div>
-                <div class="statline"><span>
-                  <a href="https://aaronoldenburg.itch.io/" target="_blank">
-                    Aaron Oldenburg</a>
-                  </span></div>
-              </div>
-            </div>
-
-
-
-          </div>
+      <div class="col" style="margin-top:2vw">
+        <div class="col" style="margin-top:2vw">
+          <div class="statline"><span><i><b>
+            <a href="https://aaronoldenburg.itch.io/fractured-star-projections" target="_blank">
+              Fractured Star Projections</a>
+            </b></i></span></div>
+          <div class="statline"><span>Web Game</span></div>
+          <div class="statline"><span>2025</span></div>
+          <div class="statline"><span>
+            <a href="https://aaronoldenburg.itch.io/" target="_blank">
+              Aaron Oldenburg</a>
+            </span></div>
         </div>
       </div>
+
+
+
     </div>
 
     <canvas id="hero-threejs" style="height: 400px; width:100%"></canvas>
