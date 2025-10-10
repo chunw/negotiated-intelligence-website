@@ -74,6 +74,24 @@
       opacity: 0;
     }
 
+    /* Image Background Styles */
+    #image-background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    #image-background.visible {
+      opacity: 1;
+    }
+
     #video-overlay {
       position: fixed;
       top: 0;
@@ -404,6 +422,10 @@
   <video id="video-background" autoplay muted loop playsinline>
     <source id="video-source" src="https://camlab-cave-dance.oss-cn-hongkong.aliyuncs.com/negotiated-intelligence/Daria_Belkina_ElsewhereGallery_16-9_fulres.mp4" type="video/mp4">
   </video>
+
+  <!-- Image Background -->
+  <img id="image-background" src="" alt="Project Background" />
+
   <div id="video-overlay"></div>
 
   <div class="gradient-embed w-embed">
@@ -516,28 +538,51 @@
     // Video background mapping for projects
     const videoMap = {
       'ProjectElsewhere': 'https://camlab-cave-dance.oss-cn-hongkong.aliyuncs.com/negotiated-intelligence/Daria_Belkina_ElsewhereGallery_16-9_fulres.mp4',
-      //'ProjectNegotiatedIntelligence': 'https://camlab-cave-dance.oss-cn-hongkong.aliyuncs.com/negotiated-intelligence/Daria_Belkina_ElsewhereGallery_16-9_fulres.mp4',
-      'ProjectMythology': 'https://camlab-cave-dance.oss-cn-hongkong.aliyuncs.com/negotiated-intelligence/scroller_1.mp4',//'https://file.notion.so/f/f/5c18e971-457f-4a06-bae3-c623ecdcdc1f/0133dd63-cd83-420e-9508-040547619f2d/scroller_1.mp4?table=block&id=2825a9a9-e41b-80d2-b0ec-db377031c9d8&spaceId=5c18e971-457f-4a06-bae3-c623ecdcdc1f&expirationTimestamp=1759744800000&signature=APEGY6YrlZt6alGPHyhfgi8vfeki_Sk6LpQOYwo3faM&downloadName=scroller_1.mp4',
-        // All other projects will have no video (blank)
+      'ProjectMythology': 'https://camlab-cave-dance.oss-cn-hongkong.aliyuncs.com/negotiated-intelligence/scroller_1.mp4',
     };
 
-    // Function to change video background
-    function changeVideoBackground(projectName) {
+    // Image background mapping for projects (replace with your actual image URLs)
+    const imageMap = {
+      'ProjectNegotiatedIntelligence': 'assets/img/negotiated-intelligence-bg.jpg',
+      'ProjectAIkea': 'assets/img/aikea/bg2.png',
+      'ProjectHaiku': 'assets/img/haiku/Video1.png',
+      'ProjectFractured': 'assets/img/fractured/sharks_eating_each_other_drawing.jpg',
+      'ProjectSilence': 'assets/img/silence-bg.jpg',
+      'ProjectAveMaria': 'assets/img/avemaria/Process2.png',
+      'ProjectElara': '' //'assets/img/elara/bg.png'
+    };
+
+    // Function to change background (video or image)
+    function changeBackground(projectName) {
       const video = document.getElementById('video-background');
       const videoSource = document.getElementById('video-source');
+      const image = document.getElementById('image-background');
 
       // Check if project has a video mapping
       if (videoMap[projectName]) {
+        // Show video, hide image
         videoSource.src = videoMap[projectName];
         video.load();
         video.play().catch(function(error) {
           console.log("Video autoplay failed:", error);
         });
         video.classList.remove('hidden');
-      } else {
-        // No video for this project - hide video
+        image.classList.remove('visible');
+      }
+      // Check if project has an image mapping
+      else if (imageMap[projectName]) {
+        // Show image, hide video
+        image.src = imageMap[projectName];
+        image.classList.add('visible');
         video.classList.add('hidden');
         video.pause();
+      }
+      // No background for this project
+      else {
+        // Hide both video and image
+        video.classList.add('hidden');
+        video.pause();
+        image.classList.remove('visible');
       }
     }
 
@@ -573,8 +618,8 @@
       const projectUrl = projectName + '3d.html';
       iframe.src = projectUrl;
 
-      // Change video background based on project
-      changeVideoBackground(projectName);
+      // Change background (video or image) based on project
+      changeBackground(projectName);
 
       // Update URL without page reload
       if (updateHistory && slug) {
