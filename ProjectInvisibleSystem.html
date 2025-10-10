@@ -9,6 +9,7 @@
   <meta content="(In)visible Systems: A Digital Poetics of the Body" property="og:description" />
   <meta property="og:type" content="website" />
   <meta content="width=device-width, initial-scale=1" name="viewport" />
+  <link href="base.css" rel="stylesheet" type="text/css" />
   <link href="assets/img/favicon.png" rel="shortcut icon" type="image/x-icon" />
   <link href="assets/img/favicon.png" rel="apple-touch-icon" />
   <script src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.5.1.min.dc5e7f18c8.js?site=603fe89ec4bbcece7ee6a53a" type="text/javascript" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
@@ -23,9 +24,19 @@
   </script>
 
   <style>
-    * {
-      margin: 0;
-      padding: 0;
+    .collection {
+      opacity: 0;
+    }
+
+    .info-img-gradient.bottom {
+      transform: scaleY(-1);
+    }
+  </style>
+
+  <style>
+    *,
+    *::after,
+    *::before {
       box-sizing: border-box;
     }
 
@@ -34,18 +45,14 @@
     }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-      color: #fff;
-      background: #030303;
       -webkit-tap-highlight-color: transparent;
+      -webkit-font-smoothing: subpixel-antialiased;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
-      overflow-x: hidden;
-    }
-
-    .collection {
-      opacity: 0;
-      transition: opacity 1s ease;
+      -webkit-overflow-scrolling: touch;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      overscroll-behavior: none;
     }
 
     .content {
@@ -53,74 +60,143 @@
       z-index: 2;
     }
 
-    /* Typography */
-    .statline {
-      text-align: center;
-      padding: 0.5rem 2rem;
-      font-size: 1rem;
-      line-height: 1.6;
+
+    /*Disable Text Selection */
+    @media (min-width: 991px) {
+      * {
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
     }
 
-    .statline a {
-      color: #fff;
-      text-decoration: underline;
-      text-decoration-color: #666;
+    input,
+    textarea {
+      -webkit-user-select: text;
+      -khtml-user-select: text;
+      -moz-user-select: text;
+      -ms-user-select: text;
+      user-select: text;
     }
 
-    .statline a:hover {
-      text-decoration-color: #fff;
+    /*Remove Scrollbar */
+    ::-webkit-scrollbar {
+      -ms-overflow-style: none;
+      display: none;
+      overflow: -moz-scrollbars-none;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      -ms-overflow-style: -ms-autohiding-scrollbar;
     }
 
-    .gradient {
-      background: linear-gradient(90deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+    .grid-w {
+      display: none;
     }
 
-    .h-h2 {
-      font-size: 2rem;
-      font-weight: 400;
-      line-height: 1.4;
-      margin: 0;
+    .underline-style {
+      text-underline-offset: 0.3rem;
+      text-decoration-thickness: 1px;
     }
 
-    .h-h2.desc {
-      font-size: 1rem;
-      line-height: 1.6;
+    .blend_back {
+      background-blend-mode: luminosity;
+      background-color: #030303;
+      opacity: 0.1;
+      display: block;
+    }
+
+    canvas {
+      left: 0;
+      position: fixed;
+      top: 0;
+      z-index: 1;
+    }
+
+    [data-animation="slider"],
+    [data-animation="slider"] .collection-list {
+      display: inline-block;
+      width: auto !important;
+      white-space: nowrap;
+    }
+
+    [data-animation="slider-item"] {
+      display: inline-block !important;
+      height: 38vw;
+      position: relative;
+      width: 55vw;
+    }
+
+    [data-animation="slider-item"] img {
+      border: 2px solid #bbb9b94a;
+      border-radius: 18px;
+      position: absolute;
+      object-fit: cover;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: calc(100% - 2vw);
+    }
+
+    .menu {
+      height: 100vh;
+      height: calc(var(--vh, 1vh) * 100);
+    }
+
+    .loader {
+      display: block;
+    }
+
+    .hero.home,
+    .wait {
+      height: 100vh;
+    }
+
+    audio {
+      opacity: 0.8;
+    }
+
+    audio::-webkit-media-controls-panel {
+      background-color: #535353;
+    }
+
+    audio::-webkit-media-controls-current-time-display {
+      text-shadow: none;
+      color: white;
+    }
+
+    audio::-webkit-media-controls-time-remaining-display {
+      text-shadow: none;
+      color: white;
+    }
+
+    .dataset .h-h2.desc {
+      font-size: 1.5rem;
+      line-height: 1.3;
       font-weight: 300;
-      color: #ddd;
+      border-bottom: 1px solid #ddd;
+      padding: 8px;
     }
 
-    .hero-text {
-      text-align: center;
-      font-size: 1.2rem;
-      padding: 1rem;
-      color: #aaa;
-    }
-
-    .hero-text a {
-      color: #fff;
-      text-decoration: none;
-    }
-
-    .intro {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 3rem 2rem;
-    }
-
-    .process-title {
-      text-align: center;
-      padding: 4rem 2rem 2rem;
-    }
-
-    .process-title h2 {
-      font-size: 2.5rem;
+    thead {
+      background-color: #585858;
+      color: white;
       font-weight: 300;
-      letter-spacing: 2px;
-      text-transform: uppercase;
     }
+
+    th,
+    td {
+      border-bottom: 1px solid #ddd;
+      padding: 8px;
+    }
+
+    table {
+      border-collapse: collapse;
+      border-top: 2px solid black;
+      border-bottom: 2px solid black;
+    }
+
 
     /* Grid Overview */
     .grid-overview {
@@ -154,7 +230,6 @@
       object-fit: cover;
       display: block;
       background: #1a1a1a;
-      border: none;
     }
 
     .grid-item__info {
@@ -292,7 +367,7 @@
       z-index: 5;
     }
 
-    .slideshow__frame svg {
+    .frame svg {
       width: 100%;
       height: 100%;
     }
@@ -328,11 +403,18 @@
       pointer-events: auto;
     }
 
-    .slideshow__list__video {
+    .slideshow__list__image {
       width: 100%;
       height: 100%;
-      border: none;
+      object-fit: contain;
       border-radius: 8px;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+      background: #1a1a1a;
+    }
+
+    .slideshow__list__image:hover {
+      transform: scale(1.02);
     }
 
     .image-caption {
@@ -340,281 +422,369 @@
       font-size: 0.9rem;
       color: #888;
       margin-top: 1rem;
-      max-width: 900px;
     }
 
-    /* Scrollbar */
-    ::-webkit-scrollbar {
-      width: 8px;
+    /* Lightbox */
+    .lightbox {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.95);
+      z-index: 3000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
     }
 
-    ::-webkit-scrollbar-track {
-      background: #0a0a0a;
+    .lightbox.active {
+      display: flex;
+      opacity: 1;
     }
 
-    ::-webkit-scrollbar-thumb {
-      background: #333;
-      border-radius: 4px;
+    .lightbox__content {
+      position: relative;
+      max-width: 95vw;
+      max-height: 95vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
     }
 
-    ::-webkit-scrollbar-thumb:hover {
-      background: #555;
+    .lightbox__image {
+      max-width: 100%;
+      max-height: 85vh;
+      object-fit: contain;
+      border-radius: 8px;
+    }
+
+    .lightbox__caption {
+      text-align: center;
+      color: #ccc;
+      margin-top: 1.5rem;
+      font-size: 1rem;
+      max-width: 800px;
+    }
+
+    .lightbox__close {
+      position: absolute;
+      top: 2rem;
+      right: 2rem;
+      width: 50px;
+      height: 50px;
+      border: 2px solid #fff;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+
+    .lightbox__close:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: rotate(90deg);
+    }
+
+    .lightbox__close::before,
+    .lightbox__close::after {
+      content: '';
+      position: absolute;
+      width: 24px;
+      height: 2px;
+      background: #fff;
+    }
+
+    .lightbox__close::before {
+      transform: rotate(45deg);
+    }
+
+    .lightbox__close::after {
+      transform: rotate(-45deg);
     }
 
     @media (max-width: 768px) {
+      .video iframe {
+        height: 400px;
+      }
+
       .grid-overview {
         grid-template-columns: 1fr;
         gap: 1.5rem;
-        padding: 1rem;
       }
 
       .slideshow__bar {
         flex-direction: column;
         gap: 1rem;
         padding: 0 1rem;
-        top: 1rem;
-      }
-
-      .slideshow__close {
-        top: 1rem;
-        right: 1rem;
       }
 
       .slideshow__frame,
       .slideshow__list {
         width: 90%;
-        height: 80%;
-      }
-
-      .h-h2 {
-        font-size: 1.5rem;
-      }
-
-      .process-title h2 {
-        font-size: 1.8rem;
-      }
-
-      .intro {
-        padding: 2rem 1rem;
       }
     }
   </style>
 
 </head>
 
-<body class="body">
+<body class="body" data-ix="pre-loader">
+  <div class="gradient-embed w-embed">
+    <style>
+      .gradient {
+        -webkit-text-fill-color: transparent;
+        -webkit-background-clip: text;
+      }
 
-  <main class="content">
+      .blend {
+        mix-blend-mode: difference;
+      }
+    </style>
+  </div>
 
-    <div id="dataset" class="collection" style="margin-top: 2rem">
-      <div class="statline"><span><i><b>
-              (In)visible Systems: A Digital Poetics of the Body
-            </b></i></span>
+  <div class="navbar navbar__shop" style="display:none; padding:1rem 0.5vw 0 2.5vw ">
+    <div class="n-block left">
+      <div data-w-id="2264dfe2-412c-a750-b778-fffb7eb6b996" class="n-wrap">
+        <div data-w-id="2264dfe2-412c-a750-b778-fffb7eb6b997" class="n-trigger">
+          <div data-w-id="2264dfe2-412c-a750-b778-fffb7eb6b998" class="n-line"></div>
+          <div data-w-id="2264dfe2-412c-a750-b778-fffb7eb6b999" class="n-line bottom"></div>
+        </div>
       </div>
-      <div class="statline"><span>Digital Video Studies / Performance / Visual Art</span></div>
+    </div>
 
-      <div class="statline"><span>
-          <a href="#" target="_blank">
-            Yan Longdan 严珑丹
-          </a>
-        </span></div>
-      <br>
-      <div class="statline"><b>AI Co-creation Note:</b></div>
+    <div class="n-block center"><a rel="noopener" draggable="false" href="/" aria-current="page" class="n-link w-inline-block w--current"><img style="opacity: 0.9; width: 200px;"
+          src="https://freight.cargo.site/w/217/q/94/i/fb2b46cd634f8600d388c1fddfc23c48e2c1e3593988f576bbec4237426c8fcb/CAMLab.png" loading="lazy" class="n-brand" /></a>
+    </div>
+    <div class="n-block right"></div>
+  </div>
+
+  <main data-template="home" class="content demo">
+
+
+    <!-- <div class="statline"><b>AI Co-creation Note:</b></div>
       <div class="statline" style="font-size: 0.9rem; color: #aaa;">
         The core conceptual framework of this project and the initial textual descriptions of some works were developed and deepened through conversations with AI language models (primarily DeepSeek Chat). AI, acting as a "conceptual sounding board" and "text generator," assisted in transforming vague sensory experiences into precise theoretical language and visual imagery.
+      </div> -->
+
+    <div class="campaign">
+      <div style="text-align: center; " class="lookbook__head__title">
+        <h2 style=" line-height: 1.1; padding-top: 2rem;" class="h-h2 gradient">
+          (In)visible Systems: A Digital Poetics of the Body
+        </h2>
       </div>
 
-      <div class="campaign">
-        <div style="text-align: center;" class="lookbook__head__title">
-          <h2 style="line-height: 1.1; padding-top: 2rem;" class="h-h2 gradient">
-            (In)visible Systems: A Digital Poetics of the Body
-          </h2>
-        </div>
-
-        <div class="hero-text">
-          <a href="#" target="_blank">
-            Yan Longdan
-          </a>
-        </div>
-
-        <div class="intro">
+      <div class="hero-text">
+        <a href="#" target="_blank">
+          Yan Longdan
+        </a>
+      </div>
+      <!-- <div class="intro" id="intro" style="padding: 5% 15% 0;">
           <div class="intro-inner">
             <div class="intro-desc">
-              <h2 class="h-h2 desc" style="line-height: 1.5; text-align: left; border-bottom: 1px solid #444; padding-bottom: 1rem; margin-bottom: 1rem;">
+              <h2 class="h-h2 desc" style="line-height: 1.5; text-align: left;">
                 (不可见)的系统：身体的数字诗学
               </h2>
             </div>
           </div>
-        </div>
+        </div> -->
 
-        <div class="intro">
-          <div class="intro-inner">
-            <div class="intro-desc">
-              <h2 class="h-h2 desc" style="line-height: 1.6; text-align: left;">
-                This project is a series of digital video studies exploring "the body as a data interface." In the new "nature" constituted by algorithms, capital, and industrial logic, the human body has become the ultimate site of inscription, discipline, and analysis. Through the digital lens—the most important contemporary tool for observation and critique—we examine how the body, in its friction with these invisible systems, serves both as a vehicle for resistance and as a generator of poetry.
-                <br>
-                <br>
-                The work constructs a digital "phenomenological laboratory," placing the body in surreal scenarios such as glass cages, data noise, and industrial pipelines, enabling it to have perceptible contact with the violence of the system. These images are not only records; they are also processes of encoding and decoding: the reflection of the lens, the disintegration of code, and the overlay of projections all become metaphors for the mutual penetration and tampering between the body and the system.
-                <br>
-                <br>
-                Ultimately, we ask: in an increasingly virtual world, what new truths about existence and freedom are revealed by the materiality, temperature, and vulnerability of the body?
-              </h2>
-            </div>
+
+      <div class="intro" style="padding: 5% 15% 0">
+        <div class="intro-inner">
+          <div class="intro-desc">
+            <h2 class="h-h2 desc" style="line-height: 1.5; margin-bottom: 1rem; text-align: left;">
+
+
+              This project is a series of digital video studies exploring "the body as a data interface." In the new "nature" constituted by algorithms, capital, and industrial logic, the human body has become the ultimate site of inscription,
+              discipline, and analysis. Through the digital lens—the most important contemporary tool for observation and critique—we examine how the body, in its friction with these invisible systems, serves both as a vehicle for resistance and as a
+              generator of poetry.
+              <br>
+              <br>
+              The work constructs a digital "phenomenological laboratory," placing the body in surreal scenarios such as glass cages, data noise, and industrial pipelines, enabling it to have perceptible contact with the violence of the system. These
+              images are not only records; they are also processes of encoding and decoding: the reflection of the lens, the disintegration of code, and the overlay of projections all become metaphors for the mutual penetration and tampering between
+              the body and the system.
+              <br>
+              <br>
+              Ultimately, we ask: in an increasingly virtual world, what new truths about existence and freedom are revealed by the materiality, temperature, and vulnerability of the body?
+              <br>
+              <br>
+            </h2>
           </div>
         </div>
+      </div>
 
-        <div class="process-title">
-          <h2>Artifacts</h2>
-        </div>
 
-        <!-- Grid Overview -->
-        <div class="grid-overview">
-          <div class="grid-item" data-index="0" data-video="sSnXL4aBJ80">
-            <iframe class="grid-item__image" src="https://www.youtube.com/embed/sSnXL4aBJ80" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            <div class="grid-item__info">
-              <div class="grid-item__title">Feed Me With Labels 《饲育我以标签》</div>
-              <div class="grid-item__caption">Video / Visual Art / Physical / Photography (2025) - Deconstructing the symbolic attributes of everyday objects, transforming industrial materials into visual devices of power relations</div>
-            </div>
-          </div>
+      <div class="intro" style="padding: 0 15% 10%">
+        <div class="intro-inner">
+          <div class="intro-desc">
+            <h2 class="h-h2 desc" style="line-height: 1.5; margin-bottom: 2rem; text-align: left; border-bottom: 2px solid #444; padding-bottom: 1rem;">
+              Human Creator Ledger
+            </h2>
+            <h2 class="h-h2 desc" style="line-height: 1.6; text-align: left; font-weight: 300;">
 
-          <div class="grid-item" data-index="1" data-video="GsIBIYtYPeE">
-            <iframe class="grid-item__image" src="https://www.youtube.com/embed/GsIBIYtYPeE" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            <div class="grid-item__info">
-              <div class="grid-item__title">Glass Cage—Time 《玻璃囚笼——时间》</div>
-              <div class="grid-item__caption">Video / Visual Art / Physical (2024) - A cube covered with mirrors forms a phenomenological spatio-temporal prison where the body is deconstructed into multiple time-space slices</div>
-            </div>
-          </div>
+              <!-- 本项目的核心概念框架与部分作品的初始文本描述，是在与AI语言模型（主要DeepSeek Chat）的对话中发展并深化的。AI作为"概念共鸣板"和"文本生成器"，协助我将模糊的感官体验转化为精确的理论语言和视觉意象。
 
-          <div class="grid-item" data-index="2" data-video="4QPg3cYdNvY">
-            <iframe class="grid-item__image" src="https://www.youtube.com/embed/4QPg3cYdNvY" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            <div class="grid-item__info">
-              <div class="grid-item__title">Sirenbanshee404</div>
-              <div class="grid-item__caption">Visual Art / Video / Performance / Physical (2024) - A "decolonization" action targeting the "industrialized body" through forced grafting with industrial exhaust pipes</div>
-            </div>
-          </div>
-
-          <div class="grid-item" data-index="3" data-video="pK8WSxR01G8">
-            <iframe class="grid-item__image" src="https://www.youtube.com/embed/pK8WSxR01G8" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            <div class="grid-item__info">
-              <div class="grid-item__title">Body Geometry—Unattainable Embrace 《身体几何——无法抵达的拥抱》</div>
-              <div class="grid-item__caption">Visual / Video / Physical (2024) - The eternal distance between body and shadow, revealing the struggle between free choice and physiological limitation</div>
-            </div>
-          </div>
-
-          <div class="grid-item" data-index="4" data-video="0iwdWmzOXQc">
-            <iframe class="grid-item__image" src="https://www.youtube.com/embed/0iwdWmzOXQc" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            <div class="grid-item__info">
-              <div class="grid-item__title">22Hz Chromosome 《22Hz染色体——在荧光中成为实验废料》</div>
-              <div class="grid-item__caption">Performance / Video / Live Act / Physical (2025) - An immersive theater of the "technological womb" where the body becomes experimental waste in fluorescent ruins</div>
-            </div>
-          </div>
-
-          <div class="grid-item" data-index="5" data-video="WxpPXXj4p_g">
-            <iframe class="grid-item__image" src="https://www.youtube.com/embed/WxpPXXj4p_g" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            <div class="grid-item__info">
-              <div class="grid-item__title">Cocoon Code 《茧码》</div>
-              <div class="grid-item__caption">Visual / Video / Performance (2025) - Draped in 200 items of clothing, stepping into a disintegrating digital silhouette, questioning the real body under layers of digital identity</div>
-            </div>
-          </div>
-
-          <div class="grid-item" data-index="6" data-video="zso_93Z-uoc">
-            <iframe class="grid-item__image" src="https://www.youtube.com/embed/zso_93Z-uoc" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            <div class="grid-item__info">
-              <div class="grid-item__title">Breathing Without Organs 《无器官呼吸》</div>
-              <div class="grid-item__caption">Visual / Performance / Video (2024) - Exploring an organless body through "de-purposive" movements in plastic bag spaces, suspending established organ functions</div>
-            </div>
+              <br><br> -->
+              The core conceptual framework of this project and the initial textual descriptions of some works were developed and deepened through conversations with AI language models (primarily DeepSeek Chat). AI, acting as a "conceptual sounding
+              board" and "text generator," assisted me in transforming vague sensory experiences into precise theoretical language and visual imagery.
+              <br><br>
+              The collaboration involved iterative dialogues where conceptual ideas were refined, theoretical frameworks were articulated, and descriptions were crafted to capture the essence of each work. This process demonstrates a new form of
+              artistic collaboration where AI serves as an intellectual partner in the development of critical concepts and artistic statements.
+            </h2>
           </div>
         </div>
+      </div>
 
-        <!-- Fullscreen Slideshow -->
-        <div class="slideshow-fullscreen">
-          <div class="slideshow__close"></div>
+    </div>
+    </div>
 
-          <div class="slideshow__bar">
-            <div class="slideshow__head">
-              <h2 class="slideshow__title">Feed Me With Labels</h2>
-            </div>
-            <div class="slideshow__counter">
-              <div class="slideshow__counter__number">01</div>
-              <div class="slideshow__counter__div">/</div>
-              <div class="slideshow__counter__total">07</div>
-            </div>
-            <div class="slideshow__pagination">
-              <div class="slideshow__pagination__left">
-                <img src="https://assets-global.website-files.com/603fe89ec4bbcece7ee6a53a/60bf3147f7b2218c930288d9_arrow-long-left.svg" loading="lazy" alt="" class="slideshow__pagination__icon" />
-              </div>
-              <div class="slideshow__pagination__right">
-                <img src="https://assets-global.website-files.com/603fe89ec4bbcece7ee6a53a/60bf31486c24692394e3ca0d_arrow-long-right.svg" loading="lazy" alt="" class="slideshow__pagination__icon" />
-              </div>
-            </div>
-          </div>
 
-          <div class="slideshow__frame">
-            <svg viewBox="0 0 483 721" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M1 55V1H54.5" stroke="#BBB9B9" />
-              <path d="M54.75 719.5L0.75 719.5L0.749998 666" stroke="#BBB9B9" />
-              <path d="M482.5 665.75L482.5 719.75L429 719.75" stroke="#BBB9B9" />
-              <path d="M428 1.25L482 1.25L482 54.75" stroke="#BBB9B9" />
-            </svg>
-          </div>
 
-          <div class="slideshow__list">
-            <div class="slideshow__list__media active" data-title="Feed Me With Labels 《饲育我以标签》" data-video="sSnXL4aBJ80">
-              <iframe class="slideshow__list__video" src="https://www.youtube.com/embed/sSnXL4aBJ80" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-              <div class="image-caption">In the current era of the continuous penetration of the consumerist sign system, the body, as the primary site of social discipline, is experiencing an unprecedented crisis of alienation. This work deconstructs the symbolic attributes of everyday objects, transforms industrial materials into visual devices of power relations, and constructs a critical narrative network from "symbolic violence" to "material uprising."
-              </div>
-            </div>
-            <div class="slideshow__list__media" data-title="Glass Cage—Time 《玻璃囚笼——时间》" data-video="GsIBIYtYPeE">
-              <iframe class="slideshow__list__video" src="https://www.youtube.com/embed/GsIBIYtYPeE" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-              <div class="image-caption">A cube covered with mirrors forms a phenomenological spatio-temporal prison. The performer hugs the only pillar inside in an anti-gravity posture, and their limbs are deconstructed into multiple spatio-temporal slices in infinite reflection. This work constructs a visual trap that allows viewers to personally experience "how capital modernity folds space and time."</div>
-            </div>
-            <div class="slideshow__list__media" data-title="Sirenbanshee404" data-video="4QPg3cYdNvY">
-              <iframe class="slideshow__list__video" src="https://www.youtube.com/embed/4QPg3cYdNvY" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-              <div class="image-caption">In an abandoned factory, the body undergoes a forced "grafting" with industrial exhaust pipes. Through the body's antagonistic movements, the work initiates a "decolonization" action targeting the "industrialized body." It attempts to peel off the colonial imprints left by mechanical logic on the biological body.</div>
-            </div>
-            <div class="slideshow__list__media" data-title="Body Geometry—Unattainable Embrace 《身体几何——无法抵达的拥抱》" data-video="pK8WSxR01G8">
-              <iframe class="slideshow__list__video" src="https://www.youtube.com/embed/pK8WSxR01G8" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-              <div class="image-caption">The eternal distance between the body and its shadow. Through slow movement, the extension of time is manifested, with slow muscle contractions and skeletal displacements, precisely controlling the contraction amplitude of the trapezius muscle, revealing: the eternal struggle between free choice and physiological limitation.</div>
-            </div>
-            <div class="slideshow__list__media" data-title="22Hz Chromosome 《22Hz染色体》" data-video="0iwdWmzOXQc">
-              <iframe class="slideshow__list__video" src="https://www.youtube.com/embed/0iwdWmzOXQc" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-              <div class="image-caption">This work forces the audience to reexamine the materiality and sacredness of the body in the fluorescent ruins by constructing an immersive theater of the "technological womb." Those viscous movements that wander on the glass surface are both a memorial to the initial form of life and a prophetic archaeology of the posthuman era.
-              </div>
-            </div>
-            <div class="slideshow__list__media" data-title="Cocoon Code 《茧码》" data-video="WxpPXXj4p_g">
-              <iframe class="slideshow__list__video" src="https://www.youtube.com/embed/WxpPXXj4p_g" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-              <div class="image-caption">The performer, draped in 200 items of clothing (the "skin" of society and the "layers" of data), steps into their own projected, disintegrating digital silhouette. As the physical body becomes "noise" on the projection and the digital silhouette devours the physical body, the work sharply poses the question of what the real body is under the layers of digital identity.
-              </div>
-            </div>
-            <div class="slideshow__list__media" data-title="Breathing Without Organs 《无器官呼吸》" data-video="zso_93Z-uoc">
-              <iframe class="slideshow__list__video" src="https://www.youtube.com/embed/zso_93Z-uoc" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-              <div class="image-caption">The limited space formed by plastic bags suspends the established functions of organs and the social body norms. Here, the body explores the possibility of an organless body through a series of "de-purposive" twists and formations—a life itself that is freed from fixed tissues and functions and exists purely for intensity and flow.</div>
-            </div>
-          </div>
+    <div class="process-title">
+      <h2>Artifacts</h2>
+    </div>
+
+    <!-- Grid Overview -->
+    <div class="grid-overview">
+      <div class="grid-item" data-index="0" data-video="sSnXL4aBJ80">
+        <iframe class="grid-item__image" src="https://www.youtube.com/embed/sSnXL4aBJ80" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <div class="grid-item__info">
+          <div class="grid-item__title">Feed Me With Labels 《饲育我以标签》</div>
+          <div class="grid-item__caption">Video / Visual Art / Physical / Photography (2025) - Deconstructing the symbolic attributes of everyday objects, transforming industrial materials into visual devices of power relations</div>
         </div>
+      </div>
 
-        <!-- AI Collaboration Note -->
-        <div class="intro">
-          <div class="intro-inner">
-            <div class="intro-desc">
-              <h2 class="h-h2 desc" style="line-height: 1.5; text-align: left; border-bottom: 2px solid #444; padding-bottom: 1rem; margin-bottom: 2rem;">
-                AI Co-creation Process
-              </h2>
-              <h2 class="h-h2 desc" style="line-height: 1.6; text-align: left;">
-                本项目的核心概念框架与部分作品的初始文本描述，是在与AI语言模型（主要DeepSeek Chat）的对话中发展并深化的。AI作为"概念共鸣板"和"文本生成器"，协助我将模糊的感官体验转化为精确的理论语言和视觉意象。
-                <br><br>
-                The core conceptual framework of this project and the initial textual descriptions of some works were developed and deepened through conversations with AI language models (primarily DeepSeek Chat). AI, acting as a "conceptual sounding board" and "text generator," assisted me in transforming vague sensory experiences into precise theoretical language and visual imagery.
-                <br><br>
-                The collaboration involved iterative dialogues where conceptual ideas were refined, theoretical frameworks were articulated, and descriptions were crafted to capture the essence of each work. This process demonstrates a new form of artistic collaboration where AI serves as an intellectual partner in the development of critical concepts and artistic statements.
-              </h2>
-            </div>
-          </div>
+      <div class="grid-item" data-index="1" data-video="GsIBIYtYPeE">
+        <iframe class="grid-item__image" src="https://www.youtube.com/embed/GsIBIYtYPeE" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <div class="grid-item__info">
+          <div class="grid-item__title">Glass Cage—Time 《玻璃囚笼——时间》</div>
+          <div class="grid-item__caption">Video / Visual Art / Physical (2024) - A cube covered with mirrors forms a phenomenological spatio-temporal prison where the body is deconstructed into multiple time-space slices</div>
         </div>
+      </div>
 
+      <div class="grid-item" data-index="2" data-video="4QPg3cYdNvY">
+        <iframe class="grid-item__image" src="https://www.youtube.com/embed/4QPg3cYdNvY" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <div class="grid-item__info">
+          <div class="grid-item__title">Sirenbanshee404</div>
+          <div class="grid-item__caption">Visual Art / Video / Performance / Physical (2024) - A "decolonization" action targeting the "industrialized body" through forced grafting with industrial exhaust pipes</div>
+        </div>
+      </div>
+
+      <div class="grid-item" data-index="3" data-video="pK8WSxR01G8">
+        <iframe class="grid-item__image" src="https://www.youtube.com/embed/pK8WSxR01G8" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <div class="grid-item__info">
+          <div class="grid-item__title">Body Geometry—Unattainable Embrace 《身体几何——无法抵达的拥抱》</div>
+          <div class="grid-item__caption">Visual / Video / Physical (2024) - The eternal distance between body and shadow, revealing the struggle between free choice and physiological limitation</div>
+        </div>
+      </div>
+
+      <div class="grid-item" data-index="4" data-video="0iwdWmzOXQc">
+        <iframe class="grid-item__image" src="https://www.youtube.com/embed/0iwdWmzOXQc" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <div class="grid-item__info">
+          <div class="grid-item__title">22Hz Chromosome 《22Hz染色体——在荧光中成为实验废料》</div>
+          <div class="grid-item__caption">Performance / Video / Live Act / Physical (2025) - An immersive theater of the "technological womb" where the body becomes experimental waste in fluorescent ruins</div>
+        </div>
+      </div>
+
+      <div class="grid-item" data-index="5" data-video="WxpPXXj4p_g">
+        <iframe class="grid-item__image" src="https://www.youtube.com/embed/WxpPXXj4p_g" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <div class="grid-item__info">
+          <div class="grid-item__title">Cocoon Code 《茧码》</div>
+          <div class="grid-item__caption">Visual / Video / Performance (2025) - Draped in 200 items of clothing, stepping into a disintegrating digital silhouette, questioning the real body under layers of digital identity</div>
+        </div>
+      </div>
+
+      <div class="grid-item" data-index="6" data-video="zso_93Z-uoc">
+        <iframe class="grid-item__image" src="https://www.youtube.com/embed/zso_93Z-uoc" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <div class="grid-item__info">
+          <div class="grid-item__title">Breathing Without Organs 《无器官呼吸》</div>
+          <div class="grid-item__caption">Visual / Performance / Video (2024) - Exploring an organless body through "de-purposive" movements in plastic bag spaces, suspending established organ functions</div>
+        </div>
       </div>
     </div>
 
+    <!-- Fullscreen Slideshow -->
+    <div class="slideshow-fullscreen">
+      <div class="slideshow__close"></div>
+
+      <div class="slideshow__bar">
+        <div class="slideshow__head">
+          <h2 class="slideshow__title">Feed Me With Labels</h2>
+        </div>
+        <div class="slideshow__counter">
+          <div class="slideshow__counter__number">01</div>
+          <div class="slideshow__counter__div">/</div>
+          <div class="slideshow__counter__total">07</div>
+        </div>
+        <div class="slideshow__pagination">
+          <div class="slideshow__pagination__left">
+            <img src="https://assets-global.website-files.com/603fe89ec4bbcece7ee6a53a/60bf3147f7b2218c930288d9_arrow-long-left.svg" loading="lazy" alt="" class="slideshow__pagination__icon" />
+          </div>
+          <div class="slideshow__pagination__right">
+            <img src="https://assets-global.website-files.com/603fe89ec4bbcece7ee6a53a/60bf31486c24692394e3ca0d_arrow-long-right.svg" loading="lazy" alt="" class="slideshow__pagination__icon" />
+          </div>
+        </div>
+      </div>
+
+      <div class="slideshow__frame">
+        <svg viewBox="0 0 483 721" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M1 55V1H54.5" stroke="#BBB9B9" />
+          <path d="M54.75 719.5L0.75 719.5L0.749998 666" stroke="#BBB9B9" />
+          <path d="M482.5 665.75L482.5 719.75L429 719.75" stroke="#BBB9B9" />
+          <path d="M428 1.25L482 1.25L482 54.75" stroke="#BBB9B9" />
+        </svg>
+      </div>
+
+      <div class="slideshow__list">
+        <div class="slideshow__list__media active" data-title="Feed Me With Labels 《饲育我以标签》" data-video="sSnXL4aBJ80">
+          <iframe class="slideshow__list__video" src="https://www.youtube.com/embed/sSnXL4aBJ80" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          <div class="image-caption">In the current era of the continuous penetration of the consumerist sign system, the body, as the primary site of social discipline, is experiencing an unprecedented crisis of alienation. This work deconstructs the symbolic attributes of everyday objects, transforms industrial materials into visual devices of power relations, and constructs a critical narrative network from "symbolic violence" to "material uprising."
+          </div>
+        </div>
+        <div class="slideshow__list__media" data-title="Glass Cage—Time 《玻璃囚笼——时间》" data-video="GsIBIYtYPeE">
+          <iframe class="slideshow__list__video" src="https://www.youtube.com/embed/GsIBIYtYPeE" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          <div class="image-caption">A cube covered with mirrors forms a phenomenological spatio-temporal prison. The performer hugs the only pillar inside in an anti-gravity posture, and their limbs are deconstructed into multiple spatio-temporal slices in infinite reflection. This work constructs a visual trap that allows viewers to personally experience "how capital modernity folds space and time."</div>
+        </div>
+        <div class="slideshow__list__media" data-title="Sirenbanshee404" data-video="4QPg3cYdNvY">
+          <iframe class="slideshow__list__video" src="https://www.youtube.com/embed/4QPg3cYdNvY" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          <div class="image-caption">In an abandoned factory, the body undergoes a forced "grafting" with industrial exhaust pipes. Through the body's antagonistic movements, the work initiates a "decolonization" action targeting the "industrialized body." It attempts to peel off the colonial imprints left by mechanical logic on the biological body.</div>
+        </div>
+        <div class="slideshow__list__media" data-title="Body Geometry—Unattainable Embrace 《身体几何——无法抵达的拥抱》" data-video="pK8WSxR01G8">
+          <iframe class="slideshow__list__video" src="https://www.youtube.com/embed/pK8WSxR01G8" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          <div class="image-caption">The eternal distance between the body and its shadow. Through slow movement, the extension of time is manifested, with slow muscle contractions and skeletal displacements, precisely controlling the contraction amplitude of the trapezius muscle, revealing: the eternal struggle between free choice and physiological limitation.</div>
+        </div>
+        <div class="slideshow__list__media" data-title="22Hz Chromosome 《22Hz染色体》" data-video="0iwdWmzOXQc">
+          <iframe class="slideshow__list__video" src="https://www.youtube.com/embed/0iwdWmzOXQc" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          <div class="image-caption">This work forces the audience to reexamine the materiality and sacredness of the body in the fluorescent ruins by constructing an immersive theater of the "technological womb." Those viscous movements that wander on the glass surface are both a memorial to the initial form of life and a prophetic archaeology of the posthuman era.
+          </div>
+        </div>
+        <div class="slideshow__list__media" data-title="Cocoon Code 《茧码》" data-video="WxpPXXj4p_g">
+          <iframe class="slideshow__list__video" src="https://www.youtube.com/embed/WxpPXXj4p_g" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          <div class="image-caption">The performer, draped in 200 items of clothing (the "skin" of society and the "layers" of data), steps into their own projected, disintegrating digital silhouette. As the physical body becomes "noise" on the projection and the digital silhouette devours the physical body, the work sharply poses the question of what the real body is under the layers of digital identity.
+          </div>
+        </div>
+        <div class="slideshow__list__media" data-title="Breathing Without Organs 《无器官呼吸》" data-video="zso_93Z-uoc">
+          <iframe class="slideshow__list__video" src="https://www.youtube.com/embed/zso_93Z-uoc" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          <div class="image-caption">The limited space formed by plastic bags suspends the established functions of organs and the social body norms. Here, the body explores the possibility of an organless body through a series of "de-purposive" twists and formations—a life itself that is freed from fixed tissues and functions and exists purely for intensity and flow.</div>
+        </div>
+      </div>
+    </div>
+
+
   </main>
+
+  <div class="grid-event w-embed">
+    <style>
+      .grid-w {
+        pointer-events: none;
+      }
+    </style>
+  </div>
 
   <script>
     // Slideshow state
@@ -625,4 +795,146 @@
     const slideshowTitle = document.querySelector('.slideshow__title');
     const leftArrow = document.querySelector('.slideshow__pagination__left');
     const rightArrow = document.querySelector('.slideshow__pagination__right');
-    const slideshow = document.querySelector('.
+    const slideshow = document.querySelector('.slideshow-fullscreen');
+    const slideshowClose = document.querySelector('.slideshow__close');
+
+    // Grid items
+    const gridItems = document.querySelectorAll('.grid-item');
+
+    // Lightbox elements
+    const lightbox = document.querySelector('.lightbox');
+    const lightboxImage = document.querySelector('.lightbox__image');
+    const lightboxCaption = document.querySelector('.lightbox__caption');
+    const lightboxClose = document.querySelector('.lightbox__close');
+    const allSlideshowImages = document.querySelectorAll('.slideshow__list__image');
+
+    // Open slideshow at specific index
+    function openSlideshow(index) {
+      currentSlide = index;
+      updateSlide();
+      slideshow.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    // Close slideshow
+    function closeSlideshow() {
+      slideshow.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    // Update slide
+    function updateSlide() {
+      slides.forEach((slide, index) => {
+        slide.classList.toggle('active', index === currentSlide);
+      });
+      counterNumber.textContent = String(currentSlide + 1).padStart(2, '0');
+
+      const currentSlideElement = slides[currentSlide];
+      const title = currentSlideElement.dataset.title;
+      slideshowTitle.textContent = title;
+    }
+
+    function nextSlide() {
+      currentSlide = (currentSlide + 1) % totalSlides;
+      updateSlide();
+    }
+
+    function prevSlide() {
+      currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+      updateSlide();
+    }
+
+    // Grid item click handlers
+    gridItems.forEach(item => {
+      item.addEventListener('click', () => {
+        const index = parseInt(item.dataset.index);
+        openSlideshow(index);
+      });
+    });
+
+    // Slideshow navigation
+    slideshowClose.addEventListener('click', closeSlideshow);
+    leftArrow.addEventListener('click', prevSlide);
+    rightArrow.addEventListener('click', nextSlide);
+
+    // Lightbox functions
+    function openLightbox(imgSrc, caption) {
+      lightboxImage.src = imgSrc;
+      lightboxCaption.textContent = caption;
+      lightbox.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      lightbox.classList.remove('active');
+      document.body.style.overflow = slideshow.classList.contains('active') ? 'hidden' : '';
+    }
+
+    // Add click listeners to slideshow images
+    allSlideshowImages.forEach((img) => {
+      img.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const parentMedia = img.closest('.slideshow__list__media');
+        const caption = parentMedia.querySelector('.image-caption').textContent;
+        openLightbox(img.src, caption);
+      });
+    });
+
+    // Close lightbox handlers
+    lightboxClose.addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) {
+        closeLightbox();
+      }
+    });
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (lightbox.classList.contains('active')) {
+        if (e.key === 'Escape') closeLightbox();
+      } else if (slideshow.classList.contains('active')) {
+        if (e.key === 'Escape') closeSlideshow();
+        if (e.key === 'ArrowLeft') prevSlide();
+        if (e.key === 'ArrowRight') nextSlide();
+      }
+    });
+
+    // Touch swipe support for slideshow
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    slideshow.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    });
+
+    slideshow.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      if (touchStartX - touchEndX > 50) nextSlide();
+      if (touchEndX - touchStartX > 50) prevSlide();
+    });
+  </script>
+  <script>
+    //100vh Fix on Mobile
+    let vh = window.innerHeight * 0.01;
+    let size = 0;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+    window.addEventListener('resize', () => {
+      if (window.innerWidth === size) return;
+      size = window.innerWidth;
+      let vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty('--vh', `${vh}px`);
+    });
+
+    // Fade in collection
+    if (typeof TweenMax !== 'undefined') {
+      TweenMax.to(".collection", 1, {
+        opacity: 1
+      });
+    } else {
+      document.querySelector('.collection').style.opacity = 1;
+    }
+  </script>
+
+</body>
+
+</html>
