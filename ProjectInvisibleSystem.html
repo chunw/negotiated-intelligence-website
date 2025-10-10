@@ -31,9 +31,7 @@
     .info-img-gradient.bottom {
       transform: scaleY(-1);
     }
-  </style>
 
-  <style>
     *,
     *::after,
     *::before {
@@ -50,7 +48,6 @@
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       -webkit-overflow-scrolling: touch;
-      -webkit-overflow-scrolling: touch;
       scrollbar-width: none;
       overscroll-behavior: none;
     }
@@ -60,8 +57,6 @@
       z-index: 2;
     }
 
-
-    /*Disable Text Selection */
     @media (min-width: 991px) {
       * {
         -webkit-touch-callout: none;
@@ -81,30 +76,15 @@
       user-select: text;
     }
 
-    /*Remove Scrollbar */
     ::-webkit-scrollbar {
       -ms-overflow-style: none;
       display: none;
       overflow: -moz-scrollbars-none;
       scrollbar-width: none;
-      -ms-overflow-style: none;
-      -ms-overflow-style: -ms-autohiding-scrollbar;
     }
 
     .grid-w {
       display: none;
-    }
-
-    .underline-style {
-      text-underline-offset: 0.3rem;
-      text-decoration-thickness: 1px;
-    }
-
-    .blend_back {
-      background-blend-mode: luminosity;
-      background-color: #030303;
-      opacity: 0.1;
-      display: block;
     }
 
     canvas {
@@ -114,89 +94,10 @@
       z-index: 1;
     }
 
-    [data-animation="slider"],
-    [data-animation="slider"] .collection-list {
-      display: inline-block;
-      width: auto !important;
-      white-space: nowrap;
-    }
-
-    [data-animation="slider-item"] {
-      display: inline-block !important;
-      height: 38vw;
-      position: relative;
-      width: 55vw;
-    }
-
-    [data-animation="slider-item"] img {
-      border: 2px solid #bbb9b94a;
-      border-radius: 18px;
-      position: absolute;
-      object-fit: cover;
-      left: 0;
-      top: 0;
-      height: 100%;
-      width: calc(100% - 2vw);
-    }
-
     .menu {
       height: 100vh;
       height: calc(var(--vh, 1vh) * 100);
     }
-
-    .loader {
-      display: block;
-    }
-
-    .hero.home,
-    .wait {
-      height: 100vh;
-    }
-
-    audio {
-      opacity: 0.8;
-    }
-
-    audio::-webkit-media-controls-panel {
-      background-color: #535353;
-    }
-
-    audio::-webkit-media-controls-current-time-display {
-      text-shadow: none;
-      color: white;
-    }
-
-    audio::-webkit-media-controls-time-remaining-display {
-      text-shadow: none;
-      color: white;
-    }
-
-    .dataset .h-h2.desc {
-      font-size: 1.5rem;
-      line-height: 1.3;
-      font-weight: 300;
-      border-bottom: 1px solid #ddd;
-      padding: 8px;
-    }
-
-    thead {
-      background-color: #585858;
-      color: white;
-      font-weight: 300;
-    }
-
-    th,
-    td {
-      border-bottom: 1px solid #ddd;
-      padding: 8px;
-    }
-
-    table {
-      border-collapse: collapse;
-      border-top: 2px solid black;
-      border-bottom: 2px solid black;
-    }
-
 
     /* Grid Overview */
     .grid-overview {
@@ -204,7 +105,7 @@
       margin: 0 auto;
       padding: 2rem;
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
       gap: 2rem;
     }
 
@@ -224,12 +125,25 @@
       box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
     }
 
-    .grid-item__image {
+    .grid-item__images {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
       width: 100%;
       height: 300px;
+      background: #1a1a1a;
+    }
+
+    .grid-item__image-single {
+      width: 100%;
+      height: 100%;
       object-fit: cover;
       display: block;
-      background: #1a1a1a;
+      border-right: 1px solid #333;
+    }
+
+    .grid-item__image-single:last-child {
+      border-right: none;
     }
 
     .grid-item__info {
@@ -237,16 +151,27 @@
     }
 
     .grid-item__title {
-      font-size: 1.1rem;
+      font-size: 1.05rem;
       font-weight: 400;
       color: #fff;
       margin-bottom: 0.5rem;
+      line-height: 1.3;
     }
 
     .grid-item__caption {
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       color: #888;
       line-height: 1.5;
+      margin-bottom: 0.5rem;
+    }
+
+    .grid-item__ai-note {
+      font-size: 0.8rem;
+      color: #666;
+      font-style: italic;
+      margin-top: 0.5rem;
+      padding-top: 0.5rem;
+      border-top: 1px solid #333;
     }
 
     /* Fullscreen Slideshow */
@@ -380,6 +305,8 @@
       width: 95%;
       height: 85%;
       z-index: 3;
+      overflow-y: auto;
+      overflow-x: hidden;
     }
 
     .slideshow__list__media {
@@ -391,11 +318,8 @@
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.6s ease;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
       padding: 2rem;
+      overflow-y: auto;
     }
 
     .slideshow__list__media.active {
@@ -403,25 +327,63 @@
       pointer-events: auto;
     }
 
-    .slideshow__list__image {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: transform 0.3s ease;
-      background: #1a1a1a;
+    .slideshow__content-wrapper {
+      max-width: 1200px;
+      margin: 0 auto;
     }
 
-    .slideshow__list__image:hover {
+    .slideshow__artifact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .slideshow__artifact-item {
+      background: #1a1a1a;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid #333;
+    }
+
+    .slideshow__artifact-label {
+      background: #0a0a0a;
+      padding: 0.5rem 1rem;
+      font-size: 0.9rem;
+      color: #888;
+      border-bottom: 1px solid #333;
+    }
+
+    .slideshow__artifact-image {
+      width: 100%;
+      height: 300px;
+      object-fit: contain;
+      background: #0a0a0a;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .slideshow__artifact-image:hover {
       transform: scale(1.02);
     }
 
-    .image-caption {
-      text-align: center;
-      font-size: 0.9rem;
-      color: #888;
-      margin-top: 1rem;
+    .slideshow__artifact-video {
+      width: 100%;
+      height: 400px;
+      border: none;
+      background: #0a0a0a;
+    }
+
+    .slideshow__description {
+      text-align: left;
+      font-size: 0.95rem;
+      color: #ccc;
+      line-height: 1.7;
+      margin-top: 1.5rem;
+      padding: 1.5rem;
+      background: #0a0a0a;
+      border-radius: 8px;
+      border: 1px solid #333;
     }
 
     /* Lightbox */
@@ -509,10 +471,6 @@
     }
 
     @media (max-width: 768px) {
-      .video iframe {
-        height: 400px;
-      }
-
       .grid-overview {
         grid-template-columns: 1fr;
         gap: 1.5rem;
@@ -527,6 +485,14 @@
       .slideshow__frame,
       .slideshow__list {
         width: 90%;
+      }
+
+      .slideshow__artifact-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .slideshow__artifact-video {
+        height: 250px;
       }
     }
   </style>
@@ -547,29 +513,7 @@
     </style>
   </div>
 
-  <div class="navbar navbar__shop" style="display:none; padding:1rem 0.5vw 0 2.5vw ">
-    <div class="n-block left">
-      <div data-w-id="2264dfe2-412c-a750-b778-fffb7eb6b996" class="n-wrap">
-        <div data-w-id="2264dfe2-412c-a750-b778-fffb7eb6b997" class="n-trigger">
-          <div data-w-id="2264dfe2-412c-a750-b778-fffb7eb6b998" class="n-line"></div>
-          <div data-w-id="2264dfe2-412c-a750-b778-fffb7eb6b999" class="n-line bottom"></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="n-block center"><a rel="noopener" draggable="false" href="/" aria-current="page" class="n-link w-inline-block w--current"><img style="opacity: 0.9; width: 200px;"
-          src="https://freight.cargo.site/w/217/q/94/i/fb2b46cd634f8600d388c1fddfc23c48e2c1e3593988f576bbec4237426c8fcb/CAMLab.png" loading="lazy" class="n-brand" /></a>
-    </div>
-    <div class="n-block right"></div>
-  </div>
-
   <main data-template="home" class="content demo">
-
-
-    <!-- <div class="statline"><b>AI Co-creation Note:</b></div>
-      <div class="statline" style="font-size: 0.9rem; color: #aaa;">
-        The core conceptual framework of this project and the initial textual descriptions of some works were developed and deepened through conversations with AI language models (primarily DeepSeek Chat). AI, acting as a "conceptual sounding board" and "text generator," assisted in transforming vague sensory experiences into precise theoretical language and visual imagery.
-      </div> -->
 
     <div class="campaign">
       <div style="text-align: center; " class="lookbook__head__title">
@@ -583,41 +527,24 @@
           Yan Longdan
         </a>
       </div>
-      <!-- <div class="intro" id="intro" style="padding: 5% 15% 0;">
-          <div class="intro-inner">
-            <div class="intro-desc">
-              <h2 class="h-h2 desc" style="line-height: 1.5; text-align: left;">
-                (不可见)的系统：身体的数字诗学
-              </h2>
-            </div>
-          </div>
-        </div> -->
-
 
       <div class="intro" style="padding: 5% 15% 0">
         <div class="intro-inner">
           <div class="intro-desc">
             <h2 class="h-h2 desc" style="line-height: 1.5; margin-bottom: 1rem; text-align: left;">
-
-
               This project is a series of digital video studies exploring "the body as a data interface." In the new "nature" constituted by algorithms, capital, and industrial logic, the human body has become the ultimate site of inscription,
               discipline, and analysis. Through the digital lens—the most important contemporary tool for observation and critique—we examine how the body, in its friction with these invisible systems, serves both as a vehicle for resistance and as a
               generator of poetry.
-              <br>
-              <br>
+              <br><br>
               The work constructs a digital "phenomenological laboratory," placing the body in surreal scenarios such as glass cages, data noise, and industrial pipelines, enabling it to have perceptible contact with the violence of the system. These
               images are not only records; they are also processes of encoding and decoding: the reflection of the lens, the disintegration of code, and the overlay of projections all become metaphors for the mutual penetration and tampering between
               the body and the system.
-              <br>
-              <br>
+              <br><br>
               Ultimately, we ask: in an increasingly virtual world, what new truths about existence and freedom are revealed by the materiality, temperature, and vulnerability of the body?
-              <br>
-              <br>
             </h2>
           </div>
         </div>
       </div>
-
 
       <div class="intro" style="padding: 0 15% 10%">
         <div class="intro-inner">
@@ -626,10 +553,6 @@
               Human Creator Ledger
             </h2>
             <h2 class="h-h2 desc" style="line-height: 1.6; text-align: left; font-weight: 300;">
-
-              <!-- 本项目的核心概念框架与部分作品的初始文本描述，是在与AI语言模型（主要DeepSeek Chat）的对话中发展并深化的。AI作为"概念共鸣板"和"文本生成器"，协助我将模糊的感官体验转化为精确的理论语言和视觉意象。
-
-              <br><br> -->
               The core conceptual framework of this project and the initial textual descriptions of some works were developed and deepened through conversations with AI language models (primarily DeepSeek Chat). AI, acting as a "conceptual sounding
               board" and "text generator," assisted me in transforming vague sensory experiences into precise theoretical language and visual imagery.
               <br><br>
@@ -641,8 +564,6 @@
       </div>
 
     </div>
-    </div>
-
 
     <div class="process-title">
       <h2>Negotiation Artifacts</h2>
@@ -650,64 +571,99 @@
 
     <!-- Grid Overview -->
     <div class="grid-overview">
-      <div class="grid-item" data-index="0" data-video="sSnXL4aBJ80">
-        <iframe class="grid-item__image" src="https://www.youtube.com/embed/sSnXL4aBJ80" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      <!-- Work 1: Feed Me With Labels -->
+      <div class="grid-item" data-index="0">
+        <div class="grid-item__images">
+          <img class="grid-item__image-single" src="work1-static.png" alt="Feed Me With Labels - Work" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22300%22 height=%22150%22%3E%3Crect fill=%22%231a1a1a%22 width=%22300%22 height=%22150%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23666%22 font-family=%22sans-serif%22%3EWork Image%3C/text%3E%3C/svg%3E'" />
+          <img class="grid-item__image-single" src="work1-prompt.png" alt="Feed Me With Labels - AI Prompt" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22300%22 height=%22150%22%3E%3Crect fill=%22%231a1a1a%22 width=%22300%22 height=%22150%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23666%22 font-family=%22sans-serif%22%3EAI Prompt%3C/text%3E%3C/svg%3E'" />
+        </div>
         <div class="grid-item__info">
           <div class="grid-item__title">Feed Me With Labels 《饲育我以标签》</div>
-          <div class="grid-item__caption">Video / Visual Art / Physical / Photography (2025) - Deconstructing the symbolic attributes of everyday objects, transforming industrial materials into visual devices of power relations</div>
+          <div class="grid-item__caption">Video / Visual Art / Physical / Photography (2025)</div>
+          <div class="grid-item__ai-note">AI Model: DeepSeek Chat</div>
         </div>
       </div>
 
-      <div class="grid-item" data-index="1" data-video="GsIBIYtYPeE">
-        <iframe class="grid-item__image" src="https://www.youtube.com/embed/GsIBIYtYPeE" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      <!-- Work 2: Glass Cage - Time -->
+      <div class="grid-item" data-index="1">
+        <div class="grid-item__images">
+          <img class="grid-item__image-single" src="work2-static.png" alt="Glass Cage Time - Work" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22300%22 height=%22150%22%3E%3Crect fill=%22%231a1a1a%22 width=%22300%22 height=%22150%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23666%22 font-family=%22sans-serif%22%3EWork Image%3C/text%3E%3C/svg%3E'" />
+          <img class="grid-item__image-single" src="work2-prompt.png" alt="Glass Cage Time - AI Prompt" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22300%22 height=%22150%22%3E%3Crect fill=%22%231a1a1a%22 width=%22300%22 height=%22150%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23666%22 font-family=%22sans-serif%22%3EAI Prompt%3C/text%3E%3C/svg%3E'" />
+        </div>
         <div class="grid-item__info">
           <div class="grid-item__title">Glass Cage—Time 《玻璃囚笼——时间》</div>
-          <div class="grid-item__caption">Video / Visual Art / Physical (2024) - A cube covered with mirrors forms a phenomenological spatio-temporal prison where the body is deconstructed into multiple time-space slices</div>
+          <div class="grid-item__caption">Video / Visual Art / Physical (2024)</div>
+          <div class="grid-item__ai-note">AI Model: DeepSeek Chat</div>
         </div>
       </div>
 
-      <div class="grid-item" data-index="2" data-video="4QPg3cYdNvY">
-        <iframe class="grid-item__image" src="https://www.youtube.com/embed/4QPg3cYdNvY" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      <!-- Work 3: Sirenbanshee404 -->
+      <div class="grid-item" data-index="2">
+        <div class="grid-item__images">
+          <img class="grid-item__image-single" src="work3-static.png" alt="Sirenbanshee404 - Work" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22300%22 height=%22150%22%3E%3Crect fill=%22%231a1a1a%22 width=%22300%22 height=%22150%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23666%22 font-family=%22sans-serif%22%3EWork Image%3C/text%3E%3C/svg%3E'" />
+          <img class="grid-item__image-single" src="work3-prompt.png" alt="Sirenbanshee404 - AI Prompt" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22300%22 height=%22150%22%3E%3Crect fill=%22%231a1a1a%22 width=%22300%22 height=%22150%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23666%22 font-family=%22sans-serif%22%3EAI Prompt%3C/text%3E%3C/svg%3E'" />
+        </div>
         <div class="grid-item__info">
           <div class="grid-item__title">Sirenbanshee404</div>
-          <div class="grid-item__caption">Visual Art / Video / Performance / Physical (2024) - A "decolonization" action targeting the "industrialized body" through forced grafting with industrial exhaust pipes</div>
+          <div class="grid-item__caption">Visual Art / Video / Performance / Physical (2024)</div>
+          <div class="grid-item__ai-note">AI Model: DeepSeek Chat</div>
         </div>
       </div>
 
-      <div class="grid-item" data-index="3" data-video="pK8WSxR01G8">
-        <iframe class="grid-item__image" src="https://www.youtube.com/embed/pK8WSxR01G8" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      <!-- Work 4: Body Geometry -->
+      <div class="grid-item" data-index="3">
+        <div class="grid-item__images">
+          <img class="grid-item__image-single" src="work4-static.png" alt="Body Geometry - Work" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22300%22 height=%22150%22%3E%3Crect fill=%22%231a1a1a%22 width=%22300%22 height=%22150%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23666%22 font-family=%22sans-serif%22%3EWork Image%3C/text%3E%3C/svg%3E'" />
+          <img class="grid-item__image-single" src="work4-prompt.png" alt="Body Geometry - AI Prompt" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22300%22 height=%22150%22%3E%3Crect fill=%22%231a1a1a%22 width=%22300%22 height=%22150%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23666%22 font-family=%22sans-serif%22%3EAI Prompt%3C/text%3E%3C/svg%3E'" />
+        </div>
         <div class="grid-item__info">
           <div class="grid-item__title">Body Geometry—Unattainable Embrace 《身体几何——无法抵达的拥抱》</div>
-          <div class="grid-item__caption">Visual / Video / Physical (2024) - The eternal distance between body and shadow, revealing the struggle between free choice and physiological limitation</div>
+          <div class="grid-item__caption">Visual / Video / Physical (2024)</div>
+          <div class="grid-item__ai-note">AI Model: DeepSeek Chat</div>
         </div>
       </div>
 
-      <div class="grid-item" data-index="4" data-video="0iwdWmzOXQc">
-        <iframe class="grid-item__image" src="https://www.youtube.com/embed/0iwdWmzOXQc" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      <!-- Work 5: 22Hz Chromosome -->
+      <div class="grid-item" data-index="4">
+        <div class="grid-item__images">
+          <img class="grid-item__image-single" src="work5-static.png" alt="22Hz Chromosome - Work" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22300%22 height=%22150%22%3E%3Crect fill=%22%231a1a1a%22 width=%22300%22 height=%22150%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23666%22 font-family=%22sans-serif%22%3EWork Image%3C/text%3E%3C/svg%3E'" />
+          <img class="grid-item__image-single" src="work5-prompt.png" alt="22Hz Chromosome - AI Prompt" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22300%22 height=%22150%22%3E%3Crect fill=%22%231a1a1a%22 width=%22300%22 height=%22150%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23666%22 font-family=%22sans-serif%22%3EAI Prompt%3C/text%3E%3C/svg%3E'" />
+        </div>
         <div class="grid-item__info">
           <div class="grid-item__title">22Hz Chromosome 《22Hz染色体——在荧光中成为实验废料》</div>
-          <div class="grid-item__caption">Performance / Video / Live Act / Physical (2025) - An immersive theater of the "technological womb" where the body becomes experimental waste in fluorescent ruins</div>
+          <div class="grid-item__caption">Performance / Video / Live Act / Physical (2025)</div>
+          <div class="grid-item__ai-note">AI Model: DeepSeek Chat</div>
         </div>
       </div>
 
-      <div class="grid-item" data-index="5" data-video="WxpPXXj4p_g">
-        <iframe class="grid-item__image" src="https://www.youtube.com/embed/WxpPXXj4p_g" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      <!-- Work 6: Cocoon Code -->
+      <div class="grid-item" data-index="5">
+        <div class="grid-item__images">
+          <img class="grid-item__image-single" src="work6-static.png" alt="Cocoon Code - Work" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22300%22 height=%22150%22%3E%3Crect fill=%22%231a1a1a%22 width=%22300%22 height=%22150%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23666%22 font-family=%22sans-serif%22%3EWork Image%3C/text%3E%3C/svg%3E'" />
+          <img class="grid-item__image-single" src="work6-prompt.png" alt="Cocoon Code - AI Prompt" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22300%22 height=%22150%22%3E%3Crect fill=%22%231a1a1a%22 width=%22300%22 height=%22150%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23666%22 font-family=%22sans-serif%22%3EAI Prompt%3C/text%3E%3C/svg%3E'" />
+        </div>
         <div class="grid-item__info">
           <div class="grid-item__title">Cocoon Code 《茧码》</div>
-          <div class="grid-item__caption">Visual / Video / Performance (2025) - Draped in 200 items of clothing, stepping into a disintegrating digital silhouette, questioning the real body under layers of digital identity</div>
+          <div class="grid-item__caption">Visual / Video / Performance (2025)</div>
+          <div class="grid-item__ai-note">AI Model: DeepSeek Chat</div>
         </div>
       </div>
 
-      <div class="grid-item" data-index="6" data-video="zso_93Z-uoc">
-        <iframe class="grid-item__image" src="https://www.youtube.com/embed/zso_93Z-uoc" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      <!-- Work 7: Breathing Without Organs -->
+      <div class="grid-item" data-index="6">
+        <div class="grid-item__images">
+          <img class="grid-item__image-single" src="work7-static.png" alt="Breathing Without Organs - Work" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22300%22 height=%22150%22%3E%3Crect fill=%22%231a1a1a%22 width=%22300%22 height=%22150%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23666%22 font-family=%22sans-serif%22%3EWork Image%3C/text%3E%3C/svg%3E'" />
+          <img class="grid-item__image-single" src="work7-prompt.png" alt="Breathing Without Organs - AI Prompt" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22300%22 height=%22150%22%3E%3Crect fill=%22%231a1a1a%22 width=%22300%22 height=%22150%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23666%22 font-family=%22sans-serif%22%3EAI Prompt%3C/text%3E%3C/svg%3E'" />
+        </div>
         <div class="grid-item__info">
           <div class="grid-item__title">Breathing Without Organs 《无器官呼吸》</div>
-          <div class="grid-item__caption">Visual / Performance / Video (2024) - Exploring an organless body through "de-purposive" movements in plastic bag spaces, suspending established organ functions</div>
+          <div class="grid-item__caption">Visual / Performance / Video (2024)</div>
+          <div class="grid-item__ai-note">AI Model: DeepSeek Chat</div>
         </div>
       </div>
     </div>
 
-    <!-- Fullscreen Slideshow -->
+    <!-- Fullscreen Slideshow with 3 artifacts per work -->
     <div class="slideshow-fullscreen">
       <div class="slideshow__close"></div>
 
@@ -740,50 +696,200 @@
       </div>
 
       <div class="slideshow__list">
-        <div class="slideshow__list__media active" data-title="Feed Me With Labels 《饲育我以标签》" data-video="sSnXL4aBJ80">
-          <iframe class="slideshow__list__video" src="https://www.youtube.com/embed/sSnXL4aBJ80" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-          <div class="image-caption">In the current era of the continuous penetration of the consumerist sign system, the body, as the primary site of social discipline, is experiencing an unprecedented crisis of alienation. This work deconstructs the symbolic attributes of everyday objects, transforms industrial materials into visual devices of power relations, and constructs a critical narrative network from "symbolic violence" to "material uprising."
+        <!-- Work 1: Feed Me With Labels -->
+        <div class="slideshow__list__media active" data-title="Feed Me With Labels 《饲育我以标签》">
+          <div class="slideshow__content-wrapper">
+            <div class="slideshow__artifact-grid">
+              <div class="slideshow__artifact-item">
+                <div class="slideshow__artifact-label">AI Prompt Screenshot</div>
+                <img class="slideshow__artifact-image" src="work1-prompt.png" alt="AI Prompt" data-lightbox="true" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22300%22%3E%3Crect fill=%22%230a0a0a%22 width=%22400%22 height=%22300%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23666%22 font-family=%22sans-serif%22%3EPrompt Image%3C/text%3E%3C/svg%3E'" />
+              </div>
+              <div class="slideshow__artifact-item">
+                <div class="slideshow__artifact-label">Work Image</div>
+                <img class="slideshow__artifact-image" src="work1-static.png" alt="Work" data-lightbox="true" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22300%22%3E%3Crect fill=%22%230a0a0a%22 width=%22400%22 height=%22300%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23666%22 font-family=%22sans-serif%22%3EWork Image%3C/text%3E%3C/svg%3E'" />
+              </div>
+              <div class="slideshow__artifact-item" style="grid-column: 1 / -1;">
+                <div class="slideshow__artifact-label">Video</div>
+                <iframe class="slideshow__artifact-video" src="https://www.youtube.com/embed/sSnXL4aBJ80" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+              </div>
+            </div>
+            <div class="slideshow__description">
+              <strong>《饲育我以标签》 Feed Me With Labels</strong><br>
+              影像/视觉/肢体/摄影 Video / Visual Art / Physical / Photography (2025)<br><br>
+              在消费主义符号系统持续渗透的当下，身体作为社会规训的首要场域，正在经历前所未有的异化危机。《饲育我以标签》通过解构日常物件的符号属性，将工业化材料转化为权力关系的可视化装置，解剖社会规训在肉体上刻写的隐性公式。横跨工业废墟、城市景观与数字界面，构建起从「符号暴力」到「物质起义」的批判性叙事网络。<br><br>
+              In the current era of the continuous penetration of the consumerist sign system, the body, as the primary site of social discipline, is experiencing an unprecedented crisis of alienation. This work deconstructs the symbolic attributes of everyday objects, transforms industrial materials into visual devices of power relations, and constructs a critical narrative network from "symbolic violence" to "material uprising."
+            </div>
           </div>
         </div>
-        <div class="slideshow__list__media" data-title="Glass Cage—Time 《玻璃囚笼——时间》" data-video="GsIBIYtYPeE">
-          <iframe class="slideshow__list__video" src="https://www.youtube.com/embed/GsIBIYtYPeE" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-          <div class="image-caption">A cube covered with mirrors forms a phenomenological spatio-temporal prison. The performer hugs the only pillar inside in an anti-gravity posture, and their limbs are deconstructed into multiple spatio-temporal slices in infinite reflection. This work constructs a visual trap that allows viewers to personally experience "how capital modernity folds space and time."</div>
-        </div>
-        <div class="slideshow__list__media" data-title="Sirenbanshee404" data-video="4QPg3cYdNvY">
-          <iframe class="slideshow__list__video" src="https://www.youtube.com/embed/4QPg3cYdNvY" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-          <div class="image-caption">In an abandoned factory, the body undergoes a forced "grafting" with industrial exhaust pipes. Through the body's antagonistic movements, the work initiates a "decolonization" action targeting the "industrialized body." It attempts to peel off the colonial imprints left by mechanical logic on the biological body.</div>
-        </div>
-        <div class="slideshow__list__media" data-title="Body Geometry—Unattainable Embrace 《身体几何——无法抵达的拥抱》" data-video="pK8WSxR01G8">
-          <iframe class="slideshow__list__video" src="https://www.youtube.com/embed/pK8WSxR01G8" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-          <div class="image-caption">The eternal distance between the body and its shadow. Through slow movement, the extension of time is manifested, with slow muscle contractions and skeletal displacements, precisely controlling the contraction amplitude of the trapezius muscle, revealing: the eternal struggle between free choice and physiological limitation.</div>
-        </div>
-        <div class="slideshow__list__media" data-title="22Hz Chromosome 《22Hz染色体》" data-video="0iwdWmzOXQc">
-          <iframe class="slideshow__list__video" src="https://www.youtube.com/embed/0iwdWmzOXQc" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-          <div class="image-caption">This work forces the audience to reexamine the materiality and sacredness of the body in the fluorescent ruins by constructing an immersive theater of the "technological womb." Those viscous movements that wander on the glass surface are both a memorial to the initial form of life and a prophetic archaeology of the posthuman era.
+
+        <!-- Work 2: Glass Cage - Time -->
+        <div class="slideshow__list__media" data-title="Glass Cage—Time 《玻璃囚笼——时间》">
+          <div class="slideshow__content-wrapper">
+            <div class="slideshow__artifact-grid">
+              <div class="slideshow__artifact-item">
+                <div class="slideshow__artifact-label">AI Prompt Screenshot</div>
+                <img class="slideshow__artifact-image" src="work2-prompt.png" alt="AI Prompt" data-lightbox="true" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22300%22%3E%3Crect fill=%22%230a0a0a%22 width=%22400%22 height=%22300%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23666%22 font-family=%22sans-serif%22%3EPrompt Image%3C/text%3E%3C/svg%3E'" />
+              </div>
+              <div class="slideshow__artifact-item">
+                <div class="slideshow__artifact-label">Work Image</div>
+                <img class="slideshow__artifact-image" src="work2-static.png" alt="Work" data-lightbox="true" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22300%22%3E%3Crect fill=%22%230a0a0a%22 width=%22400%22 height=%22300%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23666%22 font-family=%22sans-serif%22%3EWork Image%3C/text%3E%3C/svg%3E'" />
+              </div>
+              <div class="slideshow__artifact-item" style="grid-column: 1 / -1;">
+                <div class="slideshow__artifact-label">Video</div>
+                <iframe class="slideshow__artifact-video" src="https://www.youtube.com/embed/GsIBIYtYPeE" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+              </div>
+            </div>
+            <div class="slideshow__description">
+              <strong>《玻璃囚笼——时间》 Glass Cage—Time</strong><br>
+              视觉/影像/肢体 Video / Visual Art / Physical (2024)<br><br>
+              一个被镜面覆盖的立方体构成了一座现象学时空监狱。表演者以逆重力姿态环抱其中唯一的立柱，其肢体在无限反射中被解构为多重时空切片。本作品构建了一个视觉陷阱，让观看者亲身体验"资本现代性如何折叠时空"。身体在此成为唯一的标尺，其坚持的"日常实践"是对系统化规训最原始的抵抗。<br><br>
+              A cube covered with mirrors forms a phenomenological spatio-temporal prison. The performer hugs the only pillar inside in an anti-gravity posture, and their limbs are deconstructed into multiple spatio-temporal slices in infinite reflection. This work constructs a visual trap that allows viewers to personally experience "how capital modernity folds space and time."
+            </div>
           </div>
         </div>
-        <div class="slideshow__list__media" data-title="Cocoon Code 《茧码》" data-video="WxpPXXj4p_g">
-          <iframe class="slideshow__list__video" src="https://www.youtube.com/embed/WxpPXXj4p_g" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-          <div class="image-caption">The performer, draped in 200 items of clothing (the "skin" of society and the "layers" of data), steps into their own projected, disintegrating digital silhouette. As the physical body becomes "noise" on the projection and the digital silhouette devours the physical body, the work sharply poses the question of what the real body is under the layers of digital identity.
+
+        <!-- Work 3: Sirenbanshee404 -->
+        <div class="slideshow__list__media" data-title="Sirenbanshee404">
+          <div class="slideshow__content-wrapper">
+            <div class="slideshow__artifact-grid">
+              <div class="slideshow__artifact-item">
+                <div class="slideshow__artifact-label">AI Prompt Screenshot</div>
+                <img class="slideshow__artifact-image" src="work3-prompt.png" alt="AI Prompt" data-lightbox="true" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22300%22%3E%3Crect fill=%22%230a0a0a%22 width=%22400%22 height=%22300%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23666%22 font-family=%22sans-serif%22%3EPrompt Image%3C/text%3E%3C/svg%3E'" />
+              </div>
+              <div class="slideshow__artifact-item">
+                <div class="slideshow__artifact-label">Work Image</div>
+                <img class="slideshow__artifact-image" src="work3-static.png" alt="Work" data-lightbox="true" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22300%22%3E%3Crect fill=%22%230a0a0a%22 width=%22400%22 height=%22300%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23666%22 font-family=%22sans-serif%22%3EWork Image%3C/text%3E%3C/svg%3E'" />
+              </div>
+              <div class="slideshow__artifact-item" style="grid-column: 1 / -1;">
+                <div class="slideshow__artifact-label">Video</div>
+                <iframe class="slideshow__artifact-video" src="https://www.youtube.com/embed/4QPg3cYdNvY" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+              </div>
+            </div>
+            <div class="slideshow__description">
+              <strong>Sirenbanshee404</strong><br>
+              视觉/影像/行为/肢体 Visual Art / Video / Performance / Physical (2024) - 北京798艺术园区自主发起的Fluxus运动<br><br>
+              在废弃工厂中，身体与工业排风管进行强制性的"嫁接"。通过肢体的对抗性运动，作品展开了一场针对"工业化肉身"的"解殖"行动。它试图剥离机械逻辑在生物性身体上留下的殖民印记，并挖掘被钢铁与混凝土封存的集体身体记忆。<br><br>
+              In an abandoned factory, the body undergoes a forced "grafting" with industrial exhaust pipes. Through the body's antagonistic movements, the work initiates a "decolonization" action targeting the "industrialized body." It attempts to peel off the colonial imprints left by mechanical logic on the biological body and unearth the collective bodily memories sealed away by steel and concrete.
+            </div>
           </div>
         </div>
-        <div class="slideshow__list__media" data-title="Breathing Without Organs 《无器官呼吸》" data-video="zso_93Z-uoc">
-          <iframe class="slideshow__list__video" src="https://www.youtube.com/embed/zso_93Z-uoc" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-          <div class="image-caption">The limited space formed by plastic bags suspends the established functions of organs and the social body norms. Here, the body explores the possibility of an organless body through a series of "de-purposive" twists and formations—a life itself that is freed from fixed tissues and functions and exists purely for intensity and flow.</div>
+
+        <!-- Work 4: Body Geometry -->
+        <div class="slideshow__list__media" data-title="Body Geometry—Unattainable Embrace 《身体几何——无法抵达的拥抱》">
+          <div class="slideshow__content-wrapper">
+            <div class="slideshow__artifact-grid">
+              <div class="slideshow__artifact-item">
+                <div class="slideshow__artifact-label">AI Prompt Screenshot</div>
+                <img class="slideshow__artifact-image" src="work4-prompt.png" alt="AI Prompt" data-lightbox="true" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22300%22%3E%3Crect fill=%22%230a0a0a%22 width=%22400%22 height=%22300%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23666%22 font-family=%22sans-serif%22%3EPrompt Image%3C/text%3E%3C/svg%3E'" />
+              </div>
+              <div class="slideshow__artifact-item">
+                <div class="slideshow__artifact-label">Work Image</div>
+                <img class="slideshow__artifact-image" src="work4-static.png" alt="Work" data-lightbox="true" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22300%22%3E%3Crect fill=%22%230a0a0a%22 width=%22400%22 height=%22300%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23666%22 font-family=%22sans-serif%22%3EWork Image%3C/text%3E%3C/svg%3E'" />
+              </div>
+              <div class="slideshow__artifact-item" style="grid-column: 1 / -1;">
+                <div class="slideshow__artifact-label">Video</div>
+                <iframe class="slideshow__artifact-video" src="https://www.youtube.com/embed/pK8WSxR01G8" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+              </div>
+            </div>
+            <div class="slideshow__description">
+              <strong>《身体几何——无法抵达的拥抱》 Body Geometry—Unattainable Embrace</strong><br>
+              视觉/影像/肢体 Visual / Video / Physical (2024)<br><br>
+              本体与影子的永恒间距，所谓［无法抵达］：我们拥抱的永远是自我的他者性投影。通过缓慢运动体现时间的延展，缓慢的肌肉收缩与骨骼位移，精准控制斜方肌的收缩幅度，揭示出：自由选择与生理限定的永恒角力。以此回归纯粹身体性，实为意识与物质世界的隐秘对话，更是知觉世界如何根据身体建构。<br><br>
+              The eternal distance between the body and its shadow. Through slow movement, the extension of time is manifested, with slow muscle contractions and skeletal displacements, precisely controlling the contraction amplitude of the trapezius muscle, revealing: the eternal struggle between free choice and physiological limitation.
+            </div>
+          </div>
+        </div>
+
+        <!-- Work 5: 22Hz Chromosome -->
+        <div class="slideshow__list__media" data-title="22Hz Chromosome 《22Hz染色体》">
+          <div class="slideshow__content-wrapper">
+            <div class="slideshow__artifact-grid">
+              <div class="slideshow__artifact-item">
+                <div class="slideshow__artifact-label">AI Prompt Screenshot</div>
+                <img class="slideshow__artifact-image" src="work5-prompt.png" alt="AI Prompt" data-lightbox="true" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22300%22%3E%3Crect fill=%22%230a0a0a%22 width=%22400%22 height=%22300%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23666%22 font-family=%22sans-serif%22%3EPrompt Image%3C/text%3E%3C/svg%3E'" />
+              </div>
+              <div class="slideshow__artifact-item">
+                <div class="slideshow__artifact-label">Work Image</div>
+                <img class="slideshow__artifact-image" src="work5-static.png" alt="Work" data-lightbox="true" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22300%22%3E%3Crect fill=%22%230a0a0a%22 width=%22400%22 height=%22300%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23666%22 font-family=%22sans-serif%22%3EWork Image%3C/text%3E%3C/svg%3E'" />
+              </div>
+              <div class="slideshow__artifact-item" style="grid-column: 1 / -1;">
+                <div class="slideshow__artifact-label">Video</div>
+                <iframe class="slideshow__artifact-video" src="https://www.youtube.com/embed/0iwdWmzOXQc" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+              </div>
+            </div>
+            <div class="slideshow__description">
+              <strong>《22Hz染色体——在荧光中成为实验废料》 22Hz Chromosome</strong><br>
+              行为/影像/现场/肢体 Performance / Video / Live Act / Physical Art (2025)<br><br>
+              此作品通过构建"技术子宫"的沉浸式剧场，迫使观众在荧光遗迹中重新审视身体的物质性与神圣性。那些游走在玻璃表面的粘滞运动，既是生命初始形态的祭奠，也是对后人类纪元的预言性考古。22块彩色玻璃砖堆成隔断式，放置在工厂中央。玻璃砖上均匀涂抹芦荟胶，芦荟胶混合色素液体。人体如胎儿式缓慢蠕动、蠕动于玻璃砖上，身体的骨骼与肌肉在隙缝里微小起伏运动，内部激荡出细小纹理，直至身体像一滩水滑落至地面。以爬行的姿态爬向对面一侧的工厂墙壁，测量其距离。观众在黑暗中看到身体爬行过的轨迹。<br><br>
+              This work forces the audience to reexamine the materiality and sacredness of the body in the fluorescent ruins by constructing an immersive theater of the "technological womb." Those viscous movements that wander on the glass surface are both a memorial to the initial form of life and a prophetic archaeology of the posthuman era.
+            </div>
+          </div>
+        </div>
+
+        <!-- Work 6: Cocoon Code -->
+        <div class="slideshow__list__media" data-title="Cocoon Code 《茧码》">
+          <div class="slideshow__content-wrapper">
+            <div class="slideshow__artifact-grid">
+              <div class="slideshow__artifact-item">
+                <div class="slideshow__artifact-label">AI Prompt Screenshot</div>
+                <img class="slideshow__artifact-image" src="work6-prompt.png" alt="AI Prompt" data-lightbox="true" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22300%22%3E%3Crect fill=%22%230a0a0a%22 width=%22400%22 height=%22300%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23666%22 font-family=%22sans-serif%22%3EPrompt Image%3C/text%3E%3C/svg%3E'" />
+              </div>
+              <div class="slideshow__artifact-item">
+                <div class="slideshow__artifact-label">Work Image</div>
+                <img class="slideshow__artifact-image" src="work6-static.png" alt="Work" data-lightbox="true" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22300%22%3E%3Crect fill=%22%230a0a0a%22 width=%22400%22 height=%22300%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23666%22 font-family=%22sans-serif%22%3EWork Image%3C/text%3E%3C/svg%3E'" />
+              </div>
+              <div class="slideshow__artifact-item" style="grid-column: 1 / -1;">
+                <div class="slideshow__artifact-label">Video</div>
+                <iframe class="slideshow__artifact-video" src="https://www.youtube.com/embed/WxpPXXj4p_g" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+              </div>
+            </div>
+            <div class="slideshow__description">
+              <strong>《茧码》 Cocoon Code</strong><br>
+              视觉/影像/行为 Visual / Video / Performance (2025)<br><br>
+              表演者身披200件衣物（社会的"皮肤"与数据的"图层"），步入自身被投影的、正在崩解的数字化身影中。当肉身成为投影上的"噪声"，而数字身影又在吞噬肉身时，作品尖锐地提出了在数字身份层层覆盖下，何为真实身体的问题。<br><br>
+              The performer, draped in 200 items of clothing (the "skin" of society and the "layers" of data), steps into their own projected, disintegrating digital silhouette. As the physical body becomes "noise" on the projection and the digital silhouette devours the physical body, the work sharply poses the question of what the real body is under the layers of digital identity.
+            </div>
+          </div>
+        </div>
+
+        <!-- Work 7: Breathing Without Organs -->
+        <div class="slideshow__list__media" data-title="Breathing Without Organs 《无器官呼吸》">
+          <div class="slideshow__content-wrapper">
+            <div class="slideshow__artifact-grid">
+              <div class="slideshow__artifact-item">
+                <div class="slideshow__artifact-label">AI Prompt Screenshot</div>
+                <img class="slideshow__artifact-image" src="work7-prompt.png" alt="AI Prompt" data-lightbox="true" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22300%22%3E%3Crect fill=%22%230a0a0a%22 width=%22400%22 height=%22300%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23666%22 font-family=%22sans-serif%22%3EPrompt Image%3C/text%3E%3C/svg%3E'" />
+              </div>
+              <div class="slideshow__artifact-item">
+                <div class="slideshow__artifact-label">Work Image</div>
+                <img class="slideshow__artifact-image" src="work7-static.png" alt="Work" data-lightbox="true" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22300%22%3E%3Crect fill=%22%230a0a0a%22 width=%22400%22 height=%22300%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23666%22 font-family=%22sans-serif%22%3EWork Image%3C/text%3E%3C/svg%3E'" />
+              </div>
+              <div class="slideshow__artifact-item" style="grid-column: 1 / -1;">
+                <div class="slideshow__artifact-label">Video</div>
+                <iframe class="slideshow__artifact-video" src="https://www.youtube.com/embed/zso_93Z-uoc" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+              </div>
+            </div>
+            <div class="slideshow__description">
+              <strong>《无器官呼吸》 Breathing Without Organs</strong><br>
+              视觉/行为/影像 Visual / Performance / Video (2024)<br><br>
+              塑料袋所构成的极限空间，悬置了器官的既定功能与社会的身体规范。在此，身体通过一系列"去目的性"的扭动与生成，探索着一种无器官的身体的可能性——一种摆脱了固定组织与功能，纯粹为强度与流动而存在的生命本身。<br><br>
+              The limited space formed by plastic bags suspends the established functions of organs and the social body norms. Here, the body explores the possibility of an organless body through a series of "de-purposive" twists and formations—a life itself that is freed from fixed tissues and functions and exists purely for intensity and flow.
+            </div>
+          </div>
         </div>
       </div>
     </div>
 
+    <!-- Lightbox -->
+    <div class="lightbox">
+      <div class="lightbox__close"></div>
+      <div class="lightbox__content">
+        <img class="lightbox__image" src="" alt="">
+        <div class="lightbox__caption"></div>
+      </div>
+    </div>
 
   </main>
-
-  <div class="grid-event w-embed">
-    <style>
-      .grid-w {
-        pointer-events: none;
-      }
-    </style>
-  </div>
 
   <script>
     // Slideshow state
@@ -805,7 +911,6 @@
     const lightboxImage = document.querySelector('.lightbox__image');
     const lightboxCaption = document.querySelector('.lightbox__caption');
     const lightboxClose = document.querySelector('.lightbox__close');
-    const allSlideshowImages = document.querySelectorAll('.slideshow__list__image');
 
     // Open slideshow at specific index
     function openSlideshow(index) {
@@ -859,7 +964,7 @@
     // Lightbox functions
     function openLightbox(imgSrc, caption) {
       lightboxImage.src = imgSrc;
-      lightboxCaption.textContent = caption;
+      lightboxCaption.textContent = caption || '';
       lightbox.classList.add('active');
       document.body.style.overflow = 'hidden';
     }
@@ -869,14 +974,13 @@
       document.body.style.overflow = slideshow.classList.contains('active') ? 'hidden' : '';
     }
 
-    // Add click listeners to slideshow images
-    allSlideshowImages.forEach((img) => {
-      img.addEventListener('click', (e) => {
+    // Add click listeners to all images with data-lightbox attribute
+    document.addEventListener('click', (e) => {
+      if (e.target.classList.contains('slideshow__artifact-image') && e.target.dataset.lightbox) {
         e.stopPropagation();
-        const parentMedia = img.closest('.slideshow__list__media');
-        const caption = parentMedia.querySelector('.image-caption').textContent;
-        openLightbox(img.src, caption);
-      });
+        const caption = e.target.alt;
+        openLightbox(e.target.src, caption);
+      }
     });
 
     // Close lightbox handlers
@@ -911,8 +1015,7 @@
       if (touchStartX - touchEndX > 50) nextSlide();
       if (touchEndX - touchStartX > 50) prevSlide();
     });
-  </script>
-  <script>
+
     //100vh Fix on Mobile
     let vh = window.innerHeight * 0.01;
     let size = 0;
@@ -929,8 +1032,6 @@
       TweenMax.to(".collection", 1, {
         opacity: 1
       });
-    } else {
-      document.querySelector('.collection').style.opacity = 1;
     }
   </script>
 
