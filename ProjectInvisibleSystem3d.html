@@ -3,10 +3,10 @@
 
 <head>
   <meta charset="utf-8" />
-  <title>(In)visible Systems | The Wrong Biennale 7th Edition</title>
-  <meta content="(In)visible Systems" name="description" />
-  <meta content="(In)visible Systems" property="og:title" />
-  <meta content="(In)visible Systems" property="og:description" />
+  <title>Negotiated Intelligence | The Wrong Biennale 7th Edition</title>
+  <meta content="Negotiated Intelligence" name="description" />
+  <meta content="Negotiated Intelligence" property="og:title" />
+  <meta content="Negotiated Intelligence" property="og:description" />
   <meta property="og:type" content="website" />
   <meta content="width=device-width, initial-scale=1" name="viewport" />
   <link href="base.css" rel="stylesheet" type="text/css" />
@@ -185,6 +185,7 @@
     .wait {
       height: 100vh;
       display: none;
+      /* height: calc(var(--vh, 1vh) * 100); */
     }
 
 
@@ -223,6 +224,7 @@
       <div data-w-id="53ee3c76-c537-5088-f0d4-fc00e8f8c98a" class="wait-bar">
         <div class="outer hero-t" style="line-height: 150%">
           <div class="text disclaimer load" style="font-size: 12px">
+            <!-- CAMLab is a multidisciplinary <br /> research lab at Harvard University. -->
           </div>
         </div>
         <div class="progress-bar">
@@ -265,31 +267,30 @@
           mural_y = 0,
           mural_z = -5,
           mural_scale = 3;
-        let mural_scaleX = 5.5;
-
+           let mural_scaleX = 2;
         let drawing_x = 0,
           drawing_y = 0,
           drawing_z = 0,
-          drawing_z_target = 5,
-          drawing_scale = 2.8;
-        let drawing_scaleY = 3.5;
-
+          drawing_z_target = 3,
+          drawing_scale = 2.5,
+          drawing_scaleX = 1.6;
         let secondDrawing_x = 0,
           secondDrawing_y = 0,
           secondDrawing_z = 10,
           secondDrawing_z_target = 15,
-          secondDrawing_scale = 2.8;
+          secondDrawing_scale = 2.8,
+          secondDrawing_scaleX = 4;
         let wire_x = 0,
           wire_y = -4,
           wire_z = -4,
           wire_z_target = 18,
           wire_scale = 40;
 
-        // File paths - using placeholder images
+        // File paths
         const SCENE_BACKGROUND = 'textures/dunhuang/amo_data_bg_dimmed_black.png';
-        const MURAL = 'assets/img/systems/glass_cage_time.jpg';
-        const DRAWING = 'assets/img/systems/feed_me_labels.jpg';
-        const SECOND_DRAWING = 'assets/img/systems/sirenbanshee404.jpg';
+        const MURAL = 'assets/img/invisible/Doc.png'; //'textures/dunhuang/反弹琵琶一式壁画trimmed2.jpeg';
+        const DRAWING = 'assets/img/invisible/Process11.png';//'textures/dunhuang/反弹琵琶一式inverted.jpg';
+        const SECOND_DRAWING = 'textures/dunhuang/反弹琵琶一式inverted.jpg'; // Change this to your second drawing
 
         const OUTLINE_ON_MOUSEPOINT = false;
         let selectedObjects = [];
@@ -312,10 +313,10 @@
         renderer.setSize(window.innerWidth, window.innerHeight);
         renderer.render(scene, camera);
 
-        // Dim Lights
-        const pointLight = new THREE.PointLight(0xffffff, 0.15);
+        // Lights
+        const pointLight = new THREE.PointLight(0xffffff);
         pointLight.position.set(5, 5, 5);
-        const ambientLight = new THREE.AmbientLight(0xffffff, 0.1);
+        const ambientLight = new THREE.AmbientLight(0xffffff);
         scene.add(pointLight, ambientLight);
 
         const controls = new OrbitControls(camera, renderer.domElement);
@@ -329,105 +330,163 @@
         const renderPass = new RenderPass(scene, camera);
         composer.addPass(renderPass);
         mural.scale.set(mural_scaleX, mural_scale, mural_scale);
-
         mural.position.set(mural_x, mural_y, mural_z);
 
-        mural.userData = {
-          isMuralLayer: true
-        };
+        // Add userData to identify this as the mural layer
+        mural.userData = { isMuralLayer: true };
 
         scene.add(mural);
 
         // First Drawing Image
         const drawingloader = new THREE.TextureLoader();
-        const opacity = 0.9;
+        const opacity = 0.5;
         const drawingCubeMaterials = [
           new THREE.MeshPhongMaterial({
             opacity: opacity,
             transparent: true,
             map: drawingloader.load('textures/dunhuang/black.jpg')
-          }),
+          }), //right side
           new THREE.MeshPhongMaterial({
             opacity: opacity,
             transparent: true,
             map: drawingloader.load('textures/dunhuang/black.jpg')
-          }),
+          }), //left side
           new THREE.MeshPhongMaterial({
             opacity: opacity,
             transparent: true,
             map: drawingloader.load('textures/dunhuang/black.jpg')
-          }),
+          }), //top side
           new THREE.MeshPhongMaterial({
             opacity: opacity,
             transparent: true,
             map: drawingloader.load('textures/dunhuang/black.jpg')
-          }),
+          }), //bottom side
           new THREE.MeshPhongMaterial({
             opacity: opacity,
             transparent: true,
             map: drawingloader.load(DRAWING)
-          }),
+          }), //front side
           new THREE.MeshPhongMaterial({
             opacity: opacity,
             transparent: true,
             map: drawingloader.load(DRAWING)
-          }),
+          }), //back side
         ];
         const geometry = new THREE.BoxGeometry(3, 3, 0.01);
         drawing = new THREE.Mesh(geometry, drawingCubeMaterials);
-        drawing.scale.set(drawing_scale, drawing_scaleY, drawing_scale);
-
+        drawing.scale.set(drawing_scaleX, drawing_scale, drawing_scale);
         scene.add(drawing);
-        drawing.position.set(drawing_x, drawing_y, drawing_z);
+        drawing.position.set(drawing_x, drawing_y, drawing_z );
 
-        // Second Drawing Layer
-        const secondDrawingTexture = new THREE.TextureLoader().load(SECOND_DRAWING);
-        const secondDrawingOpacity = 0.8;
-        const secondDrawingCubeMaterials = [
-          new THREE.MeshPhongMaterial({
-            opacity: 0,
-            transparent: true,
-            color: 0x000000
-          }),
-          new THREE.MeshPhongMaterial({
-            opacity: 0,
-            transparent: true,
-            color: 0x000000
-          }),
-          new THREE.MeshPhongMaterial({
-            opacity: 0,
-            transparent: true,
-            color: 0x000000
-          }),
-          new THREE.MeshPhongMaterial({
-            opacity: 0,
-            transparent: true,
-            color: 0x000000
-          }),
-          new THREE.MeshPhongMaterial({
-            opacity: 0,
-            transparent: true,
-            map: secondDrawingTexture
-          }),
-          new THREE.MeshPhongMaterial({
-            opacity: 0,
-            transparent: true,
-            map: secondDrawingTexture
-          }),
-        ];
+        // Video Layer (replaces BVH skeleton)
+        const video = document.createElement('video');
+        video.src = "https://camlab-cave-dance.oss-cn-hongkong.aliyuncs.com/negotiated-intelligence/longyandan_demo_.mov";
+        video.crossOrigin = 'anonymous';
+        //video.crossOrigin = 'use-credentials';
+        video.loop = true;
+        video.muted = true;
+        video.type="video/mp4";
+        video.playsInline = true;
 
-        const secondDrawingGeometry = new THREE.BoxGeometry(3, 3, 0.01);
-        secondDrawing = new THREE.Mesh(secondDrawingGeometry, secondDrawingCubeMaterials);
-        secondDrawing.scale.set(secondDrawing_scale, secondDrawing_scale, secondDrawing_scale);
-        secondDrawing.position.set(secondDrawing_x, secondDrawing_y, secondDrawing_z);
+        // Wait for video metadata to load
+        video.addEventListener('loadedmetadata', () => {
+          // Create video texture after metadata is loaded
+          const videoTexture = new THREE.VideoTexture(video);
+          videoTexture.minFilter = THREE.LinearFilter;
+          videoTexture.magFilter = THREE.LinearFilter;
+          videoTexture.format = THREE.RGBAFormat; // Changed to RGBA for better compatibility
+          videoTexture.generateMipmaps = false;
+          videoTexture.wrapS = THREE.ClampToEdgeWrapping;
+          videoTexture.wrapT = THREE.ClampToEdgeWrapping;
 
-        secondDrawing.userData = {
-          isSecondLayer: true
-        };
+          const videoOpacity = 0.8;
+          const videoCubeMaterials = [
+            new THREE.MeshPhongMaterial({
+              opacity: 0,
+              transparent: true,
+              color: 0x000000
+            }), //right side
+            new THREE.MeshPhongMaterial({
+              opacity: 0,
+              transparent: true,
+              color: 0x000000
+            }), //left side
+            new THREE.MeshPhongMaterial({
+              opacity: 0,
+              transparent: true,
+              color: 0x000000
+            }), //top side
+            new THREE.MeshPhongMaterial({
+              opacity: 0,
+              transparent: true,
+              color: 0x000000
+            }), //bottom side
+            new THREE.MeshPhongMaterial({
+              opacity: 0,
+              transparent: true,
+              map: videoTexture
+            }), //front side
+            new THREE.MeshPhongMaterial({
+              opacity: 0,
+              transparent: true,
+              map: videoTexture
+            }), //back side
+          ];
 
-        scene.add(secondDrawing);
+          const videoGeometry = new THREE.BoxGeometry(3, 3, 0.01);
+          secondDrawing = new THREE.Mesh(videoGeometry, videoCubeMaterials);
+          secondDrawing.scale.set(secondDrawing_scaleX, secondDrawing_scale , secondDrawing_scale);
+          secondDrawing.position.set(secondDrawing_scale -5, secondDrawing_y, secondDrawing_z);
 
-        window.secondDrawingOpacity = secondDrawingOpacity;
+          // Add userData to identify this as the video layer
+          secondDrawing.userData = { isVideoLayer: true };
+
+          scene.add(secondDrawing);
+
+          // Store videoOpacity for animation
+          window.videoOpacity = videoOpacity;
+
+          // Start playing video
+          video.play().catch(e => {
+            console.log('Video autoplay failed, will try on user interaction:', e);
+            // Fallback: try to play on first user interaction
+            document.addEventListener('click', () => {
+              video.play().catch(console.error);
+            }, { once: true });
+          });
+        });
+
+        video.addEventListener('error', (e) => {
+          console.error('Video loading error:', e);
+          // Fallback to a solid color material if video fails
+          createFallbackLayer();
+        });
+
+        function createFallbackLayer() {
+          const fallbackMaterials = [
+            new THREE.MeshPhongMaterial({ opacity: 0, transparent: true, color: 0x000000 }),
+            new THREE.MeshPhongMaterial({ opacity: 0, transparent: true, color: 0x000000 }),
+            new THREE.MeshPhongMaterial({ opacity: 0, transparent: true, color: 0x000000 }),
+            new THREE.MeshPhongMaterial({ opacity: 0, transparent: true, color: 0x000000 }),
+            new THREE.MeshPhongMaterial({ opacity: 0, transparent: true, color: 0x4a90e2 }),
+            new THREE.MeshPhongMaterial({ opacity: 0, transparent: true, color: 0x4a90e2 }),
+          ];
+
+          const videoGeometry = new THREE.BoxGeometry(3, 3, 0.01);
+          secondDrawing = new THREE.Mesh(videoGeometry, fallbackMaterials);
+          secondDrawing.scale.set(secondDrawing_scale, secondDrawing_scale, secondDrawing_scale);
+          secondDrawing.position.set(secondDrawing_x, secondDrawing_y, secondDrawing_z);
+
+          // Add userData to identify this as the video layer
+          secondDrawing.userData = { isVideoLayer: true };
+
+          scene.add(secondDrawing);
+
+          window.videoOpacity = 0.8;
+        }
+
+        // Load video
+        video.load();
 
         if (!animated_drawing_clicked) animated_drawing_clicked = true;
         if (!animated_secondDrawing_clicked) animated_secondDrawing_clicked = true;
@@ -438,27 +497,33 @@
 
         // Click event handler
         function onCanvasClick(event) {
+          // Calculate mouse position in normalized device coordinates
           const rect = renderer.domElement.getBoundingClientRect();
           mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
           mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
 
+          // Update the picking ray with the camera and mouse position
           raycaster.setFromCamera(mouse, camera);
 
+          // Calculate objects intersecting the picking ray
           const intersects = raycaster.intersectObjects(scene.children);
 
+          // Check if the clicked object is the video layer or mural layer
           for (let i = 0; i < intersects.length; i++) {
             const object = intersects[i].object;
-            if (object.userData && (object.userData.isSecondLayer)) {
-              window.open('./invisible_systems_detail.html', '_blank');
-              break;
-            }
             if (object.userData && (object.userData.isMuralLayer)) {
-              window.open('./invisible_systems_detail.html', '_blank');
+              window.open('./ProjectElsewhere.html', '_blank');
               break;
             }
+            if (object.userData && (object.userData.isVideoLayer )) {
+              window.open('./ProjectElsewhereFullScreen.html', '_blank');
+              break;
+            }
+
           }
         }
 
+        // Add click event listener to the canvas
         renderer.domElement.addEventListener('click', onCanvasClick);
 
         // Animation Loop
@@ -477,22 +542,24 @@
             }
           }
 
-          // Second drawing animation
+          // Video layer animation (replaces BVH animation)
           if (secondDrawing && animated_secondDrawing_clicked && !animated_secondDrawing) {
+            // Fade in video materials
             for (let i = 0; i < secondDrawing.material.length; i++) {
               const material = secondDrawing.material[i];
-              if (i === 4 || i === 5) {
-                if (material.opacity < (window.secondDrawingOpacity || 0.8)) {
+              if (i === 4 || i === 5) { // Front and back faces with the video
+                if (material.opacity < (window.videoOpacity || 0.8)) {
                   material.opacity += 0.005;
                 }
-              } else {
+              } else { // Side faces
                 if (material.opacity < 0.2) {
                   material.opacity += 0.005;
                 }
               }
             }
 
-            if (secondDrawing.material[4].opacity >= (window.secondDrawingOpacity || 0.8)) {
+            // Check if animation is complete
+            if (secondDrawing.material[4].opacity >= (window.videoOpacity || 0.8)) {
               animated_secondDrawing = true;
             }
           }
@@ -582,9 +649,13 @@
           <div class="table">
 
             <div class="col" style="margin-top:2vw">
-              <div class="statline"><span><i><b><a href="./invisible_systems_detail.html" target="_blank">(In)visible Systems</a></b></i></span></div>
-              <div class="statline"><span>Digital Video Series</span></div>
-              <div class="statline"><span>Yan Longdan</span></div>
+              <div class="statline"><span><i><b><a href="ProjectElsewhereFullScreen.html"
+                target="_blank">(In)visible Systems:
+                <br>
+                A Digital Poetics of the Body</a></b></i></span></div>
+              <div class="statline"><span>Digital Video Studies / Performance</span></div>
+                <div class="statline"><span>Yan Longdan</span></div>
+              </div>
             </div>
           </div>
         </div>
@@ -598,7 +669,7 @@
     <style>
       .grid-w {
         pointer-events: none;
-      }
+      }.
     </style>
   </div>
 
