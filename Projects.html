@@ -282,7 +282,7 @@
       .split.left {
         left: 140px;
         width: 20%;
-        top: 20%;
+        top: 15%;
         z-index: 10;
       }
 
@@ -379,17 +379,23 @@
     /* UPDATED: Reduced spacing between submenu items */
     .submenu .h-h2.menu-li {
       line-height: 1.25;
-      margin: 0.75rem 0 0 0 !important;
+      margin: 0.5rem 0 0 0 !important;
       position: relative;
       display: block;
     }
 
     .submenu .h-h2.menu-li:first-child {
-      margin: 0 0 1.2rem 0 !important;
+      margin: 0 0 0.8rem 0 !important;
     }
 
     .submenu .project-link .h-h2.menu-li {
-      margin: 0.75rem 0 0 0 !important;
+      margin: 0.5rem 0 0 0 !important;
+    }
+
+    /* Separator line style */
+    .menu-separator {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      margin: 0.8rem 0;
     }
 
     iframe {
@@ -475,6 +481,19 @@
     <div class="split left" id="mobileMenu">
       <!-- Start Navigation Menu -->
       <div class="submenu">
+        <!-- Home Link -->
+        <a href="/" aria-label="Home" rel="noopener" draggable="false" class="nav-link">
+          <h2 class="h-h2 menu-li linkable thin bold">Intro</h2>
+        </a>
+
+        <!-- Curator Notes Link -->
+        <a href="/Notes.html" aria-label="Curator Notes" rel="noopener" draggable="false" class="nav-link">
+          <h2 class="h-h2 menu-li linkable thin bold">Curator Notes</h2>
+        </a>
+
+        <!-- Separator -->
+        <div class="menu-separator"></div>
+
         <a aria-label="Exhibition" rel="noopener" draggable="false" data-project="ProjectNegotiatedIntelligence" data-slug="NegotiatedIntelligence" class="project-link">
           <h2 class="h-h2 menu-li linkable thin bold" style="font-size: 150% !important"><i>Negotiated Intelligence</i></h2>
         </a>
@@ -503,7 +522,6 @@
           <h2 class="h-h2 menu-li linkable thin">Margarita Wenzel | <b>Silence is not the Absence of Speech</b></h2>
         </a>
 
-
         <a aria-label="Fractured" rel="noopener" draggable="false" data-project="ProjectInvisibleSystem" data-slug="invisible-system" class="project-link">
           <h2 class="h-h2 menu-li linkable thin">Yan Longdan | <b>(In)visible Systems: A Digital Poetics of the Body</b></h2>
         </a>
@@ -511,7 +529,6 @@
         <a aria-label="Ave Maria" rel="noopener" draggable="false" data-project="ProjectAveMaria" data-slug="ave-maria" class="project-link">
           <h2 class="h-h2 menu-li linkable thin">Marie Le Moigne | <b>Ave Maria</b></h2>
         </a>
-
 
         <a aria-label="Elara" rel="noopener" draggable="false" data-project="ProjectElara" data-slug="elara" class="project-link">
           <h2 class="h-h2 menu-li linkable thin">Sahra Azadzoy and Leo Bayly Barton | <b>Elara</b></h2>
@@ -561,7 +578,7 @@
       'ProjectMythology': 'https://camlab-cave-dance.oss-cn-hongkong.aliyuncs.com/negotiated-intelligence/scroller_1.mp4',
     };
 
-    // Image background mapping for projects (replace with your actual image URLs)
+    // Image background mapping for projects
     const imageMap = {
       'ProjectNegotiatedIntelligence': 'assets/img/negotiated-intelligence-bg.jpg',
       'ProjectAIkea': 'assets/img/aikea/bg2.png',
@@ -570,7 +587,6 @@
       'ProjectSilence': 'assets/img/silence-bg.jpg',
       'ProjectAveMaria': 'assets/img/avemaria/Process2.png',
       'ProjectInvisibleSystem': 'assets/img/invisible/Process.png',
-      //  'ProjectElara': 'assets/img/elara/Elara_ Or What Does OpenAI See When They Look in the Mirror_.jpg'
     };
 
     // Function to change background (video or image)
@@ -579,9 +595,7 @@
       const videoSource = document.getElementById('video-source');
       const image = document.getElementById('image-background');
 
-      // Check if project has a video mapping
       if (videoMap[projectName]) {
-        // Show video, hide image
         videoSource.src = videoMap[projectName];
         video.load();
         video.play().catch(function(error) {
@@ -590,24 +604,20 @@
         video.classList.remove('hidden');
         image.classList.remove('visible');
       }
-      // Check if project has an image mapping
       else if (imageMap[projectName]) {
-        // Show image, hide video
         image.src = imageMap[projectName];
         image.classList.add('visible');
         video.classList.add('hidden');
         video.pause();
       }
-      // No background for this project
       else {
-        // Hide both video and image
         video.classList.add('hidden');
         video.pause();
         image.classList.remove('visible');
       }
     }
 
-    // Ensure video plays on mobile devices (initial load)
+    // Ensure video plays on mobile devices
     const video = document.getElementById('video-background');
     video.play().catch(function(error) {
       console.log("Video autoplay failed:", error);
@@ -622,7 +632,6 @@
       mobileMenu.classList.toggle('menu-open');
       menuOverlay.classList.toggle('active');
 
-      // Update button text
       if (mobileMenu.classList.contains('menu-open')) {
         mobileMenuToggle.textContent = '✕ Close';
       } else {
@@ -639,17 +648,14 @@
       const projectUrl = projectName + '3d.html';
       iframe.src = projectUrl;
 
-      // Change background (video or image) based on project
       changeBackground(projectName);
 
-      // Update URL without page reload
       if (updateHistory && slug) {
         const newUrl = window.location.pathname + '?project=' + slug;
         window.history.pushState({
           project: slug
         }, '', newUrl);
 
-        // Update page title
         const linkElement = document.querySelector(`[data-slug="${slug}"]`);
         if (linkElement) {
           const projectTitle = linkElement.getAttribute('aria-label');
@@ -657,7 +663,6 @@
         }
       }
 
-      // Close mobile menu after selection
       if (window.innerWidth <= 768) {
         if (mobileMenu.classList.contains('menu-open')) {
           toggleMobileMenu();
@@ -676,17 +681,14 @@
         if (linkElement) {
           const projectName = linkElement.getAttribute('data-project');
 
-          // Update active state
           document.querySelectorAll('.project-link').forEach(l =>
             l.querySelector('.menu-li').classList.remove('active')
           );
           linkElement.querySelector('.menu-li').classList.add('active');
 
-          // Load project without updating history
           loadProject(projectName, event.state.project, false);
         }
       } else {
-        // Load default project
         loadDefaultProject(false);
       }
     });
@@ -709,35 +711,28 @@
       if (projectSlug) {
         const linkElement = document.querySelector(`[data-slug="${projectSlug}"]`);
         if (linkElement) {
-          // Remove active class from all links
           document.querySelectorAll('.project-link').forEach(l =>
             l.querySelector('.menu-li').classList.remove('active')
           );
 
-          // Add active class to the linked project
           linkElement.querySelector('.menu-li').classList.add('active');
 
-          // Load the project
           const projectName = linkElement.getAttribute('data-project');
           loadProject(projectName, projectSlug, false);
 
-          // Update initial history state
           window.history.replaceState({
             project: projectSlug
           }, '', window.location.href);
         } else {
-          // Invalid slug, load default
           loadDefaultProject(true);
         }
       } else {
-        // No project specified, load default and update URL
         loadDefaultProject(true);
       }
     }
 
-    // Add click event listeners to project links
+    // Add click event listeners
     document.addEventListener('DOMContentLoaded', function() {
-      // Show menu after DOM is loaded
       $(".menu").show();
 
       const projectLinks = document.querySelectorAll('.project-link');
@@ -746,20 +741,16 @@
         link.addEventListener('click', function(e) {
           e.preventDefault();
 
-          // Remove active class from all links
           projectLinks.forEach(l => l.querySelector('.menu-li').classList.remove('active'));
 
-          // Add active class to clicked link
           this.querySelector('.menu-li').classList.add('active');
 
-          // Get project name and slug, then load it
           const projectName = this.getAttribute('data-project');
           const slug = this.getAttribute('data-slug');
           loadProject(projectName, slug, true);
         });
       });
 
-      // Check URL on page load
       checkUrlOnLoad();
     });
   </script>
