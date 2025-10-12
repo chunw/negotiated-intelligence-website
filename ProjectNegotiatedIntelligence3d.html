@@ -93,6 +93,32 @@
       font-size: 0.7rem;
       max-width: 250px;
     }
+
+    .toggle-container {
+      display: none;
+      position: fixed;
+      top: 2vw;
+      left: 2vw;
+      z-index: 99;
+      font-family: "Segoe UI", Verdana, sans-serif;
+      color: #b9b8b8;
+    }
+
+    .toggle-btn {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #b9b8b8;
+      padding: 8px 16px;
+      cursor: pointer;
+      font-size: 0.8rem;
+      border-radius: 4px;
+      transition: all 0.3s ease;
+    }
+
+    .toggle-btn:hover {
+      background: rgba(255, 255, 255, 0.2);
+      color: #ffffff;
+    }
   </style>
 </head>
 
@@ -111,6 +137,10 @@
   </div>
 
   <main data-template="home" class="content demo">
+    <div class="toggle-container">
+      <button class="toggle-btn" id="textToggle">Hide Text Labels</button>
+    </div>
+
     <script type="module">
       import * as THREE from 'https://esm.sh/three@0.152.2';
       import {
@@ -122,6 +152,9 @@
       import {
         FontLoader
       } from 'https://esm.sh/three@0.152.2/examples/jsm/loaders/FontLoader.js';
+
+      // CONFIGURATION: Set this to false to disable 3D text rendering
+      let ENABLE_3D_TEXT = false;
 
       let animated_drawing, animated_secondDrawing;
       let mural, drawing, secondDrawing;
@@ -303,139 +336,153 @@
 
       // Project data
       const projects = [
-
         {
           artist: 'Yan Longdan',
           title: 'In)visible Systems',
-          url: 'NegotiatedIntelligence3d2.html?project=invisible-system',
-          pos: [-8, 6, 15]
+          url: 'Projects.html?project=invisible-system',
+          pos: [12, 3, 24]
         },
-
         {
           artist: 'Li Zemei',
           title: 'END-AND SENCE',
-          url: 'NegotiatedIntelligence3d2.html?project=endandsence',
-          pos: [-8, 6, 15]
+          url: 'Projects.html?project=endandsence',
+          pos: [-11, -2, 26]
         },
         {
           artist: 'Vero Szücs & Max Noichl',
           title: 'Dierenleven',
-          url: 'NegotiatedIntelligence3d2.html?project=dierenleven',
-          pos: [-8, 6, 15]
+          url: 'Projects.html?project=dierenleven',
+          pos:[6, -5, 32]
         },
         {
           artist: 'Daria Belkina',
           title: 'Elsewhere Gallery',
-          url: 'NegotiatedIntelligence3d2.html?project=elsewhere-gallery',
-          pos: [-8, 6, 15]
+          url: 'Projects.html?project=elsewhere-gallery',
+          pos: [-3, -7, 28]
         },
         {
           artist: 'Val Yang',
           title: 'A.Ikea',
-          url: 'NegotiatedIntelligence3d2.html?project=aikea',
-          pos: [10, 8, 8]
+          url: 'Projects.html?project=aikea',
+          pos: [-1, -5, 26]
         },
         {
           artist: 'Marcie Begleiter',
           title: 'Chimera Haiku',
-          url: 'NegotiatedIntelligence3d2.html?project=chimera-haiku',
-          pos: [-12, 2, 20]
+          url: 'Projects.html?project=chimera-haiku',
+          pos: [-5, -6, 27]
         },
         {
           artist: 'Aaron Oldenberg',
           title: 'Fractured Star',
-          url: 'NegotiatedIntelligence3d2.html?project=fractured-star',
-          pos: [8, -2, 18]
+          url: 'Projects.html?project=fractured-star',
+          pos: [-10, 9, 18]
         },
         {
           artist: 'Margarita Wenzel',
           title: 'Silence',
-          url: 'NegotiatedIntelligence3d2.html?project=silence',
-          pos: [0, 10, 25]
+          url: 'Projects.html?project=silence',
+          pos:[4, -3, 21]
         },
         {
           artist: 'Marie Le Moigne',
           title: 'Ave Maria',
-          url: 'NegotiatedIntelligence3d2.html?project=ave-maria',
-          pos: [-6, -4, 22]
+          url: 'Projects.html?project=ave-maria',
+          pos: [-7, 5, 35]
         },
         {
           artist: 'Sahra Azadzoy & Leo Bayly Barton',
           title: 'Elara',
-          url: 'NegotiatedIntelligence3d2.html?project=elara',
-          pos: [5, 4, 28]
+          url: 'Projects.html?project=elara',
+          pos: [-5, 1, 30]
         },
         {
           artist: 'Slitrobo',
           title: 'Mythology',
-          url: 'NegotiatedIntelligence3d2.html?project=mythology',
-          pos: [5, 40, 28]
+          url: 'Projects.html?project=mythology',
+          pos: [-2, -8, 29]
         }
       ];
 
-      // Load font and create 3D text
-      const fontLoader = new FontLoader();
-      fontLoader.load('https://threejs.org/examples/fonts/helvetiker_regular.typeface.json', function(font) {
-        projects.forEach(project => {
-          // Artist name (smaller, thinner)
-          const artistGeometry = new TextGeometry(project.artist, {
-            font: font,
-            size: 0.4,
-            height: 0.05,
-          });
-
-          const artistMaterial = new THREE.MeshPhongMaterial({
-            color: 0xaaaaaa,
-            transparent: true,
-            opacity: 0.8
-          });
-          const artistMesh = new THREE.Mesh(artistGeometry, artistMaterial);
-
-          // Title (larger, bolder through emissive)
-          const titleGeometry = new TextGeometry(project.title, {
-            font: font,
-            size: 0.5,
-            height: 0.08,
-          });
-
-          const titleMaterial = new THREE.MeshPhongMaterial({
-            color: 0xffffff,
-            emissive: 0x444444,
-            transparent: true,
-            opacity: 0.9
-          });
-          const titleMesh = new THREE.Mesh(titleGeometry, titleMaterial);
-
-          // Position texts
-          artistMesh.position.set(project.pos[0], project.pos[1] + 0.6, project.pos[2]);
-          titleMesh.position.set(project.pos[0], project.pos[1], project.pos[2]);
-
-          // Make them face camera initially
-          artistMesh.lookAt(camera.position);
-          titleMesh.lookAt(camera.position);
-
-          // Store URL in userData
-          titleMesh.userData = {
-            url: project.url,
-            isClickable: true
-          };
-          artistMesh.userData = {
-            url: project.url,
-            isClickable: true
-          };
-
-          scene.add(artistMesh);
-          scene.add(titleMesh);
-
-          textMeshes.push(artistMesh, titleMesh);
+      // Toggle text visibility
+      function toggleTextVisibility() {
+        ENABLE_3D_TEXT = !ENABLE_3D_TEXT;
+        textMeshes.forEach(mesh => {
+          mesh.visible = ENABLE_3D_TEXT;
         });
-      });
+        const btn = document.getElementById('textToggle');
+        btn.textContent = ENABLE_3D_TEXT ? 'Hide Text Labels' : 'Show Text Labels';
+      }
+
+      document.getElementById('textToggle').addEventListener('click', toggleTextVisibility);
+
+      // Load font and create 3D text (only if enabled)
+      if (ENABLE_3D_TEXT) {
+        const fontLoader = new FontLoader();
+        fontLoader.load('https://threejs.org/examples/fonts/helvetiker_regular.typeface.json', function(font) {
+          projects.forEach(project => {
+            // Artist name (smaller, thinner)
+            const artistGeometry = new TextGeometry(project.artist, {
+              font: font,
+              size: 0.4,
+              height: 0.05,
+            });
+
+            const artistMaterial = new THREE.MeshPhongMaterial({
+              color: 0xaaaaaa,
+              transparent: true,
+              opacity: 0.8
+            });
+            const artistMesh = new THREE.Mesh(artistGeometry, artistMaterial);
+
+            // Title (larger, bolder through emissive)
+            const titleGeometry = new TextGeometry(project.title, {
+              font: font,
+              size: 0.5,
+              height: 0.08,
+            });
+
+            const titleMaterial = new THREE.MeshPhongMaterial({
+              color: 0xffffff,
+              emissive: 0x444444,
+              transparent: true,
+              opacity: 0.9
+            });
+            const titleMesh = new THREE.Mesh(titleGeometry, titleMaterial);
+
+            // Position texts
+            artistMesh.position.set(project.pos[0], project.pos[1] + 0.6, project.pos[2]);
+            titleMesh.position.set(project.pos[0], project.pos[1], project.pos[2]);
+
+            // Make them face camera initially
+            artistMesh.lookAt(camera.position);
+            titleMesh.lookAt(camera.position);
+
+            // Store URL in userData
+            titleMesh.userData = {
+              url: project.url,
+              isClickable: true
+            };
+            artistMesh.userData = {
+              url: project.url,
+              isClickable: true
+            };
+
+            scene.add(artistMesh);
+            scene.add(titleMesh);
+
+            textMeshes.push(artistMesh, titleMesh);
+          });
+        });
+      }
 
       animated_drawing = false;
       animated_secondDrawing = false;
 
       // Click handler
       function onCanvasClick(event) {
+        if (!ENABLE_3D_TEXT || textMeshes.length === 0) return;
+
         const rect = renderer.domElement.getBoundingClientRect();
         mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
         mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
@@ -455,6 +502,8 @@
 
       // Hover effect
       function onPointerMove(event) {
+        if (!ENABLE_3D_TEXT || textMeshes.length === 0) return;
+
         const rect = renderer.domElement.getBoundingClientRect();
         mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
         mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
@@ -488,10 +537,12 @@
         requestAnimationFrame(animate);
         controls.update();
 
-        // Make text meshes face camera
-        textMeshes.forEach(mesh => {
-          mesh.lookAt(camera.position);
-        });
+        // Make text meshes face camera (only if enabled and visible)
+        if (ENABLE_3D_TEXT) {
+          textMeshes.forEach(mesh => {
+            mesh.lookAt(camera.position);
+          });
+        }
 
         if (!animated_drawing) {
           if (drawing.position.z <= drawing_z_target) {
