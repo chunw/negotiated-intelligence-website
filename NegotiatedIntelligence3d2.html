@@ -216,18 +216,22 @@
         transform: translateY(0px);
         text-shadow: 0 0 2px rgba(255, 255, 255, 0.2);
       }
+
       25% {
         transform: translateY(-1px);
         text-shadow: 0 0 3px rgba(255, 255, 255, 0.25);
       }
+
       50% {
         transform: translateY(-2px);
         text-shadow: 0 0 4px rgba(255, 255, 255, 0.3);
       }
+
       75% {
         transform: translateY(-1px);
         text-shadow: 0 0 3px rgba(255, 255, 255, 0.25);
       }
+
       100% {
         transform: translateY(0px);
         text-shadow: 0 0 2px rgba(255, 255, 255, 0.2);
@@ -471,7 +475,7 @@
       <!-- Start Navigation Menu -->
       <div class="submenu">
         <a aria-label="Exhibition" rel="noopener" draggable="false" data-project="ProjectNegotiatedIntelligence" data-slug="NegotiatedIntelligence" class="project-link">
-          <h2 class="h-h2 menu-li linkable thin bold"  style="font-size: 150% !important"><i>Negotiated Intelligence</i></h2>
+          <h2 class="h-h2 menu-li linkable thin bold" style="font-size: 150% !important"><i>Negotiated Intelligence</i></h2>
         </a>
 
         <a aria-label="Elsewhere Gallery" rel="noopener" draggable="false" data-project="ProjectElsewhere" data-slug="elsewhere-gallery" class="project-link">
@@ -510,9 +514,13 @@
           <h2 class="h-h2 menu-li linkable thin">Sahra Azadzoy and Leo Bayly Barton | <b>Elara</b></h2>
         </a>
 
-        <!-- <a aria-label="Fractured" rel="noopener" draggable="false" data-project="ProjectInvisibleSystem" data-slug="invisible-system" class="project-link">
-          <h2 class="h-h2 menu-li linkable thin">Yan Longdan | <b>(In)visible Systems: A Digital Poetics of the Body</b></h2>
-        </a> -->
+        <a aria-label="EndAnd" rel="noopener" draggable="false" data-project="ProjectEndAndSence" data-slug="endandsence" class="project-link">
+          <h2 class="h-h2 menu-li linkable thin">Li Zemei | <b>End-And Sence</b></h2>
+        </a>
+
+        <a aria-label="Dierenleven" rel="noopener" draggable="false" data-project="ProjectDierenleven" data-slug="dierenleven" class="project-link">
+          <h2 class="h-h2 menu-li linkable thin">Vero Szücs, Max Noichl & Rapty | <b>Dierenleven</b></h2>
+        </a>
 
       </div>
       <!-- End Navigation Menu -->
@@ -559,7 +567,7 @@
       'ProjectSilence': 'assets/img/silence-bg.jpg',
       'ProjectAveMaria': 'assets/img/avemaria/Process2.png',
       'ProjectInvisibleSystem': 'assets/img/invisible/Process.png',
-    //  'ProjectElara': 'assets/img/elara/Elara_ Or What Does OpenAI See When They Look in the Mirror_.jpg'
+      //  'ProjectElara': 'assets/img/elara/Elara_ Or What Does OpenAI See When They Look in the Mirror_.jpg'
     };
 
     // Function to change background (video or image)
@@ -634,7 +642,9 @@
       // Update URL without page reload
       if (updateHistory && slug) {
         const newUrl = window.location.pathname + '?project=' + slug;
-        window.history.pushState({ project: slug }, '', newUrl);
+        window.history.pushState({
+          project: slug
+        }, '', newUrl);
 
         // Update page title
         const linkElement = document.querySelector(`[data-slug="${slug}"]`);
@@ -709,7 +719,9 @@
           loadProject(projectName, projectSlug, false);
 
           // Update initial history state
-          window.history.replaceState({ project: projectSlug }, '', window.location.href);
+          window.history.replaceState({
+            project: projectSlug
+          }, '', window.location.href);
         } else {
           // Invalid slug, load default
           loadDefaultProject(true);

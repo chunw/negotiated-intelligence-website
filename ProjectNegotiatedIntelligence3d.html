@@ -113,20 +113,37 @@
   <main data-template="home" class="content demo">
     <script type="module">
       import * as THREE from 'https://esm.sh/three@0.152.2';
-      import { OrbitControls } from 'https://esm.sh/three@0.152.2/examples/jsm/controls/OrbitControls.js';
-      import { TextGeometry } from 'https://esm.sh/three@0.152.2/examples/jsm/geometries/TextGeometry.js';
-      import { FontLoader } from 'https://esm.sh/three@0.152.2/examples/jsm/loaders/FontLoader.js';
+      import {
+        OrbitControls
+      } from 'https://esm.sh/three@0.152.2/examples/jsm/controls/OrbitControls.js';
+      import {
+        TextGeometry
+      } from 'https://esm.sh/three@0.152.2/examples/jsm/geometries/TextGeometry.js';
+      import {
+        FontLoader
+      } from 'https://esm.sh/three@0.152.2/examples/jsm/loaders/FontLoader.js';
 
       let animated_drawing, animated_secondDrawing;
       let mural, drawing, secondDrawing;
       const textMeshes = [];
 
       // Constants
-      let mural_x = 2, mural_y = 0, mural_z = -5, mural_scale = 3;
+      let mural_x = 2,
+        mural_y = 0,
+        mural_z = -5,
+        mural_scale = 3;
       let mural_scaleX = 4.5;
-      let drawing_x = 0, drawing_y = 0, drawing_z = 0, drawing_z_target = 5, drawing_scale = 3;
+      let drawing_x = 0,
+        drawing_y = 0,
+        drawing_z = 0,
+        drawing_z_target = 5,
+        drawing_scale = 3;
       let drawing_scaleX = 4.5;
-      let secondDrawing_x = 0, secondDrawing_y = 0, secondDrawing_z = 10, secondDrawing_z_target = 12, secondDrawing_scale = 2.8;
+      let secondDrawing_x = 0,
+        secondDrawing_y = 0,
+        secondDrawing_z = 10,
+        secondDrawing_z_target = 12,
+        secondDrawing_scale = 2.8;
       let secondDrawing_scaleX = 4.5;
 
       const MURAL = 'assets/img/exhibition/Process1.png';
@@ -139,7 +156,11 @@
       scene.background = new THREE.Color(0x000000);
 
       const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
-      const cameraPos = { x: '-11.74', y: '11.47', z: '23.15' };
+      const cameraPos = {
+        x: '-11.74',
+        y: '11.47',
+        z: '23.15'
+      };
       camera.position.set(screen.width > 497 ? cameraPos.x : 12, cameraPos.y, screen.width > 497 ? cameraPos.z : 28);
 
       const renderer = new THREE.WebGLRenderer({
@@ -159,22 +180,50 @@
 
       // Mural Image
       const muralTexture = new THREE.TextureLoader().load(MURAL);
-      mural = new THREE.Mesh(new THREE.BoxGeometry(3, 3, 0.05), new THREE.MeshBasicMaterial({ map: muralTexture }));
+      mural = new THREE.Mesh(new THREE.BoxGeometry(3, 3, 0.05), new THREE.MeshBasicMaterial({
+        map: muralTexture
+      }));
       mural.scale.set(mural_scaleX, mural_scale, mural_scale);
       mural.position.set(mural_x, mural_y, mural_z);
-      mural.userData = { isMuralLayer: true };
+      mural.userData = {
+        isMuralLayer: true
+      };
       scene.add(mural);
 
       // First Drawing Image
       const drawingloader = new THREE.TextureLoader();
       const opacity = 0.6;
       const drawingCubeMaterials = [
-        new THREE.MeshPhongMaterial({ opacity: opacity, transparent: true, map: drawingloader.load('textures/dunhuang/black.jpg') }),
-        new THREE.MeshPhongMaterial({ opacity: opacity, transparent: true, map: drawingloader.load('textures/dunhuang/black.jpg') }),
-        new THREE.MeshPhongMaterial({ opacity: opacity, transparent: true, map: drawingloader.load('textures/dunhuang/black.jpg') }),
-        new THREE.MeshPhongMaterial({ opacity: opacity, transparent: true, map: drawingloader.load('textures/dunhuang/black.jpg') }),
-        new THREE.MeshPhongMaterial({ opacity: opacity, transparent: true, map: drawingloader.load(DRAWING) }),
-        new THREE.MeshPhongMaterial({ opacity: opacity, transparent: true, map: drawingloader.load(DRAWING) }),
+        new THREE.MeshPhongMaterial({
+          opacity: opacity,
+          transparent: true,
+          map: drawingloader.load('textures/dunhuang/black.jpg')
+        }),
+        new THREE.MeshPhongMaterial({
+          opacity: opacity,
+          transparent: true,
+          map: drawingloader.load('textures/dunhuang/black.jpg')
+        }),
+        new THREE.MeshPhongMaterial({
+          opacity: opacity,
+          transparent: true,
+          map: drawingloader.load('textures/dunhuang/black.jpg')
+        }),
+        new THREE.MeshPhongMaterial({
+          opacity: opacity,
+          transparent: true,
+          map: drawingloader.load('textures/dunhuang/black.jpg')
+        }),
+        new THREE.MeshPhongMaterial({
+          opacity: opacity,
+          transparent: true,
+          map: drawingloader.load(DRAWING)
+        }),
+        new THREE.MeshPhongMaterial({
+          opacity: opacity,
+          transparent: true,
+          map: drawingloader.load(DRAWING)
+        }),
       ];
       const geometry = new THREE.BoxGeometry(3, 3, 0.01);
       drawing = new THREE.Mesh(geometry, drawingCubeMaterials);
@@ -198,19 +247,45 @@
 
         const videoOpacity = 0.9;
         const videoCubeMaterials = [
-          new THREE.MeshPhongMaterial({ opacity: 0, transparent: true, color: 0x000000 }),
-          new THREE.MeshPhongMaterial({ opacity: 0, transparent: true, color: 0x000000 }),
-          new THREE.MeshPhongMaterial({ opacity: 0, transparent: true, color: 0x000000 }),
-          new THREE.MeshPhongMaterial({ opacity: 0, transparent: true, color: 0x000000 }),
-          new THREE.MeshPhongMaterial({ opacity: 0, transparent: true, map: videoTexture }),
-          new THREE.MeshPhongMaterial({ opacity: 0, transparent: true, map: videoTexture }),
+          new THREE.MeshPhongMaterial({
+            opacity: 0,
+            transparent: true,
+            color: 0x000000
+          }),
+          new THREE.MeshPhongMaterial({
+            opacity: 0,
+            transparent: true,
+            color: 0x000000
+          }),
+          new THREE.MeshPhongMaterial({
+            opacity: 0,
+            transparent: true,
+            color: 0x000000
+          }),
+          new THREE.MeshPhongMaterial({
+            opacity: 0,
+            transparent: true,
+            color: 0x000000
+          }),
+          new THREE.MeshPhongMaterial({
+            opacity: 0,
+            transparent: true,
+            map: videoTexture
+          }),
+          new THREE.MeshPhongMaterial({
+            opacity: 0,
+            transparent: true,
+            map: videoTexture
+          }),
         ];
 
         const videoGeometry = new THREE.BoxGeometry(3, 3, 0.01);
         secondDrawing = new THREE.Mesh(videoGeometry, videoCubeMaterials);
         secondDrawing.scale.set(secondDrawing_scaleX, secondDrawing_scale, secondDrawing_scale);
         secondDrawing.position.set(secondDrawing_x, secondDrawing_y, secondDrawing_z);
-        secondDrawing.userData = { isVideoLayer: true };
+        secondDrawing.userData = {
+          isVideoLayer: true
+        };
         scene.add(secondDrawing);
         window.videoOpacity = videoOpacity;
 
@@ -218,7 +293,9 @@
           console.log('Video autoplay failed:', e);
           document.addEventListener('click', () => {
             video.play().catch(console.error);
-          }, { once: true });
+          }, {
+            once: true
+          });
         });
       });
 
@@ -226,14 +303,74 @@
 
       // Project data
       const projects = [
-        { artist: 'Daria Belkina', title: 'Elsewhere Gallery', url: 'NegotiatedIntelligence3d2.html?project=elsewhere-gallery', pos: [-8, 6, 15] },
-        { artist: 'Val Yang', title: 'A.Ikea', url: 'NegotiatedIntelligence3d2.html?project=aikea', pos: [10, 8, 8] },
-        { artist: 'Marcie Begleiter', title: 'Chimera Haiku', url: 'NegotiatedIntelligence3d2.html?project=chimera-haiku', pos: [-12, 2, 20] },
-        { artist: 'Aaron Oldenberg', title: 'Fractured Star', url: 'NegotiatedIntelligence3d2.html?project=fractured-star', pos: [8, -2, 18] },
-        { artist: 'Margarita Wenzel', title: 'Silence', url: 'NegotiatedIntelligence3d2.html?project=silence', pos: [0, 10, 25] },
-        { artist: 'Marie Le Moigne', title: 'Ave Maria', url: 'NegotiatedIntelligence3d2.html?project=ave-maria', pos: [-6, -4, 22] },
-        { artist: 'Sahra Azadzoy & Leo Bayly Barton', title: 'Elara', url: 'NegotiatedIntelligence3d2.html?project=elara', pos: [5, 4, 28] },
-        {artist: 'Slitrobo', title:'Mythology', url: 'NegotiatedIntelligence3d2.html?project=mythology', pos: [5, 40, 28]}
+
+        {
+          artist: 'Yan Longdan',
+          title: 'In)visible Systems',
+          url: 'NegotiatedIntelligence3d2.html?project=invisible-system',
+          pos: [-8, 6, 15]
+        },
+
+        {
+          artist: 'Li Zemei',
+          title: 'END-AND SENCE',
+          url: 'NegotiatedIntelligence3d2.html?project=endandsence',
+          pos: [-8, 6, 15]
+        },
+        {
+          artist: 'Vero Szücs & Max Noichl',
+          title: 'Dierenleven',
+          url: 'NegotiatedIntelligence3d2.html?project=dierenleven',
+          pos: [-8, 6, 15]
+        },
+        {
+          artist: 'Daria Belkina',
+          title: 'Elsewhere Gallery',
+          url: 'NegotiatedIntelligence3d2.html?project=elsewhere-gallery',
+          pos: [-8, 6, 15]
+        },
+        {
+          artist: 'Val Yang',
+          title: 'A.Ikea',
+          url: 'NegotiatedIntelligence3d2.html?project=aikea',
+          pos: [10, 8, 8]
+        },
+        {
+          artist: 'Marcie Begleiter',
+          title: 'Chimera Haiku',
+          url: 'NegotiatedIntelligence3d2.html?project=chimera-haiku',
+          pos: [-12, 2, 20]
+        },
+        {
+          artist: 'Aaron Oldenberg',
+          title: 'Fractured Star',
+          url: 'NegotiatedIntelligence3d2.html?project=fractured-star',
+          pos: [8, -2, 18]
+        },
+        {
+          artist: 'Margarita Wenzel',
+          title: 'Silence',
+          url: 'NegotiatedIntelligence3d2.html?project=silence',
+          pos: [0, 10, 25]
+        },
+        {
+          artist: 'Marie Le Moigne',
+          title: 'Ave Maria',
+          url: 'NegotiatedIntelligence3d2.html?project=ave-maria',
+          pos: [-6, -4, 22]
+        },
+        {
+          artist: 'Sahra Azadzoy & Leo Bayly Barton',
+          title: 'Elara',
+          url: 'NegotiatedIntelligence3d2.html?project=elara',
+          pos: [5, 4, 28]
+        },
+        {
+          artist: 'Slitrobo',
+          title: 'Mythology',
+          url: 'NegotiatedIntelligence3d2.html?project=mythology',
+          pos: [5, 40, 28]
+        }
       ];
 
       // Load font and create 3D text
@@ -278,8 +415,14 @@
           titleMesh.lookAt(camera.position);
 
           // Store URL in userData
-          titleMesh.userData = { url: project.url, isClickable: true };
-          artistMesh.userData = { url: project.url, isClickable: true };
+          titleMesh.userData = {
+            url: project.url,
+            isClickable: true
+          };
+          artistMesh.userData = {
+            url: project.url,
+            isClickable: true
+          };
 
           scene.add(artistMesh);
           scene.add(titleMesh);
@@ -397,8 +540,8 @@
 
     <div class="statlines">
       <div class="statline"><span><i><b>
-        <a href="https://negotiated-intelligence.org/" target="_blank">Negotiated Intelligence</a>
-      </b></i></span></div>
+              <a href="https://negotiated-intelligence.org/" target="_blank">Negotiated Intelligence</a>
+            </b></i></span></div>
       <div class="statline"><span>Website</span></div>
       <div class="statline"><span>2025</span></div>
     </div>

@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/gsap.min.js"></script>
+  <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+  <link rel="stylesheet" href="JiSlider.css">
+  <style>
+    * {
+      margin: 0;
+    }
+
+    html,
+    body {
+      height: 100%;
+      background: black;
+      overflow: hidden;
+    }
+
+    #JiSlider {
+      opacity: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    video {
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+  <script src="JiSlider.js"></script>
+
+</head>
+
+<body>
+  <iframe src="https://negotiated-intelligence.oss-cn-hongkong.aliyuncs.com/LizemeiOriginal.mp4"
+  style="width:100%; height:100%;" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen>
+  </iframe>
+
+  <script>
+    $(window).load(function() {
+      TweenMax.to("#JiSlider", 5, {
+        opacity: 1
+      });
+      $('#JiSlider').JiSlider({
+        color: '#fff',
+        start: 1,
+        reverse: true
+      }).addClass('ff')
+    });
+  </script>
+</body>
+
+</html>

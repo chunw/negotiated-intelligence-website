@@ -381,7 +381,7 @@
 
         // Video Layer (replaces BVH skeleton)
         const video = document.createElement('video');
-        video.src = ''; // TODO
+        video.src = 'https://negotiated-intelligence.oss-cn-hongkong.aliyuncs.com/Lizemei1080.mov';
         video.crossOrigin = 'anonymous';
         video.loop = true;
         video.muted = true;
@@ -535,10 +535,10 @@
           for (let i = 0; i < intersects.length; i++) {
             const object = intersects[i].object;
             if (object.userData && (object.userData.isVideoLayer)) {
-              window.open('', '_blank'); // TODO
+              window.open('ProjectEndAndSenceFullScreen.html', '_blank');
               break;
             } else if (object.userData) {
-              window.open('ProjectEndAndSence.html', '_blank'); // TODO
+              window.open('ProjectEndAndSence.html', '_blank');
               break;
             }
           }
