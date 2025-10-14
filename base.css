@@ -24,7 +24,7 @@
   font-display: swap;
 }
 
-@font-face {
+/* @font-face {
   font-family: "Theinhardt Pan";
   src: url('assets/fonts/TheinhardtPan-Regular.woff2') format('woff2');
   font-weight: 300;
@@ -38,7 +38,7 @@
   font-weight: 400;
   font-style: normal;
   font-display: swap;
-}
+} */
 
 @font-face {
   font-family: 'URWDIN-Thin';
@@ -2137,7 +2137,8 @@ textarea.w-input, textarea.w-select {
 }
 
 body {
-  font-family: "Theinhardt Pan", "PingFang SC", Arial, Helvetica, sans-serif;
+  /* font-family: "Theinhardt Pan", "PingFang SC", Arial, Helvetica, sans-serif; */
+  font-family:  "PingFang SC", Arial, Helvetica, sans-serif;
   margin: 0;
   min-height: 100%;
   background-color: black;
@@ -2154,7 +2155,8 @@ h1 {
   margin-bottom: 0;
   padding-right: 1vw;
   padding-left: 0;
-  font-family: "Theinhardt Pan", sans-serif;
+  /* font-family: "Theinhardt Pan", sans-serif; */
+  font-family: sans-serif;
   font-size: 14vw;
   line-height: 14vw;
   font-weight: 300;
@@ -2165,7 +2167,8 @@ h1 {
 h2 {
   margin-top: 0;
   margin-bottom: 0;
-  font-family: "Theinhardt Pan", sans-serif;
+  /* font-family: "Theinhardt Pan", sans-serif; */
+  font-family: sans-serif;
   font-size: 7vw;
   line-height: 8vw;
   font-weight: 300;
@@ -2176,7 +2179,8 @@ h2 {
 h3 {
   margin-top: 0;
   margin-bottom: 0;
-  font-family: "Theinhardt Pan", sans-serif;
+  /* font-family: "Theinhardt Pan", sans-serif; */
+  font-family: sans-serif;
   font-size: 2.5vw;
   line-height: 3vw;
   font-weight: 300;
@@ -2845,7 +2849,8 @@ h5 {
 }
 
 .h-h2.desc {
-  font-family: "Theinhardt Pan", sans-serif;
+  /* font-family: "Theinhardt Pan", sans-serif; */
+  font-family: sans-serif;
   font-size: 3vw;
   line-height: 3.2vw;
   font-weight: 400;
@@ -4349,7 +4354,8 @@ h5 {
 }
 
 .benefits-text {
-  font-family: "Theinhardt Pan", sans-serif;
+  /* font-family: "Theinhardt Pan", sans-serif; */
+  font-family: sans-serif;
   font-size: 3vw;
   line-height: 3.2vw;
   font-weight: 400;
