@@ -455,8 +455,30 @@
     }
 
     .menu {
+      position: relative;
       height: 100vh;
-      height: calc(var(--vh, 1vh) * 100);
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .menu-video-background {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      min-width: 100%;
+      min-height: 100%;
+      width: auto;
+      height: auto;
+      transform: translate(-50%, -50%);
+      z-index: 0;
+      object-fit: cover;
+    }
+
+    .m-inner {
+      position: relative;
+      z-index: 1;
+      margin-top: 4vh;
+      padding: 2rem;
     }
 
     @media (max-width: 991px) {
@@ -542,82 +564,67 @@
     </div>
   </div>
 
-  <!-- Site Navigation Menu -->
-  <div class="menu">
-    <div class="m-inner" style="margin-top: 4vh">
-      <a class="title-row" rel="noopener" draggable="false" href="index.html" class="m-link">
-        <h2 class="h-h2 menu-li title linkable">Negotiated Intelligence</h2>
-      </a>
-      <div class="menu-li-border"></div>
-
-      <div class="submenu">
-        <a aria-label="Elsewhere Gallery" rel="noopener" draggable="false" href="ProjectElsewhere.html" class="m-link">
-          <h2 class="h-h2 menu-li linkable thin">Daria Belkina | <b>Elsewhere Gallery</b></h2>
+    <!-- Site Navigation Menu -->
+    <div class="menu">
+      <!-- <iframe width="100%" height="100%"
+            src="https://camlab-cave-dance.oss-cn-hongkong.aliyuncs.com/negotiated-intelligence/backgroundcompressed.mp4"
+              frameborder="0"
+              allow="autoplay; fullscreen; picture-in-picture"
+              allowfullscreen>
+      </iframe> -->
+      <video class="menu-video-background" autoplay muted loop playsinline>
+      <source src="https://camlab-cave-dance.oss-cn-hongkong.aliyuncs.com/negotiated-intelligence/backgroundcompressed.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+      <div class="m-inner" style="margin-top: 4vh">
+        <a class="title-row" rel="noopener" draggable="false" href="index.html" class="m-link">
+          <h2 class="h-h2 menu-li title linkable">Negotiated Intelligence</h2>
         </a>
+        <div class="menu-li-border"></div>
 
-        <a aria-label="A.Ikea" rel="noopener" draggable="false" href="ProjectAIkea.html" class="m-link">
-          <h2 class="h-h2 menu-li linkable thin">Val Yang | <b>A.Ikea</b></h2>
-        </a>
+        <div class="submenu">
+          <a aria-label="Elsewhere Gallery" rel="noopener" draggable="false" href="research.html?project=elsewhere-gallery" class="m-link">
+            <h2 class="h-h2 menu-li linkable thin">Daria Belkina | <b>Elsewhere Gallery</b></h2>
+          </a>
 
-        <a aria-label="Fractured" rel="noopener" draggable="false" href="ProjectFractured.html" class="m-link">
-          <h2 class="h-h2 menu-li linkable thin">Aaron Oldenberg | <b>Fractured Star Projections</b></h2>
-        </a>
+          <div class="menu-li-border"></div>
 
-        <a aria-label="Elara" rel="noopener" draggable="false" href="ProjectElara.html" class="m-link">
-          <h2 class="h-h2 menu-li linkable thin">Sahra Azadzoy and Leo Bayly Barton | <b>Elara</b></h2>
-        </a>
+          <a aria-label="Events" rel="noopener" draggable="false" href="events.html" class="m-link">
+            <h2 class="h-h2 menu-li linkable bold">Events</h2>
+          </a>
 
-        <a aria-label="Chimera" rel="noopener" draggable="false" href="ProjectHaiku.html" class="m-link">
-          <h2 class="h-h2 menu-li linkable thin">Marcie Begleiter | <b>Chimera Haiku | Spimole</b></h2>
-        </a>
+          <a aria-label="The Wrong Biennale" target="_blank" rel="noopener" draggable="false" href="https://thewrong.org/" class="m-link">
+            <h2 class="h-h2 menu-li linkable thin">The Wrong Biennale</h2>
+          </a>
 
-        <a aria-label="Ave Maria" rel="noopener" draggable="false" href="ProjectAveMaria.html" class="m-link">
-          <h2 class="h-h2 menu-li linkable thin">Marie Le Moigne | <b>Ave Maria</b></h2>
-        </a>
+        </div>
+
+
       </div>
 
-      <!-- <a aria-label="Academic" rel="noopener" draggable="false" class="m-link">
-        <h2 class="h-h2 menu-li bold">Academic</h2>
-      </a>
-
-      <a aria-label="Cave 220" rel="noopener" draggable="false" href="cave.html" class="m-link">
-        <h2 class="h-h2 menu-li linkable thin">Cave 220</h2>
-      </a> -->
-
-      <div class="menu-li-border"></div>
-
-      <a aria-label="Events" rel="noopener" draggable="false" href="events.html" class="m-link">
-        <h2 class="h-h2 menu-li linkable bold">Events</h2>
-      </a>
-
-      <a aria-label="Ave Maria" target="_blank" rel="noopener" draggable="false" href="https://thewrong.org/" class="m-link">
-        <h2 class="h-h2 menu-li linkable thin">The Wrong Biennale</b></h2>
-      </a>
-
-
-    </div>
-
-    <div class="m-footer">
-      <div class="footer">
-        <div class="f-row">
-          <div class="f-col left">
-            <div class="f-link">
-              <a aria-label="privacy" rel="noopener" draggable="false" href="#" class="h-h4 disclaimer bold">
-              </a>
+      <div class="m-footer">
+        <div class="footer">
+          <div class="f-row">
+            <div class="f-col left">
+              <div class="f-link">
+                <a aria-label="privacy" rel="noopener" draggable="false" href="#" class="h-h4 disclaimer bold">
+                </a>
+              </div>
             </div>
-          </div>
-          <div class="f-col center">
-            <div class="h-h4 disclaimer bold">© Negotiated Intelligence, Curators, and Participating Artists, 2025.</div>
-          </div>
-          <div class="f-col right">
-            <div class="h-h4 disclaimer bold">
-              <a href="mailto:chunwang.me@gmail.com" aria-label="Contact" rel="noopener" draggable="false" class="link underline">Contact Us</a>
+            <div class="f-col center">
+              <div class="h-h4 disclaimer bold">© Negotiated Intelligence, Curators, and Participating Artists, 2025.</div>
+            </div>
+            <div class="f-col right">
+              <div class="h-h4 disclaimer bold">
+                <a href="mailto:chunwang.me@gmail.com" aria-label="Contact" rel="noopener" draggable="false" class="link underline">Contact Us</a>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
+    <!-- End Site Navigation Menu -->
+
 
   <main data-template="home" class="content demo">
     <div class="hero home">
