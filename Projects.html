@@ -268,6 +268,33 @@
       font-size: 14px;
     }
 
+    /* Mobile Project Title */
+    .mobile-project-title {
+      display: none;
+      position: fixed;
+      top: 60px;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: rgba(3, 3, 3, 0.85);
+      backdrop-filter: blur(10px);
+      padding: 12px 20px;
+      text-align: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .mobile-project-title h3 {
+      margin: 0;
+      color: #ffffff;
+      font-size: 16px;
+      font-weight: 300;
+      line-height: 1.4;
+    }
+
+    .mobile-project-title h3 b {
+      font-weight: 600;
+    }
+
     /* Desktop Layout */
     @media (min-width: 769px) {
       .split {
@@ -295,11 +322,19 @@
 
     /* Mobile Layout */
     @media (max-width: 768px) {
+      .n-block.left {
+        display: none;
+      }
+      
       .navbar {
         padding: 1rem 1rem 0 1rem !important;
       }
 
       .mobile-menu-toggle {
+        display: block;
+      }
+
+      .mobile-project-title {
         display: block;
       }
 
@@ -333,8 +368,8 @@
       .split.right {
         position: relative;
         width: 100%;
-        height: calc(100vh - 60px);
-        margin-top: 60px;
+        height: calc(100vh - 120px);
+        margin-top: 120px;
         z-index: 10;
       }
 
@@ -360,6 +395,10 @@
 
     /* Very small mobile devices */
     @media (max-width: 480px) {
+      .mobile-project-title h3 {
+        font-size: 14px;
+      }
+
       .submenu .h-h2.menu-li {
         font-size: 14px !important;
       }
@@ -457,6 +496,11 @@
     ☰ Menu
   </div>
 
+  <!-- Mobile Project Title -->
+  <div class="mobile-project-title" id="mobileProjectTitle">
+    <h3 id="projectTitleText"></h3>
+  </div>
+
   <!-- Menu Overlay for Mobile -->
   <div class="menu-overlay" id="menuOverlay"></div>
 
@@ -488,57 +532,57 @@
 
         <!-- Curator Notes Link -->
         <a href="/Notes.html" aria-label="Curator Notes" rel="noopener" draggable="false" class="nav-link">
-          <h2 class="h-h2 menu-li linkable thin bold">Curator’s Notes </h2>
+          <h2 class="h-h2 menu-li linkable thin bold">Curator's Notes </h2>
         </a>
 
         <!-- Separator -->
         <div class="menu-separator"></div>
 
-        <a aria-label="Exhibition" rel="noopener" draggable="false" data-project="ProjectNegotiatedIntelligence" data-slug="NegotiatedIntelligence" class="project-link">
+        <a aria-label="Exhibition" rel="noopener" draggable="false" data-project="ProjectNegotiatedIntelligence" data-slug="NegotiatedIntelligence" data-title="<i>Negotiated Intelligence</i>" class="project-link">
           <h2 class="h-h2 menu-li linkable thin bold" style="font-size: 150% !important"><i>Negotiated Intelligence</i></h2>
         </a>
 
-        <a aria-label="Elsewhere Gallery" rel="noopener" draggable="false" data-project="ProjectElsewhereGallery" data-slug="elsewhere-gallery" class="project-link">
+        <a aria-label="Elsewhere Gallery" rel="noopener" draggable="false" data-project="ProjectElsewhereGallery" data-slug="elsewhere-gallery" data-title="Daria Belkina | <b>Elsewhere Gallery</b>" class="project-link">
           <h2 class="h-h2 menu-li linkable thin bold">Daria Belkina | <b>Elsewhere Gallery</b></h2>
         </a>
 
-        <a aria-label="Mythology" rel="noopener" draggable="false" data-project="ProjectMythology" data-slug="mythology" class="project-link">
+        <a aria-label="Mythology" rel="noopener" draggable="false" data-project="ProjectMythology" data-slug="mythology" data-title="Slitrobo | <b>Mythology</b>" class="project-link">
           <h2 class="h-h2 menu-li linkable thin bold">Slitrobo | <b>Mythology</b></h2>
         </a>
 
-        <a aria-label="A.Ikea" rel="noopener" draggable="false" data-project="ProjectAIkea" data-slug="aikea" class="project-link">
+        <a aria-label="A.Ikea" rel="noopener" draggable="false" data-project="ProjectAIkea" data-slug="aikea" data-title="Val Yang | <b>A.Ikea</b>" class="project-link">
           <h2 class="h-h2 menu-li linkable thin">Val Yang | <b>A.Ikea</b></h2>
         </a>
 
-        <a aria-label="Chimera" rel="noopener" draggable="false" data-project="ProjectHaiku" data-slug="chimera-haiku" class="project-link">
+        <a aria-label="Chimera" rel="noopener" draggable="false" data-project="ProjectHaiku" data-slug="chimera-haiku" data-title="Marcie Begleiter | <b>Chimera Haiku | Spimole</b>" class="project-link">
           <h2 class="h-h2 menu-li linkable thin">Marcie Begleiter | <b>Chimera Haiku | Spimole</b></h2>
         </a>
 
-        <a aria-label="Fractured" rel="noopener" draggable="false" data-project="ProjectFractured" data-slug="fractured-star" class="project-link">
+        <a aria-label="Fractured" rel="noopener" draggable="false" data-project="ProjectFractured" data-slug="fractured-star" data-title="Aaron Oldenberg | <b>Fractured Star Projections</b>" class="project-link">
           <h2 class="h-h2 menu-li linkable thin">Aaron Oldenberg | <b>Fractured Star Projections</b></h2>
         </a>
 
-        <a aria-label="Silence" rel="noopener" draggable="false" data-project="ProjectSilence" data-slug="silence" class="project-link">
+        <a aria-label="Silence" rel="noopener" draggable="false" data-project="ProjectSilence" data-slug="silence" data-title="Margarita Wenzel | <b>Silence is not the Absence of Speech</b>" class="project-link">
           <h2 class="h-h2 menu-li linkable thin">Margarita Wenzel | <b>Silence is not the Absence of Speech</b></h2>
         </a>
 
-        <a aria-label="Fractured" rel="noopener" draggable="false" data-project="ProjectInvisibleSystem" data-slug="invisible-system" class="project-link">
+        <a aria-label="Fractured" rel="noopener" draggable="false" data-project="ProjectInvisibleSystem" data-slug="invisible-system" data-title="Yan Longdan | <b>(In)visible Systems: A Digital Poetics of the Body</b>" class="project-link">
           <h2 class="h-h2 menu-li linkable thin">Yan Longdan | <b>(In)visible Systems: A Digital Poetics of the Body</b></h2>
         </a>
 
-        <a aria-label="Ave Maria" rel="noopener" draggable="false" data-project="ProjectAveMaria" data-slug="ave-maria" class="project-link">
+        <a aria-label="Ave Maria" rel="noopener" draggable="false" data-project="ProjectAveMaria" data-slug="ave-maria" data-title="Marie Le Moigne | <b>Ave Maria</b>" class="project-link">
           <h2 class="h-h2 menu-li linkable thin">Marie Le Moigne | <b>Ave Maria</b></h2>
         </a>
 
-        <a aria-label="Elara" rel="noopener" draggable="false" data-project="ProjectElara" data-slug="elara" class="project-link">
+        <a aria-label="Elara" rel="noopener" draggable="false" data-project="ProjectElara" data-slug="elara" data-title="Sahra Azadzoy and Leo Bayly Barton | <b>Elara</b>" class="project-link">
           <h2 class="h-h2 menu-li linkable thin">Sahra Azadzoy and Leo Bayly Barton | <b>Elara</b></h2>
         </a>
 
-        <a aria-label="EndAnd" rel="noopener" draggable="false" data-project="ProjectEndAndSence" data-slug="endandsence" class="project-link">
+        <a aria-label="EndAnd" rel="noopener" draggable="false" data-project="ProjectEndAndSence" data-slug="endandsence" data-title="Li Zemei | <b>End-And Sence</b>" class="project-link">
           <h2 class="h-h2 menu-li linkable thin">Li Zemei | <b>End-And Sence</b></h2>
         </a>
 
-        <a aria-label="Dierenleven" rel="noopener" draggable="false" data-project="ProjectDierenleven" data-slug="dierenleven" class="project-link">
+        <a aria-label="Dierenleven" rel="noopener" draggable="false" data-project="ProjectDierenleven" data-slug="dierenleven" data-title="Vero Szücs and Max Noichl | <b>Dierenleven</b>" class="project-link">
           <h2 class="h-h2 menu-li linkable thin">Vero Szücs and Max Noichl | <b>Dierenleven</b></h2>
         </a>
 
@@ -589,6 +633,14 @@
       'ProjectInvisibleSystem': 'assets/img/invisible/Process.png',
       'ProjectDierenleven': 'assets/img/dierenleven/bg.jpg',
     };
+
+    // Function to update mobile project title
+    function updateMobileTitle(titleHtml) {
+      const titleElement = document.getElementById('projectTitleText');
+      if (titleElement) {
+        titleElement.innerHTML = titleHtml;
+      }
+    }
 
     // Function to change background (video or image)
     function changeBackground(projectName) {
@@ -651,13 +703,21 @@
 
       changeBackground(projectName);
 
+      // Update mobile title
+      const linkElement = document.querySelector(`[data-slug="${slug}"]`);
+      if (linkElement) {
+        const titleHtml = linkElement.getAttribute('data-title');
+        if (titleHtml) {
+          updateMobileTitle(titleHtml);
+        }
+      }
+
       if (updateHistory && slug) {
         const newUrl = window.location.pathname + '?project=' + slug;
         window.history.pushState({
           project: slug
         }, '', newUrl);
 
-        const linkElement = document.querySelector(`[data-slug="${slug}"]`);
         if (linkElement) {
           const projectTitle = linkElement.getAttribute('aria-label');
           document.title = `${projectTitle} | Negotiated Intelligence`;
