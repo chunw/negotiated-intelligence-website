@@ -14,7 +14,7 @@
   <link href="assets/img/favicon.png" rel="apple-touch-icon" />
 
   <style>
-  /* Hide Abstract heading on mobile devices */
+    /* Hide Abstract heading on mobile devices */
     @media (max-width: 991px) {
       .intro h1 {
         display: none;
@@ -474,13 +474,6 @@
       object-fit: cover;
     }
 
-    .m-inner {
-      position: relative;
-      z-index: 1;
-      margin-top: 4vh;
-      padding: 2rem;
-    }
-
     @media (max-width: 991px) {
       [data-animation="slider-item"] {
         width: 90vw;
@@ -509,11 +502,14 @@
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-Q1RLJMGX8P"></script>
   <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    window.dataLayer = window.dataLayer || [];
 
-  gtag('config', 'G-Q1RLJMGX8P');
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+
+    gtag('config', 'G-Q1RLJMGX8P');
   </script>
 
 </head>
@@ -564,66 +560,79 @@
     </div>
   </div>
 
-    <!-- Site Navigation Menu -->
-    <div class="menu">
-      <!-- <iframe width="100%" height="100%"
+  <!-- Site Navigation Menu -->
+  <div class="menu">
+    <!-- <iframe width="100%" height="100%"
             src="https://camlab-cave-dance.oss-cn-hongkong.aliyuncs.com/negotiated-intelligence/backgroundcompressed.mp4"
               frameborder="0"
               allow="autoplay; fullscreen; picture-in-picture"
               allowfullscreen>
       </iframe> -->
-      <video class="menu-video-background" autoplay muted loop playsinline>
+    <video class="menu-video-background" autoplay muted loop playsinline>
       <source src="https://camlab-cave-dance.oss-cn-hongkong.aliyuncs.com/negotiated-intelligence/backgroundcompressed.mp4" type="video/mp4">
       Your browser does not support the video tag.
     </video>
-      <div class="m-inner" style="margin-top: 4vh">
-        <a class="title-row" rel="noopener" draggable="false" href="index.html" class="m-link">
-          <h2 class="h-h2 menu-li title linkable">Negotiated Intelligence</h2>
+    <div class="m-inner" style="margin-top: 4vh">
+      <a class="title-row" rel="noopener" draggable="false" href="index.html" class="m-link">
+        <h2 class="h-h2 menu-li title linkable">Negotiated Intelligence</h2>
+      </a>
+      <div class="menu-li-border"></div>
+
+      <div class="submenu">
+        <a aria-label="Elsewhere Gallery" rel="noopener" draggable="false" href="index.html" class="m-link">
+          <h2 class="h-h2 menu-li linkable thin">Intro</h2>
         </a>
-        <div class="menu-li-border"></div>
 
-        <div class="submenu">
-          <a aria-label="Elsewhere Gallery" rel="noopener" draggable="false" href="research.html?project=elsewhere-gallery" class="m-link">
-            <h2 class="h-h2 menu-li linkable thin">Daria Belkina | <b>Elsewhere Gallery</b></h2>
-          </a>
+        <br>
 
-          <div class="menu-li-border"></div>
 
-          <a aria-label="Events" rel="noopener" draggable="false" href="events.html" class="m-link">
+
+        <a aria-label="Elsewhere Gallery" rel="noopener" draggable="false" href="Notes.html" class="m-link">
+          <h2 class="h-h2 menu-li linkable thin">Curator's Notes</h2>
+        </a>
+        <br>
+        <a aria-label="Elsewhere Gallery" rel="noopener" draggable="false" href="Projects.html" class="m-link">
+          <h2 class="h-h2 menu-li linkable thin">Projects</h2>
+        </a>
+        <br>
+        <!--
+          <div class="menu-li-border"></div> -->
+
+        <!-- <a aria-label="Events" rel="noopener" draggable="false" href="events.html" class="m-link">
             <h2 class="h-h2 menu-li linkable bold">Events</h2>
-          </a>
+          </a> -->
 
-          <a aria-label="The Wrong Biennale" target="_blank" rel="noopener" draggable="false" href="https://thewrong.org/" class="m-link">
-            <h2 class="h-h2 menu-li linkable thin">The Wrong Biennale</h2>
-          </a>
-
-        </div>
-
+        <a aria-label="The Wrong Biennale" target="_blank" rel="noopener" draggable="false" href="https://thewrong.org/" class="m-link">
+          <h2 class="h-h2 menu-li linkable thin">Events | <b>The Wrong Biennale</b></h2>
+        </a>
 
       </div>
 
-      <div class="m-footer">
-        <div class="footer">
-          <div class="f-row">
-            <div class="f-col left">
-              <div class="f-link">
-                <a aria-label="privacy" rel="noopener" draggable="false" href="#" class="h-h4 disclaimer bold">
-                </a>
-              </div>
+
+    </div>
+
+    <div class="m-footer">
+      <div class="footer">
+        <div class="f-row">
+          <div class="f-col left">
+            <div class="f-link">
+              <a aria-label="privacy" rel="noopener" draggable="false" href="#" class="h-h4 disclaimer bold">
+              </a>
             </div>
-            <div class="f-col center">
-              <div class="h-h4 disclaimer bold">© Negotiated Intelligence, Curators, and Participating Artists, 2025.</div>
-            </div>
-            <div class="f-col right">
-              <div class="h-h4 disclaimer bold">
-                <a href="mailto:chunwang.me@gmail.com" aria-label="Contact" rel="noopener" draggable="false" class="link underline">Contact Us</a>
-              </div>
+          </div>
+          <div class="f-col center">
+            <div class="h-h4 disclaimer bold">© Negotiated Intelligence, Curators, and Participating Artists, 2025.</div>
+          </div>
+          <div class="f-col right">
+            <div class="h-h4 disclaimer bold">
+              <a href="mailto:chunwang.me@gmail.com" aria-label="Contact" rel="noopener" draggable="false" class="link underline">Contact Us</a>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <!-- End Site Navigation Menu -->
+  </div>
+  <!-- End Site Navigation Menu -->
 
 
   <main data-template="home" class="content demo">
@@ -1012,7 +1021,8 @@
           <div class="campagin-head">
             <h4 class="h-h4 disclaimer" style="pointer:cursor; font-size: 1.3rem; text-align: center; margin-left: auto; margin-right: auto;
             margin-top: 4vw;">
-            <b>Enter</b></h4>
+              <b>Enter</b>
+            </h4>
             <a style="text-align: center; pointer:cursor; margin-left: auto; margin-right: auto;
             margin-top: -10vh;
             width: 10rem;
