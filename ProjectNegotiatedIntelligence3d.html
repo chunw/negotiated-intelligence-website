@@ -160,19 +160,19 @@
       let mural, drawing, secondDrawing;
       const textMeshes = [];
 
-      // Constants
-      let mural_x = 2,
+      // Constants - SHIFTED LEFT BY 5 UNITS (x - 5)
+      let mural_x = -3,
         mural_y = 0,
         mural_z = -5,
         mural_scale = 3;
       let mural_scaleX = 4.5;
-      let drawing_x = 0,
+      let drawing_x = -5,
         drawing_y = 0,
         drawing_z = 0,
         drawing_z_target = 5,
         drawing_scale = 3;
       let drawing_scaleX = 4.5;
-      let secondDrawing_x = 0,
+      let secondDrawing_x = -5,
         secondDrawing_y = 0,
         secondDrawing_z = 10,
         secondDrawing_z_target = 12,
@@ -190,11 +190,11 @@
 
       const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
       const cameraPos = {
-        x: '-11.74',
+        x: '-16.74',
         y: '11.47',
         z: '23.15'
       };
-      camera.position.set(screen.width > 497 ? cameraPos.x : 12, cameraPos.y, screen.width > 497 ? cameraPos.z : 28);
+      camera.position.set(screen.width > 497 ? cameraPos.x : 7, cameraPos.y, screen.width > 497 ? cameraPos.z : 28);
 
       const renderer = new THREE.WebGLRenderer({
         canvas: document.querySelector('#hero-threejs'),
@@ -205,7 +205,7 @@
 
       // Lights
       const pointLight = new THREE.PointLight(0xffffff);
-      pointLight.position.set(5, 5, 5);
+      pointLight.position.set(0, 5, 5);
       const ambientLight = new THREE.AmbientLight(0xffffff);
       scene.add(pointLight, ambientLight);
 
@@ -334,73 +334,73 @@
 
       video.load();
 
-      // Project data
+      // Project data - SHIFTED LEFT BY 5 UNITS (x - 5)
       const projects = [
         {
           artist: 'Yan Longdan',
           title: 'In)visible Systems',
           url: 'Projects.html?project=invisible-system',
-          pos: [12, 3, 24]
+          pos: [7, 3, 24]
         },
         {
           artist: 'Li Zemei',
           title: 'END-AND SENCE',
           url: 'Projects.html?project=endandsence',
-          pos: [-11, -2, 26]
+          pos: [-16, -2, 26]
         },
         {
           artist: 'Vero Szücs & Max Noichl',
           title: 'Dierenleven',
           url: 'Projects.html?project=dierenleven',
-          pos:[6, -5, 32]
+          pos:[1, -5, 32]
         },
         {
           artist: 'Daria Belkina',
           title: 'Elsewhere Gallery',
           url: 'Projects.html?project=elsewhere-gallery',
-          pos: [-3, -7, 28]
+          pos: [-8, -7, 28]
         },
         {
           artist: 'Val Yang',
           title: 'A.Ikea',
           url: 'Projects.html?project=aikea',
-          pos: [-1, -5, 26]
+          pos: [-6, -5, 26]
         },
         {
           artist: 'Marcie Begleiter',
           title: 'Chimera Haiku',
           url: 'Projects.html?project=chimera-haiku',
-          pos: [-5, -6, 27]
+          pos: [-10, -6, 27]
         },
         {
           artist: 'Aaron Oldenberg',
           title: 'Fractured Star',
           url: 'Projects.html?project=fractured-star',
-          pos: [-10, 9, 18]
+          pos: [-15, 9, 18]
         },
         {
           artist: 'Margarita Wenzel',
           title: 'Silence',
           url: 'Projects.html?project=silence',
-          pos:[4, -3, 21]
+          pos:[-1, -3, 21]
         },
         {
           artist: 'Marie Le Moigne',
           title: 'Ave Maria',
           url: 'Projects.html?project=ave-maria',
-          pos: [-7, 5, 35]
+          pos: [-12, 5, 35]
         },
         {
           artist: 'Sahra Azadzoy & Leo Bayly Barton',
           title: 'Elara',
           url: 'Projects.html?project=elara',
-          pos: [-5, 1, 30]
+          pos: [-10, 1, 30]
         },
         {
           artist: 'Slitrobo',
           title: 'Mythology',
           url: 'Projects.html?project=mythology',
-          pos: [-2, -8, 29]
+          pos: [-7, -8, 29]
         }
       ];
 
