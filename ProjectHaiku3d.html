@@ -272,7 +272,7 @@
         let drawing_x = 0,
           drawing_y = 0,
           drawing_z = 0,
-          drawing_z_target = 5,
+          drawing_z_target = 3,
           drawing_scale = 2.8;
         let drawing_scaleY = 3.5; // Made TALLER (was 2.8, increased to 3.5)
 
@@ -280,7 +280,8 @@
           secondDrawing_y = 0,
           secondDrawing_z = 10,
           secondDrawing_z_target = 15,
-          secondDrawing_scale = 2.8;
+          secondDrawing_scale = 2.8,
+          secondDrawing_scaleX = 4;
         let wire_x = 0,
           wire_y = -4,
           wire_z = -4,
@@ -389,7 +390,7 @@
         // Video Layer (replaces BVH skeleton)
         const video = document.createElement('video');
 
-        video.src = 'https://vimeo.com/1074810303/de745dfd50?share=copy';
+        video.src = 'https://camlab-cave-dance.oss-cn-hongkong.aliyuncs.com/negotiated-intelligence/haiku.mov';
         video.crossOrigin = 'anonymous';
         video.loop = true;
         video.muted = true;
@@ -442,7 +443,7 @@
 
           const videoGeometry = new THREE.BoxGeometry(3, 3, 0.01);
           secondDrawing = new THREE.Mesh(videoGeometry, videoCubeMaterials);
-          secondDrawing.scale.set(secondDrawing_scale, secondDrawing_scale, secondDrawing_scale);
+          secondDrawing.scale.set(secondDrawing_scaleX, secondDrawing_scale, secondDrawing_scale);
           secondDrawing.position.set(secondDrawing_x, secondDrawing_y, secondDrawing_z);
 
           // Add userData to identify this as the video layer
