@@ -1,5 +1,3 @@
-
-
 @font-face {
   font-family: 'Benton Sans';
   src: url('assets/fonts/Benton Sans/bentonsanscondregular/Benton Sans Cond Regular.otf') format('otf');
@@ -20,22 +18,6 @@
   font-family: 'GT America';
   src: url('assets/fonts/GTAmerica-ExpandedBold.woff2') format('woff2');
   font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Theinhardt Pan";
-  src: url('assets/fonts/TheinhardtPan-Regular.woff2') format('woff2');
-  font-weight: 300;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Theinhardt Pan";
-  src: url('assets/fonts/TheinhardtPan-Medium.woff2') format('woff2');
-  font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
@@ -964,26 +946,33 @@ textarea.w-input, textarea.w-select {
   }
 }
 
-@media screen and (max-width:479px) { /* mobile phones */
+@media screen and (max-width:479px) {
+
+  /* mobile phones */
   .footer .h-h2 {
     font-size: 0.8rem;
     line-height: 1.3;
     /* display: none !important; */
   }
+
   #mindmap-helper {
     bottom: 0 !important;
   }
+
   #mouse-help-wrapper {
     display: none !important;
   }
+
   .menu .m-inner {
     /*transform: scale(1.1) !important;*/
-   left: 4rem !important;
-   top: 2rem;
+    left: 4rem !important;
+    top: 2rem;
   }
+
   #downarrow {
     margin-top: -15vw !important;
   }
+
   .w-container {
     max-width: none
   }
@@ -2137,16 +2126,11 @@ textarea.w-input, textarea.w-select {
 }
 
 body {
-  font-family: "Theinhardt Pan", "PingFang SC", Arial, Helvetica, sans-serif;
-
-  /* font-family:  "PingFang SC", Arial, Helvetica, sans-serif; */
-
+  font-family: "PingFang SC", Arial, Helvetica, sans-serif;
   margin: 0;
   min-height: 100%;
   background-color: black;
   color: #bbb9b9;
-  /* font-size: 1.125vw;
-  line-height: 1.5vw; */
   font-weight: 300;
   letter-spacing: -.02em;
 }
@@ -2157,10 +2141,7 @@ h1 {
   margin-bottom: 0;
   padding-right: 1vw;
   padding-left: 0;
-  font-family: "Theinhardt Pan", sans-serif;
-
-  /* font-family: sans-serif; */
-
+  font-family: sans-serif;
   font-size: 14vw;
   line-height: 14vw;
   font-weight: 300;
@@ -2171,10 +2152,7 @@ h1 {
 h2 {
   margin-top: 0;
   margin-bottom: 0;
-  font-family: "Theinhardt Pan", sans-serif;
-
-  /* font-family: sans-serif; */
-
+  font-family: sans-serif;
   font-size: 7vw;
   line-height: 8vw;
   font-weight: 300;
@@ -2185,10 +2163,7 @@ h2 {
 h3 {
   margin-top: 0;
   margin-bottom: 0;
-  font-family: "Theinhardt Pan", sans-serif;
-
-  /* font-family: sans-serif; */
-
+  font-family: sans-serif;
   font-size: 2.5vw;
   line-height: 3vw;
   font-weight: 300;
@@ -2828,8 +2803,8 @@ h5 {
 
 .m-inner {
   position: absolute;
-    left: 8rem;
-    top: 28rem;
+  left: 8rem;
+  top: 28rem;
   /* right: 0; */
   /* bottom: 0rem; */
   z-index: 2;
@@ -2857,10 +2832,7 @@ h5 {
 }
 
 .h-h2.desc {
-  font-family: "Theinhardt Pan", sans-serif;
-
-  /* font-family: sans-serif; */
-
+  font-family: sans-serif;
   font-size: 3vw;
   line-height: 3.2vw;
   font-weight: 400;
@@ -2884,7 +2856,6 @@ h5 {
   line-height: 15vw;
   letter-spacing: -.07em
 }
-
 
 .m-link {
   position: relative;
@@ -3218,7 +3189,6 @@ h5 {
   align-items: center
 }
 
-
 .lookbook__bar {
   position: absolute;
   left: 0;
@@ -3501,7 +3471,6 @@ h5 {
   display: none
 }
 
-
 .intro {
   position: relative;
   display: -webkit-box;
@@ -3722,6 +3691,7 @@ h5 {
   -ms-flex: 1;
   flex: 1
 }
+
 .title-inner {
   display: -webkit-box;
   display: -webkit-flex;
@@ -4364,10 +4334,7 @@ h5 {
 }
 
 .benefits-text {
-  font-family: "Theinhardt Pan", sans-serif;
-
-  /* font-family: sans-serif; */
-
+  font-family: sans-serif;
   font-size: 3vw;
   line-height: 3.2vw;
   font-weight: 400;
@@ -5465,6 +5432,7 @@ h5 {
   flex-direction: column;
   text-align: center
 }
+
 .showrel-inner-wrapper {
   position: relative;
   top: 0;
@@ -5597,7 +5565,6 @@ h5 {
 }
 
 @media screen and (max-width:991px) {
-
   .mobile-only {
     display: block;
   }
@@ -5679,7 +5646,6 @@ h5 {
     font-size: 19vw;
     line-height: 19vw
   }
-
 
   .co-link {
     margin-top: 2vw
@@ -6297,7 +6263,6 @@ h5 {
     line-height: 10vw
   }
 
-
   .lookbook__head__title.lo-down {
     margin-bottom: 2vw
   }
@@ -6560,7 +6525,6 @@ h5 {
   /*.intro {*/
   /*  height: 250vw*/
   /*}*/
-
   .intro-inner {
     display: -webkit-box;
     display: -webkit-flex;
@@ -7163,6 +7127,7 @@ h5 {
     width: 2.5vw;
     margin-bottom: 2vw
   }
+
   .div-block-40 {
     display: -webkit-box;
     display: -webkit-flex;
@@ -7659,37 +7624,36 @@ textarea {
   padding-top: 2px;
 }
 
-
-
 .menu .title-row img {
   width: 1rem;
   margin-top: 0rem;
   opacity: 0.8;
 }
 
-
 @media screen and (min-width: 479px) {
-    .n-block.center a {
-      width: 15vw;
-    }
+  .n-block.center a {
+    width: 15vw;
+  }
 
-    .menu .title-row img {
-     width: 1rem !important;
-     margin-top: 0rem !important;
-    }
-   .menu-li.title {
+  .menu .title-row img {
+    width: 1rem !important;
+    margin-top: 0rem !important;
+  }
+
+  .menu-li.title {
     font-size: 1rem !important;
-   }
-   .h-h2.menu-li {
-     font-size: 1rem !important;
-   }
-   .menu .menu-li.thin {
-     /*font-size: .8rem !important;*/
-     font-size: .9rem !important;
-    line-height: 1.3;
-   }
-}
+  }
 
+  .h-h2.menu-li {
+    font-size: 1rem !important;
+  }
+
+  .menu .menu-li.thin {
+    /*font-size: .8rem !important;*/
+    font-size: .9rem !important;
+    line-height: 1.3;
+  }
+}
 
 .menu-li.active {
   display: inline;
@@ -7705,19 +7669,22 @@ textarea {
   overflow-y: scroll;
 }
 
-.menu .title-row  {
+.menu .title-row {
   margin-left: -4.2vw;
   /*margin-bottom: 2vw;*/
 }
+
 .menu a h2 {
   text-decoration: none;
   display: inline-block;
   position: relative;
-    cursor: default;
+  cursor: default;
 }
+
 .menu a h2.linkable {
-      cursor: pointer;
+  cursor: pointer;
 }
+
 .menu a h2.linkable:after {
   background: none repeat scroll 0 0 transparent;
   bottom: 0;
@@ -7731,6 +7698,7 @@ textarea {
   transition: width 0.3s ease 0s, left 0.3s ease 0s;
   width: 0;
 }
+
 .menu a h2.linkable:hover:after {
   width: 100%;
   left: 0;
@@ -7744,112 +7712,116 @@ textarea {
 }
 
 .menu-li-active-img {
-    width: 2rem;
-    vertical-align: middle;
-    display: inline;
-    margin-left: 0.2rem;
+  width: 2rem;
+  vertical-align: middle;
+  display: inline;
+  margin-left: 0.2rem;
 }
 
 .mouse-1O_CunO {
-    height: 33px;
-    width: 20px;
-    position: relative;
-    display: block;
-    border: 2px solid #c6c1bc;
-    border-radius: 10px;
-    margin-top: 8px
+  height: 33px;
+  width: 20px;
+  position: relative;
+  display: block;
+  border: 2px solid #c6c1bc;
+  border-radius: 10px;
+  margin-top: 8px
 }
-.mouse-1O_CunO:after,.mouse-1O_CunO:before {
-    content: "";
-    display: block;
-    position: absolute;
-    height: 6px;
-    width: 2px;
-    left: 50%;
-    bottom: 100%;
-    background: #c6c1bc;
-    margin-left: -1px;
-    margin-bottom: 2px
+
+.mouse-1O_CunO:after, .mouse-1O_CunO:before {
+  content: "";
+  display: block;
+  position: absolute;
+  height: 6px;
+  width: 2px;
+  left: 50%;
+  bottom: 100%;
+  background: #c6c1bc;
+  margin-left: -1px;
+  margin-bottom: 2px
 }
+
 .mouse-1O_CunO:after {
-    height: 4px;
-    margin-bottom: 0;
-    bottom: auto;
-    top: 7px;
-    border-radius: 1px
+  height: 4px;
+  margin-bottom: 0;
+  bottom: auto;
+  top: 7px;
+  border-radius: 1px
 }
+
 .mouse-1O_CunO {
-    transform-origin: 50% 100%;
-    /* animation: instructionMouseAnimation 6s ease-in-out infinite */
+  transform-origin: 50% 100%;
+  /* animation: instructionMouseAnimation 6s ease-in-out infinite */
 }
+
 @keyframes instructionKeyAnimation {
-    0% {
-        transform: scale(1)
-    }
+  0% {
+    transform: scale(1)
+  }
 
-    7% {
-        transform: scale(.9)
-    }
+  7% {
+    transform: scale(.9)
+  }
 
-    15% {
-        transform: scale(1)
-    }
+  15% {
+    transform: scale(1)
+  }
 
-    22% {
-        transform: scale(.9)
-    }
+  22% {
+    transform: scale(.9)
+  }
 
-    30% {
-        transform: scale(1)
-    }
+  30% {
+    transform: scale(1)
+  }
 
-    37% {
-        transform: scale(.9)
-    }
+  37% {
+    transform: scale(.9)
+  }
 
-    45% {
-        transform: scale(1)
-    }
+  45% {
+    transform: scale(1)
+  }
 
-    to {
-        transform: scale(1)
-    }
+  to {
+    transform: scale(1)
+  }
 }
 
 @keyframes instructionMouseAnimation {
-    0% {
-        transform: translateX(0) translateY(0) rotate(0)
-    }
+  0% {
+    transform: translateX(0) translateY(0) rotate(0)
+  }
 
-    7% {
-        transform: scale(.9) rotate(30deg) translateX(5px)
-    }
+  7% {
+    transform: scale(.9) rotate(30deg) translateX(5px)
+  }
 
-    15% {
-        transform: scale(.9) rotate(-30deg) translateX(-5px)
-    }
+  15% {
+    transform: scale(.9) rotate(-30deg) translateX(-5px)
+  }
 
-    22% {
-        transform: scale(.9) rotate(30deg) translateX(5px)
-    }
+  22% {
+    transform: scale(.9) rotate(30deg) translateX(5px)
+  }
 
-    30% {
-        transform: scale(.9) rotate(-30deg) translateX(-5px)
-    }
+  30% {
+    transform: scale(.9) rotate(-30deg) translateX(-5px)
+  }
 
-    37% {
-        transform: scale(.9) rotate(30deg) translateX(5px)
-    }
+  37% {
+    transform: scale(.9) rotate(30deg) translateX(5px)
+  }
 
-    45% {
-        transform: translateX(0) translateY(0) rotate(0)
-    }
+  45% {
+    transform: translateX(0) translateY(0) rotate(0)
+  }
 
-    46% {
-        transform: translateX(0) translateY(0) rotate(0)
-    }
+  46% {
+    transform: translateX(0) translateY(0) rotate(0)
+  }
 
-    to {
-        transform: translateX(0) translateY(0) rotate(0)
-    }
+  to {
+    transform: translateX(0) translateY(0) rotate(0)
+  }
 }
