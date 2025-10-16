@@ -147,7 +147,6 @@
       display: block;
     }
 
-    /* Remove default link styling */
     a {
       color: inherit;
       text-decoration: none;
@@ -190,13 +189,11 @@
       border-bottom: 2px solid black;
     }
 
-
     .hero.home,
     .wait {
       height: 100vh;
       display: none;
     }
-
 
     .statlines {
       font-family: "Segoe UI", Verdana, sans-serif;
@@ -269,13 +266,12 @@
         let animated_drawing_clicked, animated_secondDrawing_clicked, animated_wire_clicked;
         let mural, drawing, secondDrawing, wire;
 
-        // Constants
         const Z_offset = 0;
         let mural_x = 2,
           mural_y = 0,
           mural_z = -5,
-          mural_scale = 3;  // Reduced back down but keeping the ratio
-        let mural_scaleX = 2.4;  // Reduced proportionally to maintain aspect ratio
+          mural_scale = 3;
+        let mural_scaleX = 2.4;
         let drawing_x = 0,
           drawing_y = 0,
           drawing_z = 0,
@@ -294,10 +290,9 @@
           wire_z_target = 18,
           wire_scale = 40;
 
-        // File paths
         const SCENE_BACKGROUND = 'textures/dunhuang/amo_data_bg_dimmed_black.png';
-        const MURAL = 'assets/img/fractured/Doc.png';
-        const DRAWING = 'assets/img/fractured/Twine_03.png';
+        const MURAL = 'assets/img/fractured/Doc2.png';
+        const DRAWING = 'assets/img/fractured/Twine_03I.png';
         const SECOND_DRAWING = 'textures/dunhuang/反弹琵琶一式inverted.jpg';
 
         const OUTLINE_ON_MOUSEPOINT = false;
@@ -320,34 +315,37 @@
         renderer.setSize(window.innerWidth, window.innerHeight);
         renderer.render(scene, camera);
 
-        // Lights
-        // const pointLight = new THREE.PointLight(0xffffff);
-        // pointLight.position.set(5, 5, 5);
-        // const ambientLight = new THREE.AmbientLight(0xffffff);
-        // scene.add(pointLight, ambientLight);
-        // Gentle ambient light for base illumination
-        const ambientLight = new THREE.AmbientLight(0xffffff, 0.2);
+        // Reduced lighting system
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.3);
         scene.add(ambientLight);
 
-        // Moderate directional light pointing at the video layer
-        const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5);
-        directionalLight.position.set(0, 5, 15); // Positioned to light up the video layer
-        scene.add(directionalLight);
+        // Reduced spotlight intensity for drawing layer
+        const drawingSpotlight = new THREE.SpotLight(0xffffff, 0.5);
+        drawingSpotlight.position.set(0, 8, 8);
+        drawingSpotlight.target.position.set(drawing_x, drawing_y, drawing_z_target);
+        drawingSpotlight.angle = Math.PI / 3;
+        drawingSpotlight.penumbra = 0.2;
+        scene.add(drawingSpotlight);
+        scene.add(drawingSpotlight.target);
 
-        // Focused spotlight on the video layer with reduced intensity
-        const spotlight = new THREE.SpotLight(0xffffff, 0.6);
-        spotlight.position.set(0, 10, 20);
-        spotlight.target.position.set(secondDrawing_x, secondDrawing_y, secondDrawing_z_target);
-        spotlight.angle = Math.PI / 4;
-        spotlight.penumbra = 0.3;
-        scene.add(spotlight);
-        scene.add(spotlight.target);
+        // Reduced front directional light
+        const frontDirectionalLight = new THREE.DirectionalLight(0xffffff, 0.4);
+        frontDirectionalLight.position.set(0, 5, 10);
+        scene.add(frontDirectionalLight);
 
-        // Subtle point light for the rest of the scene
-        const pointLight = new THREE.PointLight(0xffffff, 0.2);
-        pointLight.position.set(5, 5, 5);
-        scene.add(pointLight);
+        // Moderate directional light for the video layer
+        const videoDirectionalLight = new THREE.DirectionalLight(0xffffff, 0.5);
+        videoDirectionalLight.position.set(0, 5, 15);
+        scene.add(videoDirectionalLight);
 
+        // Spotlight for the video layer
+        const videoSpotlight = new THREE.SpotLight(0xffffff, 0.6);
+        videoSpotlight.position.set(0, 10, 20);
+        videoSpotlight.target.position.set(secondDrawing_x, secondDrawing_y, secondDrawing_z_target);
+        videoSpotlight.angle = Math.PI / 4;
+        videoSpotlight.penumbra = 0.3;
+        scene.add(videoSpotlight);
+        scene.add(videoSpotlight.target);
 
         const controls = new OrbitControls(camera, renderer.domElement);
 
@@ -367,9 +365,9 @@
         };
         scene.add(mural);
 
-        // First Drawing Image
+        // First Drawing Image with reduced opacity and no emissive
         const drawingloader = new THREE.TextureLoader();
-        const opacity = 0.6;
+        const opacity = 0.2;
         const drawingCubeMaterials = [
           new THREE.MeshPhongMaterial({
             opacity: opacity,
@@ -577,6 +575,7 @@
           if (animated_drawing_clicked && !animated_drawing) {
             if (drawing.position.z <= drawing_z_target) {
               drawing.position.z += 0.05;
+              drawingSpotlight.target.position.z = drawing.position.z;
             } else {
               animated_drawing = true;
             }
@@ -683,34 +682,30 @@
       </div>
     </div>
 
-
-        <div class="statlines">
-          <div class="title"></div>
+    <div class="statlines">
+      <div class="title"></div>
+      <div class="table">
+        <div class="col">
+          <img class="drawing" src="" />
           <div class="table">
-            <div class="col">
-              <img class="drawing" src="" />
-              <div class="table">
-                <div class="col" style="margin-top:2vw">
-                  <div class="col" style="margin-top:2vw">
-                    <div class="statline"><span><i><b>
-                      <a href="https://aaronoldenburg.itch.io/fractured-star-projections" target="_blank">
-                        Fractured Star Projections</a>
-                      </b></i></span></div>
-                    <div class="statline"><span>Web Game</span></div>
-                    <div class="statline"><span>2025</span></div>
-                    <div class="statline"><span>
-                      <a href="https://aaronoldenburg.itch.io/" target="_blank">
-                        Aaron Oldenburg</a>
-                      </span></div>
-                  </div>
-                </div>
-              </div>
+            <div class="col" style="margin-top:2vw">
+              <div class="col" style="margin-top:2vw">
+                <div class="statline"><span><i><b>
+                  <a href="https://aaronoldenburg.itch.io/fractured-star-projections" target="_blank">
+                    Fractured Star Projections</a>
+                  </b></i></span></div>
+                <div class="statline"><span>Web Game</span></div>
+                <div class="statline"><span>2025</span></div>
+                <div class="statline"><span>
+                  <a href="https://aaronoldenburg.itch.io/" target="_blank">
+                    Aaron Oldenburg</a>
+                  </span></div>
               </div>
             </div>
           </div>
         </div>
-
-
+      </div>
+    </div>
 
     <canvas id="hero-threejs" style="height: 400px; width:100%"></canvas>
 

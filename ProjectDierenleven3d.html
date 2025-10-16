@@ -316,10 +316,30 @@
         renderer.render(scene, camera);
 
         // Lights
-        const pointLight = new THREE.PointLight(0xffffff);
+        // Lights
+        // Gentle ambient light for base illumination
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.2);
+        scene.add(ambientLight);
+
+        // Moderate directional light pointing at the video layer
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5);
+        directionalLight.position.set(0, 5, 15); // Positioned to light up the video layer
+        scene.add(directionalLight);
+
+        // Focused spotlight on the video layer with reduced intensity
+        const spotlight = new THREE.SpotLight(0xffffff, 0.6);
+        spotlight.position.set(0, 10, 20);
+        spotlight.target.position.set(secondDrawing_x, secondDrawing_y, secondDrawing_z_target);
+        spotlight.angle = Math.PI / 4;
+        spotlight.penumbra = 0.3;
+        scene.add(spotlight);
+        scene.add(spotlight.target);
+
+        // Subtle point light for the rest of the scene
+        const pointLight = new THREE.PointLight(0xffffff, 0.2);
         pointLight.position.set(5, 5, 5);
-        const ambientLight = new THREE.AmbientLight(0xffffff);
-        scene.add(pointLight, ambientLight);
+        scene.add(pointLight);
+
 
         const controls = new OrbitControls(camera, renderer.domElement);
 

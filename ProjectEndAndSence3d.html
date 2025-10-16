@@ -271,15 +271,15 @@
         let drawing_x = 0,
           drawing_y = 0,
           drawing_z = 0,
-          drawing_z_target = 5,
+          drawing_z_target = 3,
           drawing_scale = 3;
-        let drawing_scaleX = 4.5; // Drawing width
+        let drawing_scaleX = 4; // Drawing width
         let secondDrawing_x = 0,
           secondDrawing_y = 0,
           secondDrawing_z = 10,
           secondDrawing_z_target = 12,
           secondDrawing_scale = 2.8;
-        let secondDrawing_scaleX = 4.5; // Third layer width - made wider
+        let secondDrawing_scaleX = 4; // Third layer width - made wider
         let wire_x = 0,
           wire_y = -4,
           wire_z = -4,
@@ -314,10 +314,29 @@
         renderer.render(scene, camera);
 
         // Lights
-        const pointLight = new THREE.PointLight(0xffffff);
+        // Gentle ambient light for base illumination
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.2);
+        scene.add(ambientLight);
+
+        // Moderate directional light pointing at the video layer
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5);
+        directionalLight.position.set(0, 5, 15); // Positioned to light up the video layer
+        scene.add(directionalLight);
+
+        // Focused spotlight on the video layer with reduced intensity
+        const spotlight = new THREE.SpotLight(0xffffff, 0.6);
+        spotlight.position.set(0, 10, 20);
+        spotlight.target.position.set(secondDrawing_x, secondDrawing_y, secondDrawing_z_target);
+        spotlight.angle = Math.PI / 4;
+        spotlight.penumbra = 0.3;
+        scene.add(spotlight);
+        scene.add(spotlight.target);
+
+        // Subtle point light for the rest of the scene
+        const pointLight = new THREE.PointLight(0xffffff, 0.2);
         pointLight.position.set(5, 5, 5);
-        const ambientLight = new THREE.AmbientLight(0xffffff);
-        scene.add(pointLight, ambientLight);
+        scene.add(pointLight);
+
 
         const controls = new OrbitControls(camera, renderer.domElement);
 
