@@ -4558,7 +4558,16 @@ h5 {
   opacity: 1
 }
 
+#team {
+  font-weight: bolder;
+}
+
+#team td {
+  vertical-align: top;
+}
+
 .hero-row {
+  font-weight: bolder;
   position: absolute;
   left: 0;
   top: auto;
@@ -4610,7 +4619,7 @@ h5 {
 
 .hero-text {
   font-size: 2.5vw;
-  font-weight: 300;
+  font-weight: bolder;
   line-height: 1.1;
   text-align: right;
   letter-spacing: -.03em
