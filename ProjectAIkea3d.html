@@ -303,7 +303,8 @@
 
         const clock = new THREE.Clock();
         const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
-        camera.position.set(screen.width > 497 ? -12 : 12, 6, screen.width > 497 ? 25 : 28);
+        //camera.position.set(screen.width > 497 ? -12 : 12, 6, screen.width > 497 ? 25 : 28);
+        camera.position.set(screen.width > 497 ? 9.5 : 12, 9, screen.width > 497 ? 24 : 28);
 
         const renderer = new THREE.WebGLRenderer({
           canvas: document.querySelector('#hero-threejs'),

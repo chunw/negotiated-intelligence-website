@@ -6069,6 +6069,10 @@ h5 {
     line-height: 3vw;
     text-align: center
   }
+
+  .lookbook__head__title {
+    display: none;
+  }
 }
 
 @media screen and (max-width:479px) {
