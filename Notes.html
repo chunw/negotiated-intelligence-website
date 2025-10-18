@@ -197,6 +197,64 @@
       border-top: 2px solid black;
       border-bottom: 2px solid black;
     }
+
+    /* Sidebar Styles */
+    @media (min-width: 768px) {
+      .content-wrapper {
+        display: flex;
+        position: relative;
+      }
+
+      .main-content {
+        flex: 1;
+        padding-right: 320px;
+      }
+
+      .context-sidebar {
+        position: fixed;
+        right: 0;
+        top: 80px;
+        width: 300px;
+        height: calc(100vh - 80px);
+        overflow-y: auto;
+        background: rgba(20, 20, 20, 0.95);
+        border-left: 1px solid #444;
+        padding: 2rem 1.5rem;
+        z-index: 10;
+      }
+
+      .context-sidebar .h-h2.desc {
+        font-size: 1rem;
+        line-height: 1.3;
+        margin-bottom: 0.8rem;
+      }
+
+      .context-sidebar p,
+      .context-sidebar div {
+        font-size: 0.85rem;
+        line-height: 1.4;
+      }
+
+      .context-sidebar ul {
+        font-size: 0.8rem;
+      }
+
+      .context-sidebar b {
+        font-size: 0.9rem;
+      }
+    }
+
+    @media (max-width: 767px) {
+      .context-sidebar {
+        position: relative;
+        width: 100%;
+        padding: 5% 15% 5%;
+      }
+
+      .main-content {
+        width: 100%;
+      }
+    }
   </style>
 
 </head>
@@ -237,8 +295,7 @@
     <!-- Site Navigation Menu -->
     <div class="menu">
       <video class="menu-video-background" autoplay muted loop playsinline>
-        <source src="https://camlab-cave-dance.oss-cn-hongkong.aliyuncs.com/negotiated-intelligence/Daria_Belkina_ElsewhereGallery_16-9_fulres.mp4"
-        type="video/mp4">
+        <source src="https://camlab-cave-dance.oss-cn-hongkong.aliyuncs.com/negotiated-intelligence/Daria_Belkina_ElsewhereGallery_16-9_fulres.mp4" type="video/mp4">
         Your browser does not support the video tag.
       </video>
       <div class="m-inner" style="margin-top: 4vh">
@@ -262,17 +319,6 @@
             <h2 class="h-h2 menu-li linkable thin">Projects</h2>
           </a>
           <br>
-          <!--
-            <div class="menu-li-border"></div> -->
-
-          <!-- <a aria-label="Events" rel="noopener" draggable="false" href="events.html" class="m-link">
-              <h2 class="h-h2 menu-li linkable bold">Events</h2>
-            </a> -->
-
-          <!-- <a aria-label="The Wrong Biennale" target="_blank" rel="noopener" draggable="false" href="https://thewrong.org/" class="m-link">
-            <h2 class="h-h2 menu-li linkable thin">Events | <b>The Wrong Biennale</b></h2>
-          </a> -->
-
         </div>
 
 
@@ -301,146 +347,210 @@
   </div>
 
   <main data-template="home" class="content demo">
+    <div class="content-wrapper">
+      <div class="main-content">
+        <div id="dataset" class="collection" style="margin-top: 0vw">
 
-    <div id="dataset" class="collection" style="margin-top: 0vw">
-
-      <div class="campaign">
-        <div style="text-align: center; " class="lookbook__head__title">
-          <h2 style=" line-height: 1.1; padding-top: 2rem;" class="h-h2 gradient">
-            Curator’s Notes
-
-          </h2>
-          <div class="hero-text">Chun Wang
-          </div>
-        </div>
-        <div class="intro" id="intro" style="padding: 5% 15% 0;">
-          <div class="intro-inner">
-            <div class="intro-desc">
-              <h2 class="h-h2 desc" style="line-height: 1.5;    text-align: left;">
+          <div class="campaign">
+            <div style="text-align: center; " class="lookbook__head__title">
+              <h2 style=" line-height: 1.1; padding-top: 2rem;" class="h-h2 gradient">
+                Curator's Notes
 
               </h2>
-            </div>
-          </div>
-        </div>
-
-
-        <div class="intro" style="padding: 5% 15% 0">
-          <div class="intro-inner">
-            <div class="intro-desc">
-              <h2 class="h-h2 desc" style="line-height: 1.5; margin-bottom: 1rem; text-align: left;">
-                Autonomy in the Age of Acceleration
-
-
-              </h2>
-
-              <div style="line-height: 1.3; font-size: 1.2rem;  text-align: left;">
-                <p>
-                  I often think about the cost of efficiency.
-                  <br><br> Technology offers speed, precision, infinite iteration — yet my tension with AI has never been about the tool itself, but about the logic behind it: the quiet substitution of reflection with optimization.
-                  <br><br> Negotiated Intelligence unearths the creative archives of our time — prompts, drafts, hesitations — revealing the sedimented traces of human decision within algorithmic processes.
-                  Here, technology is not background infrastructure but protagonist: a force that grants new freedoms while quietly eroding others. What we are negotiating is not just authorship, but the boundaries of being human.
-                  <br><br>
-                </p>
-
+              <div class="hero-text">Chun Wang
               </div>
             </div>
-          </div>
-        </div>
+            <div class="intro" id="intro" style="padding: 5% 15% 0;">
+              <div class="intro-inner">
+                <div class="intro-desc">
+                  <h2 class="h-h2 desc" style="line-height: 1.5;    text-align: left;">
 
-
-
-
-        <div class="intro" style="padding: 5% 15% 0">
-          <div class="intro-inner">
-            <div class="intro-desc">
-              <h2 class="h-h2 desc" style="line-height: 1.5; margin-bottom: 1rem; text-align: left;">
-                Power, Agency, and the Archaeology of Process
-
-              </h2>
-
-              <div style="line-height: 1.3; font-size: 1.2rem;  text-align: left;">
-                <p>
-                  Every submission in Negotiated Intelligence carries a negotiation record:
-                <ul>
-                  <li> <b> Human Creator Ledger </b> (artist intentions)<br></li>
-                  <li> <b> Negotiation Arena </b> (exchanges with AI)<br></li>
-                  <li> <b> Emergent Hybridity </b>(synthesized outcomes)</li>
-
-                </ul>Through these strata, the exhibition performs a kind of digital archaeology, excavating how agency circulates between human and machine. The resulting map is less a taxonomy of styles than a record of micro-decisions — of when to
-                yield, when to overwrite, when to let the algorithm speak.
-                <!-- <br><br>AI is not about automation; it’s about agency. If so, our task is to ask: when the agent is no longer human, what remains of the author? -->
-
-                <br><br>
-
-                In the fragments artists shared, I sensed something deeply human:
-                a desire to locate selfhood amid machine logic, to feel through abstraction,
-                to build meaning in the ruins of efficiency.   Daria Belkina's <i>Elsewhere Gallery</i> exemplifies this tension
-                through recursive negotiation. Envisioning gallery space as "a liminal state of transition" where paintings open into other dimensions, Belkina battled AI video models (Kling and Sora) that "repeatedly substituted random imagery
-                into the paintings, producing alien elements." To achieve her vision of seamless portal-like movement, she developed an elaborate method: generate initial frames, manually edit key frames in Photoshop to correct the central
-                painting, re-run generation on updated frames — effectively "tricking" the model — then repeat across 12 transitions. T
-                he AI contributed unexpected aesthetic elements she chose to preserve: "the atmosphere of emptiness, the pink carpet floor, diffused light, and a sense of liminality emerged from AI generations." The final continuous loop became
-                possible only through this exhausting choreography between algorithmic randomness and human coherence.
-                <br><br>Aaron Oldenburg pursued a radically different constraint: using only found AI outputs from MidJourney's public archive. His interactive narrative <i>Fractured Star Projections</i> wove other users' prompts into prose, creating
-                "blind" drawings of AI-generated images — a process that "put attention on how my brain takes in information and translates that into arm movement." He described the contrast between "AI's limitations, seen in the back-and-forth
-                between prompter and generator," and his own "lack of any imaginative limitations," ultimately foregrounding biological over digital neural networks.
-                <br><br>Val Yang's <i>aikea</i> offered perhaps the most intimate negotiation. Working through grief and mental health struggles during a hospitalization, aikea used AI to generate preliminary sketches from rough concepts, then traced
-                these with a
-                Wacom tablet — a process that became "a kind of scaffolding for decision-making when I was too unwell to start from scratch." The AI served not as a replacement but as a companion through creative paralysis: "It gave me permission
-                to be imperfect... to accept a 'good enough' foundation and build from there." Yet this collaboration carried emotional weight. When viewing the final work, aikea struggled with attribution anxiety: "I kept asking myself: is this
-                really mine? Where does my authorship begin?" The project revealed AI as simultaneously liberating and destabilizing — a tool that enabled creation while quietly unsettling the artist's sense of self.
-                <br><br>Marcie Begleiter's <i>Chimera of the Post-Anthropocene </i>moved slowest of all: collecting biological debris from stressed ecosystems, assembling hybrid sculptures, photographing dioramas, writing haiku in response, then
-                feeding
-                those poems to Kling 1.6 for animation. When the AI "ran off on flights of fancy" with hallucinations, Begleiter rejected these outputs to maintain coherence in her speculative world-building. Her sculptures remained "assembled from
-                nature but not of it" — a phrase that could describe the exhibition itself.
-                <br><br>Across these works, artists did not uniformly resist mechanization. Rather, they negotiated with it — sometimes exhaustively correcting through recursive cycles, sometimes rejecting hallucinations as noise, sometimes using
-                AI as emotional scaffolding through creative crises. They redefined creativity not as production, but as choreography: knowing when to lead, when to follow, when to stop the music entirely.
-                <br><br>
-                Within this exhibition, artists reclaim the human slowness of making — the warmth of imperfection, the tenderness of a decision that could have been automated but wasn’t. In doing so, they redefine creativity not as production, but
-                as resistance to mechanical inevitability.
-
-                </p>
-
-
-
-
+                  </h2>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
 
 
-        <div class="intro" style="padding: 5% 15% 0">
-          <div class="intro-inner">
-            <div class="intro-desc">
-              <h2 class="h-h2 desc" style="line-height: 1.5; margin-bottom: 1rem; text-align: left;">
-                Toward an Afterlife of the Archive
-
-              </h2>
-
-              <div style="line-height: 1.3; font-size: 1.2rem;  text-align: left;">
-                <p>
-                  This exhibition is both a living corpus and a research field. The data we gather — gestures, prompts, edits — are not neutral evidence but a collective story of adaptation. In dialogue with scholars like Nicole, these materials will
-                  support new frameworks for understanding creative agency today.
-                  In the long run, I hope Negotiated Intelligence becomes more than an exhibition — a method, even a verb: to negotiate intelligence is to remain awake in an automated world.
+            <div class="intro" style="padding: 5% 15% 0">
+              <div class="intro-inner">
+                <div class="intro-desc">
+                  <h2 class="h-h2 desc" style="line-height: 1.5; margin-bottom: 1rem; text-align: left;">
+                    Autonomy in the Age of Acceleration
 
 
-                </p>
+                  </h2>
 
+                  <div style="line-height: 1.3; font-size: 1.2rem;  text-align: left;">
+                    <p>
+                      I often think about the cost of efficiency.
+                      <br><br> Technology offers speed, precision, infinite iteration — yet my tension with AI has never been about the tool itself, but about the logic behind it: the quiet substitution of reflection with optimization.
+                      <br><br> Negotiated Intelligence unearths the creative archives of our time — prompts, drafts, hesitations — revealing the sedimented traces of human decision within algorithmic processes.
+                      Here, technology is not background infrastructure but protagonist: a force that grants new freedoms while quietly eroding others. What we are negotiating is not just authorship, but the boundaries of being human.
+                      <br><br>
+                    </p>
+
+                  </div>
+                </div>
               </div>
             </div>
+
+
+
+
+            <div class="intro" style="padding: 5% 15% 0">
+              <div class="intro-inner">
+                <div class="intro-desc">
+                  <h2 class="h-h2 desc" style="line-height: 1.5; margin-bottom: 1rem; text-align: left;">
+                    Power, Agency, and the Archaeology of Process
+
+                  </h2>
+
+                  <div style="line-height: 1.3; font-size: 1.2rem;  text-align: left;">
+                    <p>
+                      Every submission in Negotiated Intelligence carries a negotiation record:
+                    <ul>
+                      <li> <b> Human Creator Ledger </b> (artist intentions)<br></li>
+                      <li> <b> Negotiation Arena </b> (exchanges with AI)<br></li>
+                      <li> <b> Emergent Hybridity </b>(synthesized outcomes)</li>
+
+                    </ul>Through these strata, the exhibition performs a kind of digital archaeology, excavating how agency circulates between human and machine. The resulting map is less a taxonomy of styles than a record of micro-decisions — of
+                    when to
+                    yield, when to overwrite, when to let the algorithm speak.
+
+                    <br><br>
+
+                    In the fragments artists shared, I sensed something deeply human:
+                    a desire to locate selfhood amid machine logic, to feel through abstraction,
+                    to build meaning in the ruins of efficiency. Daria Belkina's <i>Elsewhere Gallery</i> exemplifies this tension
+                    through recursive negotiation. Envisioning gallery space as "a liminal state of transition" where paintings open into other dimensions, Belkina battled AI video models (Kling and Sora) that "repeatedly substituted random imagery
+                    into the paintings, producing alien elements." To achieve her vision of seamless portal-like movement, she developed an elaborate method: generate initial frames, manually edit key frames in Photoshop to correct the central
+                    painting, re-run generation on updated frames — effectively "tricking" the model — then repeat across 12 transitions. T
+                    he AI contributed unexpected aesthetic elements she chose to preserve: "the atmosphere of emptiness, the pink carpet floor, diffused light, and a sense of liminality emerged from AI generations." The final continuous loop became
+                    possible only through this exhausting choreography between algorithmic randomness and human coherence.
+                    <br><br>Aaron Oldenburg pursued a radically different constraint: using only found AI outputs from MidJourney's public archive. His interactive narrative <i>Fractured Star Projections</i> wove other users' prompts into prose,
+                    creating
+                    "blind" drawings of AI-generated images — a process that "put attention on how my brain takes in information and translates that into arm movement." He described the contrast between "AI's limitations, seen in the back-and-forth
+                    between prompter and generator," and his own "lack of any imaginative limitations," ultimately foregrounding biological over digital neural networks.
+                    <br><br>Val Yang's <i>aikea</i> offered perhaps the most intimate negotiation. Working through grief and mental health struggles during a hospitalization, aikea used AI to generate preliminary sketches from rough concepts, then
+                    traced
+                    these with a
+                    Wacom tablet — a process that became "a kind of scaffolding for decision-making when I was too unwell to start from scratch." The AI served not as a replacement but as a companion through creative paralysis: "It gave me permission
+                    to be imperfect... to accept a 'good enough' foundation and build from there." Yet this collaboration carried emotional weight. When viewing the final work, aikea struggled with attribution anxiety: "I kept asking myself: is this
+                    really mine? Where does my authorship begin?" The project revealed AI as simultaneously liberating and destabilizing — a tool that enabled creation while quietly unsettling the artist's sense of self.
+                    <br><br>Marcie Begleiter's <i>Chimera of the Post-Anthropocene </i>moved slowest of all: collecting biological debris from stressed ecosystems, assembling hybrid sculptures, photographing dioramas, writing haiku in response, then
+                    feeding
+                    those poems to Kling 1.6 for animation. When the AI "ran off on flights of fancy" with hallucinations, Begleiter rejected these outputs to maintain coherence in her speculative world-building. Her sculptures remained "assembled
+                    from
+                    nature but not of it" — a phrase that could describe the exhibition itself.
+                    <br><br>Across these works, artists did not uniformly resist mechanization. Rather, they negotiated with it — sometimes exhaustively correcting through recursive cycles, sometimes rejecting hallucinations as noise, sometimes using
+                    AI as emotional scaffolding through creative crises. They redefined creativity not as production, but as choreography: knowing when to lead, when to follow, when to stop the music entirely.
+                    <br><br>
+                    Within this exhibition, artists reclaim the human slowness of making — the warmth of imperfection, the tenderness of a decision that could have been automated but wasn't. In doing so, they redefine creativity not as production,
+                    but
+                    as resistance to mechanical inevitability.
+
+                    </p>
+
+
+
+
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="intro" style="padding: 5% 15% 0">
+              <div class="intro-inner">
+                <div class="intro-desc">
+                  <h2 class="h-h2 desc" style="line-height: 1.5; margin-bottom: 1rem; text-align: left;">
+                    Toward an Afterlife of the Archive
+
+                  </h2>
+
+                  <div style="line-height: 1.3; font-size: 1.2rem;  text-align: left;">
+                    <p>
+                      This exhibition is both a living corpus and a research field. The data we gather — gestures, prompts, edits — are not neutral evidence but a collective story of adaptation. In dialogue with scholars like Nicole, these materials
+                      will
+                      support new frameworks for understanding creative agency today.
+                      In the long run, I hope Negotiated Intelligence becomes more than an exhibition — a method, even a verb: to negotiate intelligence is to remain awake in an automated world.
+
+
+                    </p>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
-
-
-
-
-
-
-
       </div>
+
+      <!-- Context Sidebar -->
+      <div class="context-sidebar" id="context" style="margin-top: 10vh">
+        <div class="intro-inner">
+          <div class="intro-desc">
+            <h2 class="h-h2 desc" style="line-height: 1.4; margin-bottom: 1rem; text-align: left;">
+              🧭 Context: Lineages of Negotiated Intelligence
+            </h2>
+
+            <div style="line-height: 1.3; text-align: left; color: #dcdcdc;">
+              <p><b>I. Genealogy of Inquiry</b><br>
+                From <i>archival art</i> to <i>algorithmic agency</i>, this exhibition traces a lineage of artists and thinkers who turned documentation, data, and mediation itself into material.
+                It situates <i>Negotiated Intelligence</i> within a broader movement that treats <b>process as evidence</b> and <b>technology as both medium and subject</b>.
+              </p>
+
+              <!-- <div style="font-family: monospace; font-size: 0.75rem; opacity: 0.8; margin: 0.8rem 0 1.6rem;">
+                Archival Art  →  Media Critique  →  Algorithmic Agency<br>
+                (Boltanski) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (Walid Raad) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (Negotiated Intelligence)
+              </div> -->
+
+              <p><b>Walter Benjamin –</b> "Aura and Technical Reproduction"<br>
+                The aura dissipates when art becomes reproducible; <i>Negotiated Intelligence</i> reclaims aura by exposing the algorithmic process itself — a new authenticity born from mediation.
+              </p>
+
+              <p><b>Michel Foucault –</b> "Archive as Power"<br>
+                Archives are not neutral containers of truth but instruments of control.
+                Here, the creative archive becomes a site of <i>counter-power</i>, revealing how algorithms silently rewrite authorship and intention.
+              </p>
+
+              <p><b>Yuval Noah Harari –</b> "AI as Agent"<br>
+                AI no longer acts as tool but as participant — a decision-maker embedded in creative systems.
+                This exhibition observes that shift not as spectacle but as <i>social archaeology</i>: a record of how agency migrates between human and machine.
+              </p>
+
+              <p><b>II. Negotiation as Method</b><br>
+                Here, <i>Negotiation</i> is proposed as a new curatorial grammar, a method of revealing the push and pull between autonomy and automation.
+                Each artifact on this site is a fragment of that ongoing negotiation: between artist and system, between authorship and surrender, between what can be computed and what must remain felt.
+              </p>
+
+              <p><b>IV. A Power Archaeology</b><br>
+                If modernism sought purity and postmodernism sought plurality, <i>Negotiated Intelligence</i> seeks translucency - to see through the layers of mediation that shape today's creative labor.
+                This is not a critique from the outside, but an excavation from within: a way of studying power through its traces in creative decisions.
+              </p>
+
+              <p><b>Further Reading / Influences</b></p>
+              <ul style="margin-left: 1rem; line-height: 1.5;">
+                <li>Christian Boltanski, <i>Les Archives de C.B.</i> (1989)</li>
+                <li>Walid Raad / The Atlas Group, <i>Hostage: The Bachar Tapes</i> (2001)</li>
+                <li>Harun Farocki, <i>Workers Leaving the Factory in Eleven Decades</i> (2006)</li>
+                <li>Trevor Paglen, <i>Machine Visions</i> series (2016–)</li>
+                <li>Hito Steyerl, <i>How Not to Be Seen</i> (2013)</li>
+                <li>Kate Crawford, <i>Atlas of AI</i> (2021)</li>
+              </ul>
+
+              <div style="margin-top: 2rem; border-top: 1px solid #555; padding-top: 1rem; font-style: italic;">
+                "To curate is to negotiate — between seeing and being seen,<br>
+                between systems of automation and the remains of human choice."<br>
+                — <b>Chun Wang, 2025</b>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
-
-
   </main>
 
 

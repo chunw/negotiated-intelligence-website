@@ -79,12 +79,13 @@
       OrbitControls
     } from 'https://esm.sh/three@0.152.2/examples/jsm/controls/OrbitControls.js';
 
+    const offset = -2;
     // Layer configurations
     const layers = [{
         type: 'image',
         name: 'layer1',
         src: 'assets/img/mytho/concept.png',
-        x: -5,
+        x: offset,
         y: 0,
         z: 0,
         z_target: 5,
@@ -97,7 +98,7 @@
         type: 'video',
         name: 'layer2',
         src: 'https://camlab-cave-dance.oss-cn-hongkong.aliyuncs.com/negotiated-intelligence/creative_divergence.mp4',
-        x: -5,
+        x: offset,
         y: 0,
         z: 0,
         z_target: 10,
@@ -110,7 +111,7 @@
         type: 'image',
         name: 'layer3',
         src: 'assets/img/mytho/generations.png',
-        x: -5,
+        x: offset,
         y: 0,
         z: 0,
         z_target: 15,
