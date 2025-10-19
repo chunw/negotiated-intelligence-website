@@ -199,7 +199,7 @@
     }
 
 
-    /* Grid Overview */
+    /* Grid Overview - Updated with Artifact Cards */
     .grid-overview {
       max-width: 1400px;
       margin: 0 auto;
@@ -213,23 +213,192 @@
       position: relative;
       cursor: pointer;
       border: 1px solid #333;
-      border-radius: 8px;
+      border-radius: 12px;
       overflow: hidden;
-      transition: all 0.3s ease;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
       background: #0a0a0a;
     }
 
     .grid-item:hover {
       border-color: #666;
-      transform: translateY(-4px);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+      transform: translateY(-6px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+    }
+
+    /* Glitch effect on hover */
+    .grid-item:hover .grid-item__image {
+      animation: glitch 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                 oscillate 2s ease-in-out infinite;
+    }
+
+    @keyframes glitch {
+      0%, 100% { transform: translate(0); }
+      20% { transform: translate(-2px, 2px); }
+      40% { transform: translate(-2px, -2px); }
+      60% { transform: translate(2px, 2px); }
+      80% { transform: translate(2px, -2px); }
+    }
+
+    @keyframes oscillate {
+      0%, 100% { filter: hue-rotate(0deg) saturate(1); }
+      50% { filter: hue-rotate(5deg) saturate(1.1); }
+    }
+
+    .grid-item__image-wrapper {
+      position: relative;
+      width: 100%;
+      height: 300px;
+      overflow: hidden;
+      background: #000;
     }
 
     .grid-item__image {
       width: 100%;
-      height: 300px;
+      height: 100%;
       object-fit: cover;
       display: block;
+      transition: transform 0.4s ease;
+    }
+
+    .grid-item:hover .grid-item__image {
+      transform: scale(1.05);
+    }
+
+    /* Badge System */
+    .badge-container {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      z-index: 10;
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .badge {
+      padding: 0.4rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      cursor: help;
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: all 0.3s ease;
+    }
+
+    .badge:hover {
+      transform: scale(1.05);
+    }
+
+    .badge-human {
+      background: rgba(59, 130, 246, 0.3);
+      border-color: rgba(59, 130, 246, 0.5);
+      color: #60a5fa;
+    }
+
+    .badge-ai {
+      background: rgba(168, 85, 247, 0.3);
+      border-color: rgba(168, 85, 247, 0.5);
+      color: #c084fc;
+    }
+
+    .badge-co {
+      background: rgba(249, 115, 22, 0.3);
+      border-color: rgba(249, 115, 22, 0.5);
+      color: #fb923c;
+    }
+
+    .badge-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: currentColor;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    /* Tooltip */
+    .badge-tooltip {
+      position: absolute;
+      bottom: calc(100% + 0.5rem);
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0, 0, 0, 0.95);
+      color: #fff;
+      padding: 0.6rem 1rem;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      font-style: italic;
+      white-space: nowrap;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      z-index: 100;
+    }
+
+    .badge:hover .badge-tooltip {
+      opacity: 1;
+    }
+
+    .badge-tooltip::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 5px solid transparent;
+      border-top-color: rgba(0, 0, 0, 0.95);
+    }
+
+    /* Artifact Label */
+    .artifact-label {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      padding: 0.3rem 0.7rem;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 6px;
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #888;
+      z-index: 10;
+    }
+
+    /* Scan line effect on hover */
+    .grid-item__image-wrapper::before {
+      content: '';
+      position: absolute;
+      top: -100%;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        to bottom,
+        transparent 0%,
+        rgba(255, 255, 255, 0.1) 50%,
+        transparent 100%
+      );
+      opacity: 0;
+      transition: all 0.6s ease;
+      z-index: 5;
+    }
+
+    .grid-item:hover .grid-item__image-wrapper::before {
+      top: 100%;
+      opacity: 1;
     }
 
     .grid-item__info {
@@ -527,6 +696,11 @@
       .slideshow__list {
         width: 90%;
       }
+
+      .badge-tooltip {
+        white-space: normal;
+        max-width: 200px;
+      }
     }
   </style>
 
@@ -644,97 +818,185 @@
           <h2>Negotiation Arena</h2>
         </div>
 
-        <!-- Grid Overview -->
+        <!-- Grid Overview - Artifact Cards -->
         <div class="grid-overview">
           <div class="grid-item" data-index="0">
-            <img src="assets/img/avemaria/error.png" alt="Building blocks" class="grid-item__image">
+            <div class="grid-item__image-wrapper">
+              <div class="badge-container">
+                <div class="badge badge-human">
+                  <span class="badge-dot"></span>
+                  <span>Human Override</span>
+                  <div class="badge-tooltip">A moment of human hesitation.</div>
+                </div>
+              </div>
+              <div class="artifact-label">Negotiation Artifact</div>
+              <img src="assets/img/avemaria/error.png" alt="Building blocks" class="grid-item__image">
+            </div>
             <div class="grid-item__info">
               <div class="grid-item__title">Building Blocks for Chimera</div>
-              <div class="grid-item__caption">Biological samples collected from ecosystems</div>
+              <div class="grid-item__caption">Biological samples collected from ecosystems — the artist reclaims materiality</div>
             </div>
           </div>
 
           <div class="grid-item" data-index="1">
-            <img src="assets/img/avemaria/Process.png" alt="Debris sculpture" class="grid-item__image">
+            <div class="grid-item__image-wrapper">
+              <div class="badge-container">
+                <div class="badge badge-co">
+                  <span class="badge-dot"></span>
+                  <span>Co-Adaptation</span>
+                  <div class="badge-tooltip">Machine and matter in dialogue.</div>
+                </div>
+              </div>
+              <div class="artifact-label">Negotiation Artifact</div>
+              <img src="assets/img/avemaria/Process.png" alt="Debris sculpture" class="grid-item__image">
+            </div>
             <div class="grid-item__info">
               <div class="grid-item__title">Debris Sculptures</div>
-              <div class="grid-item__caption">Hybrid forms between nature and artifice</div>
+              <div class="grid-item__caption">Hybrid forms between nature and artifice — a negotiated space</div>
             </div>
           </div>
 
           <div class="grid-item" data-index="2">
-            <img src="assets/img/avemaria/Final.png" alt="Backstage setup" class="grid-item__image">
+            <div class="grid-item__image-wrapper">
+              <div class="badge-container">
+                <div class="badge badge-human">
+                  <span class="badge-dot"></span>
+                  <span>Human Override</span>
+                  <div class="badge-tooltip">The hand insists on its presence.</div>
+                </div>
+              </div>
+              <div class="artifact-label">Negotiation Artifact</div>
+              <img src="assets/img/avemaria/Final.png" alt="Backstage setup" class="grid-item__image">
+            </div>
             <div class="grid-item__info">
               <div class="grid-item__title">Backstage at The Dioramas</div>
-              <div class="grid-item__caption">Setting up photographic tableaus</div>
+              <div class="grid-item__caption">Setting up photographic tableaus — manual gesture before transformation</div>
             </div>
           </div>
 
           <div class="grid-item" data-index="3">
-            <img src="assets/img/haiku/tableau.png" alt="Photo tableau" class="grid-item__image">
+            <div class="grid-item__image-wrapper">
+              <div class="badge-container">
+                <div class="badge badge-co">
+                  <span class="badge-dot"></span>
+                  <span>Co-Adaptation</span>
+                  <div class="badge-tooltip">Neither follows, both lead.</div>
+                </div>
+              </div>
+              <div class="artifact-label">Negotiation Artifact</div>
+              <img src="assets/img/haiku/tableau.png" alt="Photo tableau" class="grid-item__image">
+            </div>
             <div class="grid-item__info">
               <div class="grid-item__title">Photo Tableau</div>
-              <div class="grid-item__caption">Final photographic compositions</div>
+              <div class="grid-item__caption">Final photographic compositions — human curation meets machine vision</div>
             </div>
           </div>
 
           <div class="grid-item" data-index="4">
-            <img src="assets/img/haiku/backstage 3.png" alt="AI collaboration" class="grid-item__image">
+            <div class="grid-item__image-wrapper">
+              <div class="badge-container">
+                <div class="badge badge-ai">
+                  <span class="badge-dot"></span>
+                  <span>AI Divergence</span>
+                  <div class="badge-tooltip">The AI insisted on its own path.</div>
+                </div>
+              </div>
+              <div class="artifact-label">Negotiation Artifact</div>
+              <img src="assets/img/haiku/backstage 3.png" alt="AI collaboration" class="grid-item__image">
+            </div>
             <div class="grid-item__info">
               <div class="grid-item__title">AI Co-creator Profile</div>
-              <div class="grid-item__caption">Photography + Poetry & AI = Moving Images</div>
+              <div class="grid-item__caption">Photography + Poetry & AI = Moving Images — where algorithms dream</div>
             </div>
           </div>
 
           <div class="grid-item" data-index="5">
-            <img src="assets/img/haiku/AI.png" alt="AI interpretation" class="grid-item__image">
+            <div class="grid-item__image-wrapper">
+              <div class="badge-container">
+                <div class="badge badge-co">
+                  <span class="badge-dot"></span>
+                  <span>Co-Adaptation</span>
+                  <div class="badge-tooltip">Poetry becomes motion through negotiation.</div>
+                </div>
+              </div>
+              <div class="artifact-label">Negotiation Artifact</div>
+              <img src="assets/img/haiku/AI.png" alt="AI interpretation" class="grid-item__image">
+            </div>
             <div class="grid-item__info">
               <div class="grid-item__title">AI Interpretation of Poetry</div>
-              <div class="grid-item__caption">Tableau are shared with an AI collaborator
-                who is prompted with Haiku.
-                Movement added to Diorama
-                Photographs by AI Collaborator
-                is an interpretation of the poetry.
-              </div>
+              <div class="grid-item__caption">Tableau shared with AI prompted by Haiku — movement as poetic interpretation</div>
             </div>
           </div>
 
           <div class="grid-item" data-index="6">
-            <img src="assets/img/haiku/Doc2.png" alt="Video editing" class="grid-item__image">
+            <div class="grid-item__image-wrapper">
+              <div class="badge-container">
+                <div class="badge badge-human">
+                  <span class="badge-dot"></span>
+                  <span>Human Override</span>
+                  <div class="badge-tooltip">Manual editing shapes machine output.</div>
+                </div>
+              </div>
+              <div class="artifact-label">Negotiation Artifact</div>
+              <img src="assets/img/haiku/Doc2.png" alt="Video editing" class="grid-item__image">
+            </div>
             <div class="grid-item__info">
               <div class="grid-item__title">Video Editing Process</div>
-              <div class="grid-item__caption">Most raw clips are 5 seconds and are edited in Capcut.</div>
+              <div class="grid-item__caption">Most raw clips are 5 seconds and edited in Capcut — human curation of algorithmic time</div>
             </div>
           </div>
 
           <div class="grid-item" data-index="7">
-            <img src="assets/img/haiku/handwritting.png" alt="Handwritten haiku" class="grid-item__image">
-            <div class="grid-item__info">
-              <div class="grid-item__title">Human Reponses with Poetry </div>
-              <div class="grid-item__caption">Haiku / Poems written by human artist in
-                response to the diorama images.
+            <div class="grid-item__image-wrapper">
+              <div class="badge-container">
+                <div class="badge badge-human">
+                  <span class="badge-dot"></span>
+                  <span>Human Override</span>
+                  <div class="badge-tooltip">The hand writes back to the machine.</div>
+                </div>
               </div>
+              <div class="artifact-label">Negotiation Artifact</div>
+              <img src="assets/img/haiku/handwritting.png" alt="Handwritten haiku" class="grid-item__image">
+            </div>
+            <div class="grid-item__info">
+              <div class="grid-item__title">Human Response with Poetry</div>
+              <div class="grid-item__caption">Haiku written by human artist in response to diorama images — analog resistance</div>
             </div>
           </div>
 
           <div class="grid-item" data-index="8">
-            <img src="assets/img/haiku/AI2.png" alt="Creative divergence" class="grid-item__image">
+            <div class="grid-item__image-wrapper">
+              <div class="badge-container">
+                <div class="badge badge-ai">
+                  <span class="badge-dot"></span>
+                  <span>AI Divergence</span>
+                  <div class="badge-tooltip">Unexpected algorithmic direction.</div>
+                </div>
+              </div>
+              <div class="artifact-label">Negotiation Artifact</div>
+              <img src="assets/img/haiku/AI2.png" alt="Creative divergence" class="grid-item__image">
+            </div>
             <div class="grid-item__info">
               <div class="grid-item__title">Creative Divergence</div>
-              <div class="grid-item__caption">
-                I am looking for consistency in my world building.
-                The AI collaborator, on occasion, will run off on flights of fancy.
-                Though entertaining, the hallucinations do not make the final cut</div>
+              <div class="grid-item__caption">AI collaborator explores tangents — world-building meets algorithmic desire</div>
             </div>
           </div>
 
           <div class="grid-item" data-index="9">
-            <img src="assets/img/haiku/AI3.png" alt="AI hallucinations" class="grid-item__image">
-            <div class="grid-item__info">
-              <div class="grid-item__title">Creative Divergence </div>
-              <div class="grid-item__caption">
-                Rejected imagery
+            <div class="grid-item__image-wrapper">
+              <div class="badge-container">
+                <div class="badge badge-ai">
+                  <span class="badge-dot"></span>
+                  <span>AI Divergence</span>
+                  <div class="badge-tooltip">The AI hallucinates — rejected but revealing.</div>
+                </div>
               </div>
+              <div class="artifact-label">Negotiation Artifact</div>
+              <img src="assets/img/haiku/AI3.png" alt="AI hallucinations" class="grid-item__image">
+            </div>
+            <div class="grid-item__info">
+              <div class="grid-item__title">Creative Divergence: Flights of Fancy</div>
+              <div class="grid-item__caption">AI flights of fancy — entertaining hallucinations that don't make the final cut</div>
             </div>
           </div>
         </div>
