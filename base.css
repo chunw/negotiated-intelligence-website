@@ -1,3 +1,12 @@
+.slideshow__counter {
+  position: absolute;
+  right: 50%;
+}
+.slideshow__pagination {
+  position: absolute;
+  right: 36%;
+}
+
 
 html {
   font-family: sans-serif;
@@ -894,6 +903,10 @@ textarea.w-input, textarea.w-select {
 }
 
 @media screen and (max-width:479px) {
+  .slideshow__pagination {
+    right: 20%;
+    transform: scale(0.6);
+  }
 
   /* mobile phones */
   .footer .h-h2 {
