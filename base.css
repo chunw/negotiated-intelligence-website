@@ -8,6 +8,15 @@
 }
 
 
+    .statlines::after {
+      content: "Click on the layers in the 3D scene to explore the negotiation between artist and AI";
+      display: block;
+      margin-top: 1rem;
+      font-size: 0.65rem;
+      font-style: italic;
+      opacity: 0.8;
+    }
+
 html {
   font-family: sans-serif;
   -ms-text-size-adjust: 100%;

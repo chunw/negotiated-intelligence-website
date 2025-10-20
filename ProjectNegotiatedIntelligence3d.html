@@ -219,7 +219,8 @@
       mural.scale.set(mural_scaleX, mural_scale, mural_scale);
       mural.position.set(mural_x, mural_y, mural_z);
       mural.userData = {
-        isMuralLayer: true
+        isMuralLayer: true,
+        clickUrl: 'Notes.html'
       };
       scene.add(mural);
 
@@ -261,6 +262,10 @@
       const geometry = new THREE.BoxGeometry(3, 3, 0.01);
       drawing = new THREE.Mesh(geometry, drawingCubeMaterials);
       drawing.scale.set(drawing_scaleX, drawing_scale, drawing_scale);
+      drawing.userData = {
+        isDrawingLayer: true,
+        clickUrl: 'Notes.html'
+      };
       scene.add(drawing);
       drawing.position.set(drawing_x, drawing_y, drawing_z);
 
@@ -317,7 +322,8 @@
         secondDrawing.scale.set(secondDrawing_scaleX, secondDrawing_scale, secondDrawing_scale);
         secondDrawing.position.set(secondDrawing_x, secondDrawing_y, secondDrawing_z);
         secondDrawing.userData = {
-          isVideoLayer: true
+          isVideoLayer: true,
+          clickUrl: './Projects.html'
         };
         scene.add(secondDrawing);
         window.videoOpacity = videoOpacity;
@@ -479,21 +485,50 @@
       animated_drawing = false;
       animated_secondDrawing = false;
 
-      // Click handler
+      // Enhanced click handler following file 1 approach
       function onCanvasClick(event) {
-        if (!ENABLE_3D_TEXT || textMeshes.length === 0) return;
-
         const rect = renderer.domElement.getBoundingClientRect();
         mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
         mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
 
         raycaster.setFromCamera(mouse, camera);
-        const intersects = raycaster.intersectObjects(textMeshes);
 
-        if (intersects.length > 0) {
-          const object = intersects[0].object;
-          if (object.userData.isClickable && object.userData.url) {
-            window.location.href = object.userData.url;
+        // Check all scene objects including layers and text
+        const allObjects = [...scene.children, ...textMeshes];
+        const intersects = raycaster.intersectObjects(allObjects);
+
+        // Process intersections following file 1's approach
+        for (let i = 0; i < intersects.length; i++) {
+          const object = intersects[i].object;
+
+          // Check for mural layer (opens in same window)
+          if (object.userData && object.userData.isMuralLayer) {
+            if (object.userData.clickUrl) {
+                window.open(object.userData.clickUrl, '_blank');
+            }
+            break;
+          }
+
+          // Check for video layer (opens in new tab like file 1)
+          if (object.userData && object.userData.isVideoLayer) {
+            if (object.userData.clickUrl) {
+              window.open('index.html', '');
+            }
+            break;
+          }
+
+          // Check for drawing layer
+          if (object.userData && object.userData.isDrawingLayer) {
+            if (object.userData.clickUrl) {
+              window.open(object.userData.clickUrl, '_blank');
+            }
+            break;
+          }
+
+          // Check for text clickables
+          if (object.userData && object.userData.isClickable && object.userData.url) {
+            window.open(object.userData.url, '_blank');
+            break;
           }
         }
       }
@@ -502,28 +537,39 @@
 
       // Hover effect
       function onPointerMove(event) {
-        if (!ENABLE_3D_TEXT || textMeshes.length === 0) return;
-
         const rect = renderer.domElement.getBoundingClientRect();
         mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
         mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
 
         raycaster.setFromCamera(mouse, camera);
-        const intersects = raycaster.intersectObjects(textMeshes);
 
-        // Reset all texts
-        textMeshes.forEach(mesh => {
-          if (mesh.material.emissive) {
-            mesh.material.emissive.setHex(0x444444);
-          }
-        });
+        // Check both layers and text meshes
+        const allObjects = [mural, drawing];
+        if (secondDrawing) allObjects.push(secondDrawing);
+        if (ENABLE_3D_TEXT && textMeshes.length > 0) {
+          allObjects.push(...textMeshes);
+        }
 
-        // Highlight hovered
+        const intersects = raycaster.intersectObjects(allObjects);
+
+        // Reset text highlights
+        if (ENABLE_3D_TEXT) {
+          textMeshes.forEach(mesh => {
+            if (mesh.material.emissive) {
+              mesh.material.emissive.setHex(0x444444);
+            }
+          });
+        }
+
+        // Set cursor and highlight
         if (intersects.length > 0) {
           const object = intersects[0].object;
-          if (object.material.emissive) {
+
+          // Highlight text if hovering over it
+          if (object.material && object.material.emissive) {
             object.material.emissive.setHex(0x666666);
           }
+
           renderer.domElement.style.cursor = 'pointer';
         } else {
           renderer.domElement.style.cursor = 'default';
@@ -595,6 +641,8 @@
             </b></i></span></div>
       <div class="statline"><span>Website</span></div>
       <div class="statline"><span>2025</span></div>
+
+
     </div>
 
     <canvas id="hero-threejs"></canvas>
