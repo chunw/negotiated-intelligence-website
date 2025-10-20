@@ -6,7 +6,40 @@
   position: absolute;
   right: 36%;
 }
+/* Translation Button and Text */
+.translation-button {
+  background: #1a1a1a;
+  border: 1px solid #444;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  margin-top: 0.5rem;
+  transition: all 0.3s ease;
+  display: inline-block;
+}
 
+.translation-button:hover {
+  background: #2a2a2a;
+  border-color: #666;
+}
+
+.translation-text {
+  display: none;
+  margin-top: 1rem;
+  padding: 1rem;
+  background: #0a0a0a;
+  border: 1px solid #333;
+  border-radius: 4px;
+  color: #ccc;
+  line-height: 1.6;
+  font-size: 0.9rem;
+}
+
+.translation-text.visible {
+  display: block;
+}
 
     .statlines::after {
       content: "Click on the layers in the 3D scene to explore the negotiation between artist and AI";
