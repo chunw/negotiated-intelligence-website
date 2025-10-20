@@ -6085,7 +6085,7 @@ h5 {
     text-align: center
   }
 
-  .lookbook__head__title {
+  #exploreheader.lookbook__head__title {
     display: none;
   }
 }
