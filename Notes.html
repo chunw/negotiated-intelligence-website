@@ -198,61 +198,97 @@
       border-bottom: 2px solid black;
     }
 
-    /* Sidebar Styles */
-    @media (min-width: 768px) {
-      .content-wrapper {
-        display: flex;
-        position: relative;
-      }
-
-      .main-content {
-        flex: 1;
-        padding-right: 320px;
-      }
-
-      .context-sidebar {
-        position: fixed;
-        right: 0;
-        top: 80px;
-        width: 300px;
-        height: calc(100vh - 80px);
-        overflow-y: auto;
-        background: rgba(20, 20, 20, 0.95);
-        border-left: 1px solid #444;
-        padding: 2rem 1.5rem;
-        z-index: 10;
-      }
-
-      .context-sidebar .h-h2.desc {
-        font-size: 1rem;
-        line-height: 1.3;
-        margin-bottom: 0.8rem;
-      }
-
-      .context-sidebar p,
-      .context-sidebar div {
-        font-size: 0.85rem;
-        line-height: 1.4;
-      }
-
-      .context-sidebar ul {
-        font-size: 0.8rem;
-      }
-
-      .context-sidebar b {
-        font-size: 0.9rem;
-      }
+    /* Three Column Layout */
+    .main-container {
+      display: flex;
+      flex-direction: row;
+      gap: 0;
+      width: 100%;
     }
 
-    @media (max-width: 767px) {
-      .context-sidebar {
-        position: relative;
-        width: 100%;
-        padding: 5% 15% 5%;
+    /* Left Sidebar - 22% */
+    .left-sidebar {
+      flex: 0 0 22%;
+      padding: 2rem 2rem 2rem 3rem;
+      color: #dcdcdc;
+      font-size: 0.9rem;
+      position: sticky;
+      top: 80px;
+      height: fit-content;
+      max-height: calc(100vh - 80px);
+      overflow-y: auto;
+      background: rgba(20, 20, 20, 0.5);
+      border-right: 1px solid #333;
+    }
+
+    /* Center Content - 56% */
+    .center-content {
+      flex: 1;
+      padding: 0 2rem;
+    }
+
+    /* Right Sidebar - 22% */
+    .context-sidebar {
+      flex: 0 0 22%;
+      padding: 2rem 3rem 2rem 2rem;
+      color: #dcdcdc;
+      font-size: 0.9rem;
+      position: sticky;
+      top: 80px;
+      height: fit-content;
+      max-height: calc(100vh - 80px);
+      overflow-y: auto;
+      background: rgba(20, 20, 20, 0.5);
+      border-left: 1px solid #333;
+    }
+
+    .context-sidebar .h-h2.desc {
+      font-size: 1rem;
+      line-height: 1.3;
+      margin-bottom: 0.8rem;
+    }
+
+    .context-sidebar p,
+    .context-sidebar div {
+      font-size: 0.85rem;
+      line-height: 1.4;
+    }
+
+    /* Mobile: Stack vertically with left sidebar at bottom */
+    @media (max-width: 991px) {
+      .main-container {
+        flex-direction: column;
       }
 
-      .main-content {
+      .left-sidebar {
+        order: 3;
+        flex: none;
         width: 100%;
+        position: relative;
+        max-height: none;
+        padding: 3rem 5%;
+        margin-top: 3rem;
+        border-right: none;
+        border-top: 1px solid #555;
+      }
+
+      .center-content {
+        order: 1;
+        flex: none;
+        width: 100%;
+        padding: 0;
+      }
+
+      .context-sidebar {
+        order: 2;
+        flex: none;
+        width: 100%;
+        position: relative;
+        max-height: none;
+        padding: 3rem 5%;
+        margin-top: 3rem;
+        border-left: none;
+        border-top: 1px solid #555;
       }
     }
   </style>
@@ -347,6 +383,40 @@
   </div>
 
   <main data-template="home" class="content demo">
+    <div class="main-container">
+      
+      <!-- Left Sidebar -->
+      <div class="left-sidebar" id="left-column">
+        <div class="intro-inner">
+          <div class="intro-desc">
+            <h2 class="h-h2 desc" style="font-size: 1.1rem; line-height: 1.4; margin-bottom: 1rem; text-align: left;">
+              Left Column Title
+            </h2>
+
+            <div style="margin-top: 2rem; border-top: 1px solid #555; padding-top: 1rem; font-style: italic;">
+              "Add your quote here"<br>
+              — <b>Author Name</b>
+            </div>
+
+            <div style="line-height: 1.3; text-align: left; color: #dcdcdc;">
+              <br><br>
+
+              <p><b>Section Title</b><br>
+                Add your left column content here. This column will appear at the bottom on mobile devices.
+              </p>
+
+              <br>
+              <br>
+              <br>
+              <br>
+              <br>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Center Content -->
+      <div class="center-content">
     <div class="content-wrapper">
       <div class="main-content">
         <div id="dataset" class="collection" style="margin-top: 0vw">
@@ -540,8 +610,11 @@
         </div>
       </div>
 
-      <!-- Context Sidebar -->
-      <div class="context-sidebar" id="context" style="margin-top: 8vh">
+      </div>
+    </div>
+
+      <!-- Right Sidebar (Context) -->
+      <div class="context-sidebar" id="context">
         <div class="intro-inner">
           <div class="intro-desc">
             <h2 class="h-h2 desc" style="font-size: 1.1rem; line-height: 1.4; margin-bottom: 1rem; text-align: left;">
@@ -616,10 +689,6 @@
     </div>
   </main>
 
-
-
-
-  </main>
   <div class="grid-event w-embed">
     <style>
       .grid-w {
