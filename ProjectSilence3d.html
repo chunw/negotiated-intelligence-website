@@ -202,7 +202,7 @@
       font-size: 0.7rem;
       max-width: 250px;
     }
-  </style><!-- Google tag (gtag.js) -->
+  </style>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-Q1RLJMGX8P"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -235,7 +235,6 @@
       <div data-w-id="53ee3c76-c537-5088-f0d4-fc00e8f8c98a" class="wait-bar">
         <div class="outer hero-t" style="line-height: 150%">
           <div class="text disclaimer load" style="font-size: 12px">
-            <!-- CAMLab is a multidisciplinary <br /> research lab at Harvard University. -->
           </div>
         </div>
         <div class="progress-bar">
@@ -271,27 +270,29 @@
         let animated_drawing, animated_secondDrawing, animated_wire;
         let animated_drawing_clicked, animated_secondDrawing_clicked, animated_wire_clicked;
         let mural, drawing, secondDrawing, wire;
+        let hoveredObject = null;
+        let muralOutline, drawingOutline, secondDrawingOutline;
 
         // Constants
         const Z_offset = 0;
         let mural_x = 2,
           mural_y = 0,
           mural_z = -5,
-          mural_scale = 5; // Increased height from 3 to 5
-        let mural_scaleX = 4; // Mural width
+          mural_scale = 5;
+        let mural_scaleX = 4;
         let drawing_x = 0,
           drawing_y = 0,
           drawing_z = 0,
           drawing_z_target = 3,
-          drawing_scale = 5; // INCREASED from 3 to 5 to match mural height
-        let drawing_scaleX = 3; // DECREASED from 4.5 to 3 to make narrower
+          drawing_scale = 5;
+        let drawing_scaleX = 3;
 
         let secondDrawing_x = 0,
           secondDrawing_y = 0,
           secondDrawing_z = 10,
           secondDrawing_z_target = 15,
           secondDrawing_scale = 2.8;
-        let secondDrawing_scaleX = 4.5; // Third layer width - made wider
+        let secondDrawing_scaleX = 4.5;
         let wire_x = 0,
           wire_y = -4,
           wire_z = -4,
@@ -346,10 +347,30 @@
 
         // Add userData to identify this as the mural layer
         mural.userData = {
-          isMuralLayer: true
+          isMuralLayer: true,
+          originalEmissive: 0x000000,
+          isInteractive: true
         };
 
         scene.add(mural);
+
+        // Create outline for mural
+        const muralEdges = new THREE.EdgesGeometry(mural.geometry);
+        const muralLineMaterial = new THREE.LineBasicMaterial({ 
+          color: 0xffff00, 
+          linewidth: 3,
+          transparent: true,
+          opacity: 0
+        });
+        muralOutline = new THREE.LineSegments(muralEdges, muralLineMaterial);
+        muralOutline.scale.set(
+          mural.scale.x * 1.015, 
+          mural.scale.y * 1.015, 
+          mural.scale.z * 1.015
+        );
+        muralOutline.position.copy(mural.position);
+        muralOutline.rotation.copy(mural.rotation);
+        scene.add(muralOutline);
 
         // First Drawing Image
         const drawingloader = new THREE.TextureLoader();
@@ -391,10 +412,33 @@
         drawing.scale.set(drawing_scaleX, drawing_scale, drawing_scale);
         scene.add(drawing);
         drawing.position.set(drawing_x, drawing_y, drawing_z);
+        
+        drawing.userData = {
+          isDrawingLayer: true,
+          isInteractive: true
+        };
+
+        // Create outline for drawing layer
+        const drawingEdges = new THREE.EdgesGeometry(drawing.geometry);
+        const drawingLineMaterial = new THREE.LineBasicMaterial({ 
+          color: 0xffff00, 
+          linewidth: 3,
+          transparent: true,
+          opacity: 0
+        });
+        drawingOutline = new THREE.LineSegments(drawingEdges, drawingLineMaterial);
+        drawingOutline.scale.set(
+          drawing.scale.x * 1.015, 
+          drawing.scale.y * 1.015, 
+          drawing.scale.z * 1.015
+        );
+        drawingOutline.position.copy(drawing.position);
+        drawingOutline.rotation.copy(drawing.rotation);
+        scene.add(drawingOutline);
 
         // Image Layer (replaces video layer)
         const imageLoader = new THREE.TextureLoader();
-        const imageTexture = imageLoader.load(SECOND_DRAWING); // Using the SECOND_DRAWING path
+        const imageTexture = imageLoader.load(SECOND_DRAWING);
 
         const imageOpacity = 0.9;
         const imageCubeMaterials = [
@@ -435,14 +479,31 @@
         secondDrawing.scale.set(secondDrawing_scaleX, secondDrawing_scale, secondDrawing_scale);
         secondDrawing.position.set(secondDrawing_x, secondDrawing_y, secondDrawing_z);
 
-        // Add userData to identify this as the image layer
         secondDrawing.userData = {
-          isImageLayer: true
+          isImageLayer: true,
+          isInteractive: true
         };
 
         scene.add(secondDrawing);
 
-        // Store imageOpacity for animation
+        // Create outline for secondDrawing layer
+        const secondDrawingEdges = new THREE.EdgesGeometry(secondDrawing.geometry);
+        const secondDrawingLineMaterial = new THREE.LineBasicMaterial({ 
+          color: 0xffff00, 
+          linewidth: 3,
+          transparent: true,
+          opacity: 0
+        });
+        secondDrawingOutline = new THREE.LineSegments(secondDrawingEdges, secondDrawingLineMaterial);
+        secondDrawingOutline.scale.set(
+          secondDrawing.scale.x * 1.015, 
+          secondDrawing.scale.y * 1.015, 
+          secondDrawing.scale.z * 1.015
+        );
+        secondDrawingOutline.position.copy(secondDrawing.position);
+        secondDrawingOutline.rotation.copy(secondDrawing.rotation);
+        scene.add(secondDrawingOutline);
+
         window.imageOpacity = imageOpacity;
 
         if (!animated_drawing_clicked) animated_drawing_clicked = true;
@@ -451,6 +512,66 @@
         animated_drawing = false;
         animated_secondDrawing = false;
         animated_wire = false;
+
+        // Hover highlighting function
+        function resetHoverState(object) {
+          if (!object) return;
+          
+          if (object === mural && muralOutline) {
+            muralOutline.material.opacity = 0;
+          } else if (object === drawing && drawingOutline) {
+            drawingOutline.material.opacity = 0;
+          } else if (object === secondDrawing && secondDrawingOutline) {
+            secondDrawingOutline.material.opacity = 0;
+          }
+        }
+
+        function setHoverState(object) {
+          if (!object) return;
+          
+          if (object === mural && muralOutline) {
+            muralOutline.material.opacity = 1;
+          } else if (object === drawing && drawingOutline) {
+            drawingOutline.material.opacity = 1;
+          } else if (object === secondDrawing && secondDrawingOutline) {
+            secondDrawingOutline.material.opacity = 1;
+          }
+        }
+
+        // Hover event handler
+        function onCanvasHover(event) {
+          const rect = renderer.domElement.getBoundingClientRect();
+          mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+          mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+
+          raycaster.setFromCamera(mouse, camera);
+          const intersects = raycaster.intersectObjects(scene.children);
+
+          let newHoveredObject = null;
+
+          for (let i = 0; i < intersects.length; i++) {
+            const object = intersects[i].object;
+            if (object.userData && object.userData.isInteractive) {
+              newHoveredObject = object;
+              break;
+            }
+          }
+
+          if (newHoveredObject !== hoveredObject) {
+            if (hoveredObject) {
+              resetHoverState(hoveredObject);
+            }
+            
+            hoveredObject = newHoveredObject;
+            
+            if (hoveredObject) {
+              setHoverState(hoveredObject);
+              renderer.domElement.style.cursor = 'pointer';
+            } else {
+              renderer.domElement.style.cursor = 'default';
+            }
+          }
+        }
 
         // Click event handler
         function onCanvasClick(event) {
@@ -476,13 +597,12 @@
         }
 
         renderer.domElement.addEventListener('click', onCanvasClick);
+        renderer.domElement.addEventListener('mousemove', onCanvasHover);
 
         // Animation Loop
         function animate() {
           requestAnimationFrame(animate);
 
-          // const pos = `Camera: x:${camera.position.x.toFixed(2)}, y:${camera.position.y.toFixed(2)}, z:${camera.position.z.toFixed(2)}`;
-          // console.log(pos);
           const time = -performance.now() * 0.0003;
           controls.update();
 
@@ -490,12 +610,15 @@
           if (animated_drawing_clicked && !animated_drawing) {
             if (drawing.position.z <= drawing_z_target) {
               drawing.position.z += 0.05;
+              if (drawingOutline) {
+                drawingOutline.position.z = drawing.position.z;
+              }
             } else {
               animated_drawing = true;
             }
           }
 
-          // Image layer animation (replaces video layer animation)
+          // Image layer animation
           if (secondDrawing && animated_secondDrawing_clicked && !animated_secondDrawing) {
             for (let i = 0; i < secondDrawing.material.length; i++) {
               const material = secondDrawing.material[i];
@@ -539,17 +662,6 @@
         }
 
         animate();
-
-        if (OUTLINE_ON_MOUSEPOINT) {
-          renderer.domElement.addEventListener('pointermove', onPointerMove);
-        }
-
-        function onPointerMove(event) {
-          if (event.isPrimary === false) return;
-
-          mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-          mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-        }
       </script>
 
       <div class="wait">
