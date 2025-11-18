@@ -808,6 +808,7 @@ textarea.w-input, textarea.w-select {
 }
 
 @media screen and (max-width:991px) {
+ 
   .w-container {
     max-width: 728px
   }
@@ -6092,7 +6093,8 @@ h5 {
   }
 }
 
-@media screen and (max-width:767px) {
+@media screen and (max-width:767px) { 
+
   .grid-2-columns {
     display: -webkit-box;
     display: -webkit-flex;
