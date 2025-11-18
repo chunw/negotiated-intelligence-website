@@ -608,7 +608,7 @@
   <main data-template="home" style="height: 100%;">
     <div class="split left" id="mobileMenu">
       <!-- Start Navigation Menu -->
-      <div class="submenu" style="transform: scale(0.8); margin-top:-10vh">
+      <div class="submenu" style="transform: scale(0.8); margin-top:-11vh">
         
         <a aria-label="Exhibition" rel="noopener" draggable="false" data-project="ProjectNegotiatedIntelligence" data-slug="NegotiatedIntelligence" data-title="<i>Negotiated Intelligence</i>" class="project-link">
           <h2 class="h-h2 menu-li linkable thin bold" style="font-size: 150% !important"><i>Negotiated Intelligence</i></h2>
@@ -624,6 +624,10 @@
         <!-- Curator Notes Link -->
         <a href="/Notes.html" aria-label="Curator Notes" rel="noopener" draggable="false" class="nav-link">
           <h2 class="h-h2 menu-li linkable thin bold">Curator's Notes </h2>
+        </a>
+
+        <a href="/Projects.html?project=NegotiatedIntelligenceDemo" aria-label="Curator Notes" rel="noopener" draggable="false" class="nav-link">
+          <h2 class="h-h2 menu-li linkable thin bold">How to read the archive </h2>
         </a>
 
         <!-- Separator -->
@@ -692,7 +696,13 @@
     </style>
   </div>
   <script src="./composition_master.js" type="text/javascript"></script>
-
+<script>
+  // Redirect to homepage if accessing NegotiatedIntelligence project
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.get('project') === 'NegotiatedIntelligence') {
+    window.location.href = '/index.html';
+  }
+</script>
   <script>
     //100vh Fix on Mobile
     let vh = window.innerHeight * 0.01;
@@ -713,7 +723,7 @@
 
     // Image background mapping for projects
     const imageMap = {
-      'ProjectNegotiatedIntelligence': 'assets/img/Website_Background.png', //Website_background_robot
+      'ProjectNegotiatedIntelligenceDemo': 'assets/img/Website_Background.png', //Website_background_robot
       'ProjectAIkea': 'assets/img/aikea/bg2.png',
       'ProjectHaiku': 'assets/img/haiku/Video1.png',
       'ProjectFractured': 'assets/img/fractured/sharks_eating_each_other_drawing.jpg',
