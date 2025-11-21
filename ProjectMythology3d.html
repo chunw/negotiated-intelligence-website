@@ -352,14 +352,14 @@
 
         // Move layer along z-axis
         if (mesh.position.z < config.z_target) {
-          mesh.position.z += 0.05;
+          mesh.position.z += 0.2;
         }
 
         // For video layers, fade in opacity
         if (config.type === 'video' && mesh.userData.targetOpacity) {
           for (let i = 4; i <= 5; i++) {
             if (mesh.material[i].opacity < mesh.userData.targetOpacity) {
-              mesh.material[i].opacity += 0.005;
+              mesh.material[i].opacity += 0.02;
             }
           }
 
