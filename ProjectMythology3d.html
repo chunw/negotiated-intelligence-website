@@ -325,6 +325,35 @@
       }
     }
 
+    function onMouseMove(event) {
+      // Calculate mouse position in normalized device coordinates
+      mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+      mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+      // Update the raycaster with camera and mouse position
+      raycaster.setFromCamera(mouse, camera);
+
+      // Check for intersections with layer meshes
+      const intersects = raycaster.intersectObjects(layerMeshes.filter(m => m));
+
+      // Change cursor to pointer if hovering over a layer
+      if (intersects.length > 0) {
+        document.body.style.cursor = 'pointer';
+      } else {
+        document.body.style.cursor = 'default';
+      }
+    }
+
+    window.addEventListener('click', onMouseClick);
+    window.addEventListener('mousemove', onMouseMove);
+
+    // Handle window resize
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+
     window.addEventListener('click', onMouseClick);
 
     // Handle window resize
