@@ -305,6 +305,35 @@
       video.load();
     }
 
+    // Handle clicks on layers
+    const raycaster = new THREE.Raycaster();
+    const mouse = new THREE.Vector2();
+
+    function onMouseClick(event) {
+      // Calculate mouse position in normalized device coordinates
+      mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+      mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+      // Update the raycaster with camera and mouse position
+      raycaster.setFromCamera(mouse, camera);
+
+      // Check for intersections with layer meshes
+      const intersects = raycaster.intersectObjects(layerMeshes.filter(m => m));
+
+      if (intersects.length > 0) {
+        window.open('https://slitrobo.notion.site/Mythology-2025-Negotiated-Intelligence-2825a9a9e41b8041aeacc0eef7e361f8', '_blank');
+      }
+    }
+
+    window.addEventListener('click', onMouseClick);
+
+    // Handle window resize
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+
     // Animation loop
     function animate() {
       requestAnimationFrame(animate);
