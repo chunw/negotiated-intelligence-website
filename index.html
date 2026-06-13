@@ -1003,7 +1003,7 @@
     </div>
 
 
-    <div style="z-index:9999; position: relative; margin-top:-18vh">
+    <div class="down-arrow" style="z-index:9999; position: relative; margin-top:-18vh; opacity: 0;">
       <h4 style="text-align: center; margin-left: auto; margin-right: auto;
       margin-top: 8vw;">
         <img src="assets/img/down_arrow.png" loading="lazy" style="width: 2vw; pointer:cursor" class="img ico" />
@@ -1060,8 +1060,8 @@
 
       <div class="campagin-head">
 
-        <h4 class="h-h4 disclaimer" style="text-align: center; margin-left: auto; margin-right: auto;
-        margin-top: 10vw;">
+        <h4 class="h-h4 disclaimer down-arrow" style="text-align: center; margin-left: auto; margin-right: auto;
+        margin-top: 10vw; opacity: 0;">
           <img src="assets/img/down_arrow.png" loading="lazy" style="width: 2vw; " class="img ico" />
         </h4>
         <a style="text-align: center; margin-left: auto; margin-right: auto;
@@ -1134,15 +1134,18 @@
         </div>
 
 
-        <div class="footer" style="margin-top:10vh; padding-bottom:0.5rem;">
+        <div class="footer" style="margin-top:10vh; ">
           <div class=" f-row foot">
-          <div class="h-h4 colophon" xstyle="max-width:50%">Negotiated Intelligence is an official Pavilion in <br />
+          <div class="h-h4 colophon" xstyle="max-width:50%">
+            
+            <div >
+
+            Negotiated Intelligence is an official Pavilion in <br />
             <a href="https://thewrong.org/" aria-label="Gens Sauvages" rel="noopener" draggable="false" target="_blank" class="link disc underline">
               The Wrong Biennale</a>
             <link rel="prerender" href="https://thewrong.org/" target="_blank" />
             7th Edition.
-            </br></br>
- </br></br>
+            </div>
             </br></br>
 
             © Negotiated Intelligence, Curators, and Participating Artists, 2025 – 2026. All Rights Reserved. </br>
@@ -1153,6 +1156,8 @@
             transmitted, displayed, published, or adapted in any form or by any means, electronic or mechanical, </br>
             without the prior written permission of the copyright holders.
             </br></br>
+
+                       
             <strong>Attributions:</strong><br />
 
             • <em>"What the hell is this?"</em>Cover image. Created by Val Yang
@@ -1166,9 +1171,8 @@
             <a href="https://skfb.ly/oA8RH" target="_blank" rel="noopener">Sketchfab</a>,
             licensed under
             <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>.<br /><br />
-
-            </br>
-
+         
+          
           </div>
         </div>
         <!-- <div class="f-row bottom"> -->
@@ -1219,7 +1223,10 @@
         autoAlpha: 0,
         delay: 0.4,
         duration: 0.4,
-        onComplete: _ => (window.APP.animateIn())
+        onComplete: _ => {
+          window.APP.animateIn();
+          window.gsap.to('.down-arrow', { autoAlpha: 1, duration: 0.6, delay: 0.3 });
+        }
       });
     });
 
