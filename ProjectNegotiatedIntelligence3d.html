@@ -95,6 +95,29 @@
       max-width: 250px;
     }
 
+    .back-btn {
+      position: fixed;
+      top: 2vw;
+      left: 2vw;
+      z-index: 100;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #b9b8b8;
+      padding: 8px 16px;
+      cursor: pointer;
+      font-size: 0.8rem;
+      font-family: "Segoe UI", Verdana, sans-serif;
+      border-radius: 4px;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .back-btn:hover {
+      background: rgba(255, 255, 255, 0.2);
+      color: #ffffff;
+    }
+
     .toggle-container {
       display: none;
       position: fixed;
@@ -149,6 +172,8 @@
   </div>
 
   <main data-template="home" class="content demo">
+    <a class="back-btn" onclick="history.back(); return false;" href="#">← Back</a>
+
     <div class="toggle-container">
       <button class="toggle-btn" id="textToggle">Hide Text Labels</button>
     </div>
