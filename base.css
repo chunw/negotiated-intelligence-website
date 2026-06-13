@@ -2875,7 +2875,31 @@ h5 {
 }
 
 .n-wrap {
-  cursor: pointer
+  cursor: pointer;
+  padding: 12px;
+  margin: -12px;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Menu open state — bypasses Webflow IX2 */
+.menu.menu-open {
+  display: block !important;
+  z-index: 15 !important;
+}
+
+/* Hamburger → X animation */
+.n-line {
+  transition: transform 0.28s ease, opacity 0.2s ease;
+  transform-origin: center center;
+}
+
+.n-wrap.menu-open .n-line:not(.bottom) {
+  transform: translateY(6px) rotate(45deg);
+}
+
+.n-wrap.menu-open .n-line.bottom {
+  transform: translateY(-6px) rotate(-45deg);
+  left: 0 !important;
 }
 
 .shop__list__box {

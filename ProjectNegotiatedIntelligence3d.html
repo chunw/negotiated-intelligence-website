@@ -95,6 +95,65 @@
       max-width: 250px;
     }
 
+    .archive-instructions {
+      position: fixed;
+      top: 2rem;
+      right: 2rem;
+      z-index: 100;
+      text-align: right;
+      pointer-events: none;
+      animation: instructFade 1s ease 0.8s both;
+      padding: 1.6rem 1.8rem;
+      background: rgba(255, 255, 255, 0.06);
+      backdrop-filter: blur(18px) saturate(160%);
+      -webkit-backdrop-filter: blur(18px) saturate(160%);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 14px;
+      box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.35),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    }
+
+    .archive-instructions__title {
+      font-family: "Segoe UI", Verdana, sans-serif;
+      font-size: clamp(1rem, 2.2vw, 1.5rem);
+      font-weight: 300;
+      letter-spacing: 0.04em;
+      color: rgba(255,255,255,0.92);
+      margin: 0 0 1rem;
+      line-height: 1.2;
+    }
+
+    .archive-instructions__body {
+      font-family: "Segoe UI", Verdana, sans-serif;
+      font-size: clamp(0.7rem, 1.2vw, 0.85rem);
+      color: rgba(255,255,255,0.5);
+      line-height: 1.9;
+      letter-spacing: 0.06em;
+    }
+
+    .archive-instructions__body span {
+      display: block;
+    }
+
+    .archive-instructions__divider {
+      width: 1px;
+      height: 28px;
+      background: rgba(255,255,255,0.18);
+      margin: 1.1rem 0 1.1rem auto;
+    }
+
+    @keyframes instructFade {
+      from { opacity: 0; transform: translateY(-10px) scale(0.98); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    /* fade out when user starts interacting */
+    .archive-instructions.hidden {
+      opacity: 0;
+      transition: opacity 0.6s ease;
+    }
+
     .back-btn {
       position: fixed;
       top: 2vw;
@@ -257,7 +316,7 @@
       mural.position.set(mural_x, mural_y, mural_z);
       mural.userData = {
         isMuralLayer: true,
-        clickUrl: 'Notes.html'
+        clickUrl: 'Notes.html#diary'
       };
       scene.add(mural);
 
@@ -301,7 +360,7 @@
       drawing.scale.set(drawing_scaleX, drawing_scale, drawing_scale);
       drawing.userData = {
         isDrawingLayer: true,
-        clickUrl: 'Notes.html'
+        clickUrl: 'Notes.html#autonomy'
       };
       scene.add(drawing);
       drawing.position.set(drawing_x, drawing_y, drawing_z);
@@ -672,6 +731,20 @@
       });
     </script>
 
+    <div class="archive-instructions" id="archiveInstructions">
+      <div class="archive-instructions__title">How to read<br>this archive</div>
+      <div class="archive-instructions__divider"></div>
+      <div class="archive-instructions__body"><span>Drag to explore &nbsp;·&nbsp; Scroll to zoom</span>
+        <span>Click on the layers in the 3D scene to <br>
+           explore 
+          the negotiation between artist and AI</span>
+        <span>Each layer is a documentation node or <br>
+          the finished work for the artist's vision</span>
+          
+        
+      </div>
+    </div>
+
     <div class="statlines">
       <div class="statline"><span><i><b>
               <a href="https://negotiated-intelligence.org/" target="_blank">Negotiated Intelligence</a>
@@ -687,6 +760,14 @@
   </main>
 
   <script>
+    const instructions = document.getElementById('archiveInstructions');
+    function hideInstructions() {
+      instructions.classList.add('hidden');
+    }
+    setTimeout(() => {
+      ['mousedown','touchstart','wheel'].forEach(e => window.addEventListener(e, hideInstructions, { once: true }));
+    }, 2000);
+
     let vh = window.innerHeight * 0.01;
     let size = 0;
     document.documentElement.style.setProperty('--vh', `${vh}px`);
