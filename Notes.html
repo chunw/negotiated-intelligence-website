@@ -354,6 +354,40 @@
       background: rgba(255,255,255,0.25);
     }
 
+    /* ── Sound toggle ── */
+    .video-hero__sound {
+      position: absolute;
+      bottom: 3vh;
+      left: 6vw;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      opacity: 0;
+      animation: heroFadeUp 1.2s ease 1.2s forwards;
+      color: rgba(255,255,255,0.35);
+      font-family: "Segoe UI", Verdana, sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      z-index: 3;
+      transition: color 0.25s;
+    }
+
+    .video-hero__sound:hover {
+      color: rgba(255,255,255,0.75);
+    }
+
+    .video-hero__sound svg {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+      fill: currentColor;
+    }
+
     @keyframes heroFadeUp {
       from { opacity: 0; transform: translateY(18px); }
       to   { opacity: 1; transform: translateY(0); }
@@ -590,6 +624,17 @@
         </div>
         <div class="video-hero__scroll">Scroll</div>
       </div>
+      <button class="video-hero__sound" id="soundToggle" aria-label="Toggle sound">
+        <!-- muted icon (default) -->
+        <svg id="iconMuted" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M16.5 12c0-1.77-.77-3.29-2-4.35v2.71l1.98 1.98c.01-.11.02-.23.02-.34zm2 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>
+        </svg>
+        <!-- unmuted icon (hidden by default) -->
+        <svg id="iconSound" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="display:none">
+          <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-.77-3.29-2-4.35v8.69c1.23-1.05 2-2.57 2-4.34zM14 3.23v2.06c2.89 1.23 5 4.06 5 7.71s-2.11 6.48-5 7.71v2.06c4.01-1.29 7-5.06 7-9.77 0-4.71-2.99-8.48-7-9.77z"/>
+        </svg>
+        <span id="soundLabel">Sound off</span>
+      </button>
     </section>
 
     <div class="main-container">
@@ -974,6 +1019,28 @@
     TweenMax.to(".collection", 10, {
       opacity: 1
     });
+
+    (function () {
+      var video = document.querySelector('.video-hero__video');
+      var btn = document.getElementById('soundToggle');
+      var iconMuted = document.getElementById('iconMuted');
+      var iconSound = document.getElementById('iconSound');
+      var label = document.getElementById('soundLabel');
+
+      btn.addEventListener('click', function () {
+        if (video.muted) {
+          video.muted = false;
+          iconMuted.style.display = 'none';
+          iconSound.style.display = 'block';
+          label.textContent = 'Sound on';
+        } else {
+          video.muted = true;
+          iconMuted.style.display = 'block';
+          iconSound.style.display = 'none';
+          label.textContent = 'Sound off';
+        }
+      });
+    })();
   </script>
 
 </body>
