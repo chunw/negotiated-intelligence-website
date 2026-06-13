@@ -1,9 +1,10 @@
 (function () {
-  var burger, menu, lines, open;
+  var burger, menu, navbar, lines, open;
 
   function init() {
     burger = document.querySelector('.n-wrap');
     menu   = document.querySelector('.menu');
+    navbar = document.querySelector('.navbar');
     lines  = document.querySelectorAll('.n-line');
     open   = false;
 
@@ -38,15 +39,28 @@
 
   function openMenu() {
     open = true;
-    menu.style.display  = 'block';
-    menu.style.zIndex   = '15';
+    menu.style.display   = 'block';
+    menu.style.position  = 'fixed';
+    menu.style.top       = '0';
+    menu.style.left      = '0';
+    menu.style.width     = '100%';
+    menu.style.height    = '100vh';
+    menu.style.zIndex    = '1000';
+    if (navbar) navbar.style.zIndex = '1001';
     document.body.style.overflow = 'hidden';
     animateBurger(true);
   }
 
   function closeMenu() {
     open = false;
-    menu.style.display  = 'none';
+    menu.style.display   = 'none';
+    menu.style.position  = '';
+    menu.style.top       = '';
+    menu.style.left      = '';
+    menu.style.width     = '';
+    menu.style.height    = '';
+    menu.style.zIndex    = '';
+    if (navbar) navbar.style.zIndex = '';
     document.body.style.overflow = '';
     animateBurger(false);
   }

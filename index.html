@@ -534,6 +534,63 @@
     }
   </style>
 
+  <style>
+    .enter-archive-link {
+      display: block;
+      cursor: pointer;
+    }
+
+    .h-h2.enter-archive-heading {
+      position: relative;
+      cursor: pointer;
+      /* white-to-transparent gradient, clipped to text */
+      background-image: linear-gradient(170deg, rgba(255,255,255,0.92) 30%, rgba(200,200,200,0.35));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      transform-origin: center center;
+      transition:
+        transform      0.7s cubic-bezier(0.16, 1, 0.3, 1),
+        letter-spacing 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* ghost double that drifts out from beneath the text */
+    .h-h2.enter-archive-heading::after {
+      content: "Enter the Archive";
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      text-align: center;
+      font-size: inherit;
+      font-weight: inherit;
+      line-height: inherit;
+      letter-spacing: inherit;
+      background-image: linear-gradient(170deg, rgba(255,255,255,0.7) 30%, rgba(200,200,200,0.2));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      opacity: 0;
+      filter: blur(6px);
+      transform: translateY(0) scaleX(1);
+      transition:
+        opacity   0.8s ease,
+        filter    0.8s ease,
+        transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+      pointer-events: none;
+    }
+
+    .enter-archive-link:hover .h-h2.enter-archive-heading {
+      transform: translateY(-4px) rotate(-3deg);
+      letter-spacing: -0.02em;
+    }
+
+    .enter-archive-link:hover .h-h2.enter-archive-heading::after {
+      opacity: 0.5;
+      filter: blur(22px);
+      transform: translateY(12px) rotate(-3deg) scaleX(1.015);
+    }
+  </style>
+
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-Q1RLJMGX8P"></script>
   <script>
@@ -608,35 +665,28 @@
       <div class="menu-li-border"></div>
 
       <div class="submenu">
-        <a aria-label="Elsewhere Gallery" rel="noopener" draggable="false" href="index.html" class="m-link">
+        <a aria-label="Intro" rel="noopener" draggable="false" href="index.html" class="m-link">
           <h2 class="h-h2 menu-li linkable thin">Intro</h2>
         </a>
-
         <br>
+        <a aria-label="The Archive" rel="noopener" draggable="false" href="Projects.html" class="m-link">
+          <h2 class="h-h2 menu-li linkable thin">The Archive</h2>
+        </a>
 
-        <a aria-label="Elsewhere Gallery" rel="noopener" draggable="false" href="Notes.html" class="m-link">
-          <h2 class="h-h2 menu-li linkable thin">Curator's Notes</h2>
+        <div class="menu-li-border"></div>
+
+        <a aria-label="Curator's Notes" rel="noopener" draggable="false" href="Notes.html" class="m-link">
+          <h2 class="h-h2 menu-li linkable thin secondary">Curator's Notes</h2>
         </a>
         <br>
-        <a aria-label="Elsewhere Gallery" rel="noopener" draggable="false" href="Projects.html" class="m-link">
-          <h2 class="h-h2 menu-li linkable thin">The Archive</h2>
+        <a aria-label="Site Overview" rel="noopener" draggable="false" href="SiteOverview.html" class="m-link">
+          <h2 class="h-h2 menu-li linkable thin secondary">Site Overview</h2>
         </a>
         <br>
         <a aria-label="How to read this archive" rel="noopener" draggable="false" href="ProjectNegotiatedIntelligence3d.html" class="m-link">
-          <h2 class="h-h2 menu-li linkable thin">How to read this archive</h2>
+          <h2 class="h-h2 menu-li linkable thin secondary">How to read this archive</h2>
         </a>
         <br>
-        <!--
-          <div class="menu-li-border"></div> -->
-
-        <!-- <a aria-label="Events" rel="noopener" draggable="false" href="events.html" class="m-link">
-            <h2 class="h-h2 menu-li linkable bold">Events</h2>
-          </a> -->
-
-        <!-- <a aria-label="The Wrong Biennale" target="_blank" rel="noopener" draggable="false" href="https://thewrong.org/" class="m-link">
-          <h2 class="h-h2 menu-li linkable thin">Events | <b>The Wrong Biennale</b></h2>
-        </a> -->
-
       </div>
 
 
@@ -672,7 +722,7 @@
             Negotiated Intelligence is an official exhibition pavilion in The Wrong Biennale 7th Edition.
           </div> -->
 
-          <div class="text disclaimer load" style="font-size: 16px; line-height: 120%">
+          <div class="text disclaimer load" style="font-size: 16px; line-height: 1.5">
               Loading Decisions...
               </div>
         </div>
@@ -1070,8 +1120,8 @@
 
         <div class="campaign">
           <div class="campagin-head" style="max-width: 80%; position: relative; text-align: center;">
-            <a href="./Projects.html" rel="noopener" style="text-decoration: none; display: block;">
-              <h2 class="h-h2 gradient" style="font-size: 8vw; line-height: 1; letter-spacing: -0.04em; font-weight: 300; margin: 0; text-align: center;">
+            <a href="./Projects.html" rel="noopener" class="enter-archive-link" style="text-decoration: none; display: block;">
+              <h2 class="h-h2 gradient enter-archive-heading" style="font-size: 5vw; line-height: 1; letter-spacing: -0.04em; font-weight: 300; margin: 0; text-align: center; text-transform: none;">
                 Enter the Archive
               </h2>
             </a>
@@ -1084,7 +1134,7 @@
         </div>
 
 
-        <div class="footer" style="margin-top:10vh;"">
+        <div class="footer" style="margin-top:10vh; padding-bottom:0.5rem;">
           <div class=" f-row foot">
           <div class="h-h4 colophon" xstyle="max-width:50%">Negotiated Intelligence is an official Pavilion in <br />
             <a href="https://thewrong.org/" aria-label="Gens Sauvages" rel="noopener" draggable="false" target="_blank" class="link disc underline">
@@ -1281,6 +1331,8 @@
       }
     }
   </script>
+
+
 </body>
 
 </html>
