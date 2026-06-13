@@ -196,52 +196,47 @@
       display: block;
     }
 
-    /* Fixed menu styles - prevent layout jumping */
+    /* Fixed menu styles */
     .menu-li {
       cursor: pointer;
-      transition: color 0.3s ease, text-shadow 0.3s ease;
+      transition: color 0.3s ease, opacity 0.3s ease;
       position: relative;
       display: block;
     }
 
     .menu-li.active {
       color: #ffffff;
-      text-shadow: 0 0 2px rgba(255, 255, 255, 0.2);
-      animation: tender-float 6s ease-in-out infinite;
+      opacity: 1 !important;
       margin: inherit !important;
       position: relative !important;
     }
 
-    @keyframes tender-float {
-      0% {
-        transform: translateY(0px);
-        text-shadow: 0 0 2px rgba(255, 255, 255, 0.2);
-      }
-
-      25% {
-        transform: translateY(-1px);
-        text-shadow: 0 0 3px rgba(255, 255, 255, 0.25);
-      }
-
-      50% {
-        transform: translateY(-2px);
-        text-shadow: 0 0 4px rgba(255, 255, 255, 0.3);
-      }
-
-      75% {
-        transform: translateY(-1px);
-        text-shadow: 0 0 3px rgba(255, 255, 255, 0.25);
-      }
-
-      100% {
-        transform: translateY(0px);
-        text-shadow: 0 0 2px rgba(255, 255, 255, 0.2);
-      }
+    .menu-li:hover {
+      color: #ffffff;
+      opacity: 1 !important;
     }
 
-    .menu-li:hover {
-      color: #cccccc;
-      text-shadow: 0 0 8px #cccccc;
+    /* Underline sweep on hover */
+    .project-link .menu-li::after,
+    .nav-link .menu-li::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: rgba(255,255,255,0.6);
+      transition: width 0.35s cubic-bezier(0.4,0,0.2,1);
+    }
+    .project-link:hover .menu-li::after,
+    .nav-link:hover .menu-li::after,
+    .project-link .menu-li.active::after {
+      width: 100%;
+    }
+
+    /* Dim non-active project links when one is active */
+    .submenu.has-active .project-link:not(.is-active) .menu-li {
+      opacity: 0.35;
     }
   </style>
 
@@ -308,10 +303,20 @@
       }
 
       .split.left {
-        left: 140px;
-        width: 20%;
-        top: 15%;
+        left: 100px;
+        width: 22%;
+        top: 12%;
         z-index: 10;
+        background: rgba(255,255,255,0.04);
+        backdrop-filter: blur(20px) saturate(150%);
+        -webkit-backdrop-filter: blur(20px) saturate(150%);
+        border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 16px;
+        padding: 2rem 1.8rem 1.8rem;
+        box-shadow: 0 12px 48px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.12);
+        max-height: 76vh;
+        overflow-y: auto;
+        scrollbar-width: none;
       }
 
       .split.right {
@@ -319,6 +324,48 @@
         width: 60%;
         z-index: 10;
       }
+    }
+
+    /* Iframe crossfade */
+    #project-iframe {
+      transition: opacity 0.4s ease;
+    }
+    #project-iframe.fading {
+      opacity: 0;
+    }
+
+    /* Project index counter */
+    .submenu {
+      counter-reset: project-counter;
+    }
+    .project-link {
+      counter-increment: project-counter;
+      display: flex;
+      align-items: baseline;
+      gap: 0.7em;
+    }
+    .project-link::before {
+      content: counter(project-counter, decimal-leading-zero);
+      font-size: 0.6em;
+      font-weight: 300;
+      color: rgba(255,255,255,0.25);
+      letter-spacing: 0.08em;
+      flex-shrink: 0;
+      transition: color 0.3s ease;
+    }
+    .project-link:hover::before,
+    .project-link.is-active::before {
+      color: rgba(255,255,255,0.7);
+    }
+
+    /* Staggered entrance */
+    @keyframes fadeSlideIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .project-link, .nav-link {
+      opacity: 0;
+      animation: fadeSlideIn 0.5s ease forwards;
     }
 
     /* Mobile Layout */
@@ -356,8 +403,8 @@
         position: fixed;
         top: 0;
         left: 0;
-        width: 80%;
-        max-width: 300px;
+        width: 88%;
+        max-width: 420px;
         height: 100vh;
         background: rgba(3, 3, 3, 0.95);
         backdrop-filter: blur(10px);
@@ -523,88 +570,16 @@
   <div class="menu-overlay" id="menuOverlay"></div>
 
   <div class="navbar navbar__shop" style="padding:1rem 0.5vw 0 2.5vw ">
-    <div class="n-block left">
-      <div data-w-id="2264dfe2-412c-a750-b778-fffb7eb6b996" class="n-wrap">
-        <div data-w-id="2264dfe2-412c-a750-b778-fffb7eb6b997" class="n-trigger">
-          <div data-w-id="2264dfe2-412c-a750-b778-fffb7eb6b998" class="n-line"></div>
-          <div data-w-id="2264dfe2-412c-a750-b778-fffb7eb6b999" class="n-line bottom"></div>
-        </div>
-      </div>
-    </div>
+   
     <a href="https://thewrong.org/" target="_blank" data-node-type="commerce-cart-open-link" rel="noopener" aria-label="button" class="w-commerce-commercecartopenlink cart-button w-inline-block">
       <div class="h-h4 bold nav w-inline-block">
-        <img style="opacity:0.5" 
+        <img style="opacity:0.5"
         src="assets/LOGO.png"
         loading="lazy" class="n-brand">
       </div>
     </a>
     <div class="n-block right"></div>
 
-    <!-- Site Navigation Menu -->
-    <div class="menu">
-      <video class="menu-video-background" autoplay muted loop playsinline>
-        <source src="https://camlab-cave-dance.oss-cn-hongkong.aliyuncs.com/negotiated-intelligence/Daria_Belkina_ElsewhereGallery_16-9_fulres.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-      </video>
-      <div class="m-inner" style="margin-top: 4vh">
-        <a class="title-row" rel="noopener" draggable="false" href="index.html" class="m-link">
-          <h2 class="h-h2 menu-li title linkable">Negotiated Intelligence</h2>
-        </a>
-        <div class="menu-li-border"></div>
-
-        <div class="submenu">
-          <a aria-label="Elsewhere Gallery" rel="noopener" draggable="false" href="index.html" class="m-link">
-            <h2 class="h-h2 menu-li linkable thin">Intro</h2>
-          </a>
-
-          <br>
-
-          <a aria-label="Elsewhere Gallery" rel="noopener" draggable="false" href="Notes.html" class="m-link">
-            <h2 class="h-h2 menu-li linkable thin">Curator's Notes</h2>
-          </a>
-          <br>
-          <a aria-label="Elsewhere Gallery" rel="noopener" draggable="false" href="Projects.html" class="m-link">
-            <h2 class="h-h2 menu-li linkable thin">Projects</h2>
-          </a>
-          <br>
-          <a aria-label="How to read this archive" rel="noopener" draggable="false" href="ProjectNegotiatedIntelligence3d.html" class="m-link">
-            <h2 class="h-h2 menu-li linkable thin">How to read this archive</h2>
-          </a>
-          <br>
-          <!--
-            <div class="menu-li-border"></div> -->
-
-          <!-- <a aria-label="Events" rel="noopener" draggable="false" href="events.html" class="m-link">
-              <h2 class="h-h2 menu-li linkable bold">Events</h2>
-            </a> -->
-
-          <!-- <a aria-label="The Wrong Biennale" target="_blank" rel="noopener" draggable="false" href="https://thewrong.org/" class="m-link">
-            <h2 class="h-h2 menu-li linkable thin">Events | <b>The Wrong Biennale</b></h2>
-          </a> -->
-
-        </div>
-
-
-      </div>
-
-      <div class="m-footer">
-        <div class="footer">
-          <div class="f-row">
-            <div class="f-col left">
-              <div class="f-link">
-                <a aria-label="privacy" rel="noopener" draggable="false" href="#" class="h-h4 disclaimer bold">
-                </a>
-              </div>
-            </div>
-            <div class="f-col center">
-              <div class="h-h4 disclaimer bold">© Negotiated Intelligence, Curators, and Participating Artists, 2025 – 2026.</div>
-            </div>
-            <div class="f-col right">
-
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
     <!-- End Site Navigation Menu -->
 
@@ -863,6 +838,10 @@
       if (defaultLink) {
         const projectName = defaultLink.getAttribute('data-project');
         const slug = defaultLink.getAttribute('data-slug');
+        defaultLink.classList.add('is-active');
+        defaultLink.querySelector('.menu-li').classList.add('active');
+        const submenu = document.querySelector('.split.left .submenu');
+        if (submenu) submenu.classList.add('has-active');
         loadProject(projectName, slug, updateHistory);
       }
     }
@@ -895,23 +874,52 @@
       }
     }
 
-    // Add click event listeners
+    // Iframe crossfade helper
+    function fadeIframe(src) {
+      const iframe = document.getElementById('project-iframe');
+      iframe.classList.add('fading');
+      setTimeout(() => {
+        iframe.src = src;
+        iframe.onload = () => iframe.classList.remove('fading');
+      }, 380);
+    }
+
+    // Add click event listeners + staggered entrance
     document.addEventListener('DOMContentLoaded', function() {
       $(".menu").show();
 
       const projectLinks = document.querySelectorAll('.project-link');
+      const navLinks = document.querySelectorAll('.nav-link');
+      const submenu = document.querySelector('.split.left .submenu');
+
+      // Stagger entrance animations
+      [...navLinks, ...projectLinks].forEach((el, i) => {
+        el.style.animationDelay = `${i * 60 + 200}ms`;
+      });
 
       projectLinks.forEach(link => {
         link.addEventListener('click', function(e) {
           e.preventDefault();
 
-          projectLinks.forEach(l => l.querySelector('.menu-li').classList.remove('active'));
+          projectLinks.forEach(l => {
+            l.querySelector('.menu-li').classList.remove('active');
+            l.classList.remove('is-active');
+          });
 
           this.querySelector('.menu-li').classList.add('active');
+          this.classList.add('is-active');
+          if (submenu) submenu.classList.add('has-active');
 
           const projectName = this.getAttribute('data-project');
           const slug = this.getAttribute('data-slug');
-          loadProject(projectName, slug, true);
+
+          // Crossfade iframe then load
+          const iframe = document.getElementById('project-iframe');
+          iframe.classList.add('fading');
+          setTimeout(() => {
+            loadProject(projectName, slug, true);
+            iframe.onload = () => iframe.classList.remove('fading');
+          }, 380);
         });
       });
 
