@@ -551,7 +551,7 @@
       will-change: transform;
     }
 
-    .enter-archive-link:hover .h-h2.enter-archive-heading {
+    .campagin-head:hover .h-h2.enter-archive-heading {
       transform: translateY(-3px) rotate(-2deg);
     }
   </style>
@@ -1086,7 +1086,7 @@
         <div class="campaign">
           <div class="campagin-head" style="max-width: 80%; position: relative; text-align: center;">
             <a href="./Projects.html" rel="noopener" class="enter-archive-link" style="text-decoration: none; display: block;">
-              <h2 class="h-h2 gradient enter-archive-heading" style="font-size: 3.2vw; line-height: 1; letter-spacing: -0.04em; font-weight: 300; margin: 0; text-align: center; text-transform: none;">
+              <h2 class="h-h2 gradient enter-archive-heading" style="font-size: 1.1rem; line-height: 1; letter-spacing: 0.08em; font-weight: 300; margin: 0; text-align: center; text-transform: none;">
                 Enter the Archive
               </h2>
             </a>
@@ -1306,16 +1306,16 @@
 
   <script>
     (function () {
-      var link = document.querySelector('.enter-archive-link');
+      var trigger = document.querySelector('.campagin-head');
       var heading = document.querySelector('.enter-archive-heading');
-      if (!link || !heading) return;
+      if (!trigger || !heading) return;
 
       var original = 'Enter the Archive';
       var glyphs = '!<>-_\\/[]{}=+*^?#ABCDEFGHIJKLMNOPQRSTUVWXYZ·×∆≠';
       var timerId = null;
       var iteration = 0;
 
-      link.addEventListener('mouseenter', function () {
+      trigger.addEventListener('mouseenter', function () {
         clearInterval(timerId);
         iteration = 0;
         timerId = setInterval(function () {
@@ -1332,7 +1332,7 @@
         }, 28);
       });
 
-      link.addEventListener('mouseleave', function () {
+      trigger.addEventListener('mouseleave', function () {
         clearInterval(timerId);
         heading.textContent = original;
       });
