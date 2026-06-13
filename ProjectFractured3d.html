@@ -196,7 +196,7 @@
     }
 
     .statlines {
-      font-family: "Segoe UI", Verdana, sans-serif;
+      font-family: "PingFang SC", Arial, Helvetica, sans-serif;
       overflow-y: scroll;
       color: #b9b8b8;
       z-index: 99;
@@ -207,6 +207,17 @@
       position: fixed;
       font-size: 0.7rem;
       max-width: 250px;
+    }
+
+    .statlines::after {
+      content: "Click on the layers in the 3D scene to explore the negotiation between artist and AI";
+      display: block;
+      margin-top: 1rem;
+      font-size: 0.75rem;
+      font-style: normal;
+      letter-spacing: 0.02em;
+      line-height: 1.6;
+      opacity: 1;
     }
   </style><!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-Q1RLJMGX8P"></script>
