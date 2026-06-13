@@ -541,53 +541,18 @@
     }
 
     .h-h2.enter-archive-heading {
-      position: relative;
       cursor: pointer;
-      /* white-to-transparent gradient, clipped to text */
       background-image: linear-gradient(170deg, rgba(255,255,255,0.92) 30%, rgba(200,200,200,0.35));
       -webkit-background-clip: text;
       background-clip: text;
       -webkit-text-fill-color: transparent;
       transform-origin: center center;
-      transition:
-        transform      0.7s cubic-bezier(0.16, 1, 0.3, 1),
-        letter-spacing 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    /* ghost double that drifts out from beneath the text */
-    .h-h2.enter-archive-heading::after {
-      content: "Enter the Archive";
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      text-align: center;
-      font-size: inherit;
-      font-weight: inherit;
-      line-height: inherit;
-      letter-spacing: inherit;
-      background-image: linear-gradient(170deg, rgba(255,255,255,0.7) 30%, rgba(200,200,200,0.2));
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-      opacity: 0;
-      filter: blur(6px);
-      transform: translateY(0) scaleX(1);
-      transition:
-        opacity   0.8s ease,
-        filter    0.8s ease,
-        transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-      pointer-events: none;
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: transform;
     }
 
     .enter-archive-link:hover .h-h2.enter-archive-heading {
-      transform: translateY(-4px) rotate(-3deg);
-      letter-spacing: -0.02em;
-    }
-
-    .enter-archive-link:hover .h-h2.enter-archive-heading::after {
-      opacity: 0.5;
-      filter: blur(22px);
-      transform: translateY(12px) rotate(-3deg) scaleX(1.015);
+      transform: translateY(-3px) rotate(-2deg);
     }
   </style>
 
@@ -1121,7 +1086,7 @@
         <div class="campaign">
           <div class="campagin-head" style="max-width: 80%; position: relative; text-align: center;">
             <a href="./Projects.html" rel="noopener" class="enter-archive-link" style="text-decoration: none; display: block;">
-              <h2 class="h-h2 gradient enter-archive-heading" style="font-size: 5vw; line-height: 1; letter-spacing: -0.04em; font-weight: 300; margin: 0; text-align: center; text-transform: none;">
+              <h2 class="h-h2 gradient enter-archive-heading" style="font-size: 3.2vw; line-height: 1; letter-spacing: -0.04em; font-weight: 300; margin: 0; text-align: center; text-transform: none;">
                 Enter the Archive
               </h2>
             </a>
@@ -1337,6 +1302,41 @@
         });
       }
     }
+  </script>
+
+  <script>
+    (function () {
+      var link = document.querySelector('.enter-archive-link');
+      var heading = document.querySelector('.enter-archive-heading');
+      if (!link || !heading) return;
+
+      var original = 'Enter the Archive';
+      var glyphs = '!<>-_\\/[]{}=+*^?#ABCDEFGHIJKLMNOPQRSTUVWXYZ·×∆≠';
+      var timerId = null;
+      var iteration = 0;
+
+      link.addEventListener('mouseenter', function () {
+        clearInterval(timerId);
+        iteration = 0;
+        timerId = setInterval(function () {
+          heading.textContent = original.split('').map(function (char, i) {
+            if (char === ' ') return ' ';
+            if (i < iteration) return char;
+            return glyphs[Math.floor(Math.random() * glyphs.length)];
+          }).join('');
+          iteration += 0.45;
+          if (iteration >= original.length) {
+            clearInterval(timerId);
+            heading.textContent = original;
+          }
+        }, 28);
+      });
+
+      link.addEventListener('mouseleave', function () {
+        clearInterval(timerId);
+        heading.textContent = original;
+      });
+    })();
   </script>
 
 
