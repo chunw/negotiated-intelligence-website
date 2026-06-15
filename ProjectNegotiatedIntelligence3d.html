@@ -202,6 +202,14 @@
       background: rgba(255, 255, 255, 0.2);
       color: #ffffff;
     }
+
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 99;
+    }
   </style><!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-Q1RLJMGX8P"></script>
   <script>
@@ -230,12 +238,31 @@
     </style>
   </div>
 
+  <div class="navbar navbar__shop" style="padding:1rem 0.5vw 0 2.5vw">
+    <div class="n-block left">
+      <div class="n-wrap">
+        <div class="n-trigger">
+          <div class="n-line"></div>
+          <div class="n-line bottom"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="n-block right">
+      <a href="https://thewrong.org/" target="_blank" data-node-type="commerce-cart-open-link" rel="noopener"
+        aria-label="button" class="w-commerce-commercecartopenlink cart-button w-inline-block">
+        <div class="h-h4 bold nav w-inline-block">
+          <img style="opacity:0.5" src="assets/LOGO.png" loading="lazy" class="n-brand">
+        </div>
+      </a>
+    </div>
+
     <!-- Site Navigation Menu -->
-  <div class="menu ">
-    <video class="menu-video-background" autoplay muted loop playsinline>
-      <source src="https://camlab-cave-dance.oss-cn-hongkong.aliyuncs.com/negotiated-intelligence/backgroundcompressed.mp4" type="video/mp4">
-      Your browser does not support the video tag.
-    </video>
+    <div class="menu">
+      <video class="menu-video-background" autoplay muted loop playsinline>
+        <source src="https://camlab-cave-dance.oss-cn-hongkong.aliyuncs.com/negotiated-intelligence/backgroundcompressed.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
     <div class="m-inner" style="margin-top: 4vh">
       <a class="title-row" rel="noopener" draggable="false" href="index.html" class="m-link">
         <h2 class="h-h2 menu-li title linkable">Negotiated Intelligence</h2>
@@ -288,11 +315,12 @@
         </div>
       </div>
     </div>
+    </div>
+    <!-- End Site Navigation Menu -->
+
   </div>
-  <!-- End Site Navigation Menu -->
 
 <main data-template="home" class="content demo">
-    <a class="back-btn" onclick="history.back(); return false;" href="#">← Back</a>
 
     <div class="toggle-container">
       <button class="toggle-btn" id="textToggle">Hide Text Labels</button>
@@ -839,6 +867,9 @@
       document.documentElement.style.setProperty('--vh', `${vh}px`);
     });
   </script>
+
+  <script src="./composition_master.js" type="text/javascript"></script>
+  <script src="assets/js/menu-toggle.js"></script>
 
 </body>
 
