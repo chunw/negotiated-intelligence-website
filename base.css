@@ -2280,7 +2280,8 @@ h5 {
 
 .h-h4.disclaimer.bold {
   font-size: .9vw;
-  font-weight: 500
+  font-weight: 500;
+  font-style: normal
 }
 
 .h-h4.disclaimer.bold.endless {
@@ -2295,7 +2296,8 @@ h5 {
   line-height: 1.5;
   text-align: center;
   letter-spacing: 0;
-  text-transform: uppercase
+  text-transform: uppercase;
+  font-style: normal
 }
 
 
