@@ -6074,6 +6074,10 @@ h5 {
     align-self: flex-start
   }
 
+  #mobileMenuToggle {
+    padding: 1vw 2vw;
+  }
+
   .text-block-3 {
     font-size: 1.5vw;
     line-height: 2vw
