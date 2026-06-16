@@ -991,6 +991,46 @@
       checkUrlOnLoad();
     });
   </script>
+  <script>
+    // If URL contains ?project=slug, move that project to second position and show it
+    (function(){
+      const params = new URLSearchParams(window.location.search);
+      const slug = params.get('project');
+      if (!slug) return;
+
+      // find project-link by data-slug
+      const submenu = document.querySelector('.split.left .submenu');
+      if (!submenu) return;
+
+      const projectLinks = Array.from(submenu.querySelectorAll('.project-link'));
+      // find matching link by data-slug or data-project
+      let target = projectLinks.find(el => el.dataset.slug === slug || (el.dataset.project && el.dataset.project.toLowerCase().includes(slug.toLowerCase())));
+      if (!target) return;
+
+      // move to second position (after the first project-link element)
+      const firstProject = projectLinks.find(el => el.classList.contains('project-link'));
+      if (firstProject && target !== firstProject) {
+        // insert after firstProject
+        firstProject.parentNode.insertBefore(target, firstProject.nextSibling);
+      }
+
+      // mark as active and update iframe src
+      // clear previous active markers
+      projectLinks.forEach(el => el.classList.remove('is-active'));
+      target.classList.add('is-active');
+
+      const dataProject = target.dataset.project;
+      const iframe = document.getElementById('project-iframe');
+      if (iframe && dataProject) {
+        // prefer non-3d html filename first; adjust if you want 3d
+        iframe.src = dataProject + '.html';
+        // update mobile title if present
+        const title = target.dataset.title || target.textContent.trim();
+        const mobileTitle = document.getElementById('projectTitleText');
+        if (mobileTitle) mobileTitle.innerHTML = title;
+      }
+    })();
+  </script>
 
 </body>
 

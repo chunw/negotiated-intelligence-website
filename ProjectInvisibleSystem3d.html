@@ -218,6 +218,16 @@
 </head>
 
 <body class="body" data-ix="pre-loader">
+  <div id="loading-decision" aria-hidden="false" style="position:fixed;inset:0;display:flex;align-items:center;justify-content:center;z-index:9999;pointer-events:none;background:linear-gradient(180deg,rgba(3,3,3,0.65),rgba(3,3,3,0.45));backdrop-filter:blur(6px);transition:opacity .5s ease,visibility .5s ease;opacity:1;visibility:visible">
+    <div style="pointer-events:auto;text-align:center;color:#fff;font-family:Segoe UI,Arial,sans-serif">
+      <div style="font-size:20px;letter-spacing:1px;margin-bottom:10px;font-weight:600">loading decisions...</div>
+      <div style="height:4px;width:150px;background:rgba(255,255,255,0.12);border-radius:2px;overflow:hidden;margin:0 auto"><span style="display:block;height:100%;width:30%;background:linear-gradient(90deg,#fff,rgba(255,255,255,0.6));transform:translateX(-10%);animation:ld-scroll 1.4s infinite"></span></div>
+    </div>
+  </div>
+
+  <style>
+    @keyframes ld-scroll{0%{transform:translateX(-40%)}50%{transform:translateX(80%)}100%{transform:translateX(160%)}}
+  </style>
   <div class="gradient-embed w-embed">
     <style>
       .gradient {
@@ -622,6 +632,18 @@
           requestAnimationFrame(animate);
 
 
+
+
+            // Hide the loading overlay once first frame runs
+            if (!window._firstFrameRendered) {
+              const ld = document.getElementById('loading-decision');
+              if (ld) {
+                ld.style.opacity = '0';
+                ld.style.visibility = 'hidden';
+                setTimeout(() => ld.remove(), 800);
+              }
+              window._firstFrameRendered = true;
+            }
 
           const time = -performance.now() * 0.0003;
           controls.update();
